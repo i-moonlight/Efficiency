@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Source\\Personal Projects\\Eficiency\\back-end\\back-end.csproj": {}
+    "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj": {}
   },
   "projects": {
-    "D:\\Source\\Personal Projects\\Eficiency\\back-end\\back-end.csproj": {
+    "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Source\\Personal Projects\\Eficiency\\back-end\\back-end.csproj",
+        "projectUniqueName": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
         "projectName": "back-end",
-        "projectPath": "D:\\Source\\Personal Projects\\Eficiency\\back-end\\back-end.csproj",
+        "projectPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
         "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-        "outputPath": "D:\\Source\\Personal Projects\\Eficiency\\back-end\\obj\\",
+        "outputPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -48,15 +48,15 @@
               "target": "Package",
               "version": "[12.0.0, )"
             },
-            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
-              "target": "Package",
-              "version": "[6.0.10, )"
-            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
               "version": "[6.0.7, )"
             },
