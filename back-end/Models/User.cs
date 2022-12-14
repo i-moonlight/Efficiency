@@ -20,7 +20,7 @@ public class User
     [Required(ErrorMessage = "The user's role is not optional")]
     public string Role { get; set; }
     
-    public Company? CompanyReference { get; set; }
+    public virtual Company? Company { get; set; }
     public int CompanyID { get; set; }
 
 }

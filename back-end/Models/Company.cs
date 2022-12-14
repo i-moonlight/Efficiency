@@ -9,6 +9,6 @@ public class Company
     public int ID { get; set; }
     [Required(ErrorMessage = "The company's name is not optional")]
     public string Name { get; set; }
-    public ICollection<User>? Users { get; set; }
-    public ICollection<Employee>? Employees { get; set; }
+    public virtual ICollection<User>? Users { get; set; }
+    public virtual ICollection<Employee>? Employees { get; set; }
 }

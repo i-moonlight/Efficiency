@@ -10,6 +10,6 @@ public class FinancialService
     
     [Required(ErrorMessage = "The financial service's name is not optional")]
     public string Name { get; set; }
-    public ICollection<FinancialResult>? FinancialResults { get; set; }
-    public ICollection<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
+    public virtual ICollection<FinancialResult>? FinancialResults { get; set; }
+    public virtual ICollection<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
 }

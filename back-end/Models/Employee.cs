@@ -12,8 +12,8 @@ public class Employee
     public string? Name { get; set; }
     public string? Phone { get; set; }
     public string? Email { get; set; }
-    public Company? CompanyReference { get; set; }
+    public virtual Company? CompanyReference { get; set; }
     public int? CompanyID { get; set; }
-    public ICollection<FinancialResult>? FinancialResults { get; set; }
+    public virtual ICollection<FinancialResult>? FinancialResults { get; set; }
     
 }

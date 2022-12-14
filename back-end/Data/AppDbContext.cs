@@ -24,7 +24,7 @@ public class AppDbContext : DbContext
         * n:1 relationship between user and company
         */
         builder.Entity<User>()
-            .HasOne(user => user.CompanyReference)
+            .HasOne(user => user.Company)
             .WithMany(company => company.Users)
             .HasPrincipalKey(user => user.ID)
             .HasForeignKey(user => user.CompanyID);

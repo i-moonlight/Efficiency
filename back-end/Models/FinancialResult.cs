@@ -13,7 +13,7 @@ public class FinancialResult
 
     [Required(ErrorMessage = "The financial result's product sales result is not optional")]
     public decimal ProductSalesResult { get; set; }
-    public ICollection<Employee>? Employees { get; set; }
-    public ICollection<FinancialService>? FinancialServices { get; set; }
-    public ICollection<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
+    public virtual ICollection<Employee>? Employees { get; set; }
+    public virtual ICollection<FinancialService>? FinancialServices { get; set; }
+    public virtual ICollection<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
 }
