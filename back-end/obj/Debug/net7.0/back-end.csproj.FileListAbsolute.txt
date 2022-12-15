@@ -42,3 +42,4 @@ D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net7.0\refint\back-end
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net7.0\back-end.pdb
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net7.0\back-end.genruntimeconfig.cache
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net7.0\ref\back-end.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

@@ -1,4 +1,7 @@
+using System;
 using AutoMapper;
+using Efficiency.Data;
+using Efficiency.Data.DTO;
 using Efficiency.Models;
 
 namespace Efficiency.Services;
@@ -14,13 +17,15 @@ public class UserService
         _mapper = mapper;
     }
 
-    public ICollection<User>? GetAll()
+    public ICollection<GetUserDTO>? GetAll()
     {
-        throw new NotImplementedException();
+        return _mapper.Map<ICollection<GetUserDTO>>(_context.Users.ToList());
     }
 
-    public User? Get(int id)
+    public GetUserDTO? Get(int id)
     {
-        throw new NotImplementedException();
+        return _mapper.Map<GetUserDTO>(
+            _context.Users.FirstOrDefault(user => user.Id.Equals(id))
+        );
     }
 }

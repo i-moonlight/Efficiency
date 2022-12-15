@@ -8,12 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Company> Companies { get; set; }
-    public DbSet<Employee> Employees { get; set; }
-    public DbSet<FinancialResult> FinancialResults { get; set; }
-    public DbSet<FinancialService> FinancialServices { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<FinancialResultFinancialService> FResultsFServices { get; set; }
+    public DbSet<Company>? Companies { get; set; }
+    public DbSet<Employee>? Employees { get; set; }
+    public DbSet<FinancialResult>? FinancialResults { get; set; }
+    public DbSet<FinancialService>? FinancialServices { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<FinancialResultFinancialService>? FResultsFServices { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> opts) : base (opts)
     {}

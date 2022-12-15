@@ -1,3 +1,4 @@
+using Efficiency.Data.DTO;
 using Efficiency.Models;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ public class UserController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        ICollection<User>? users = _service.GetAll();
+        ICollection<GetUserDTO>? users = _service.GetAll();
 
         if (users != null)
         {
@@ -35,7 +36,7 @@ public class UserController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        User? user = _service.Get(id);
+        GetUserDTO? user = _service.Get(id);
         
         if (user != null)
         {
