@@ -47,3 +47,6 @@ D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net6.0\refint\back-end
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net6.0\back-end.pdb
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net6.0\back-end.genruntimeconfig.cache
 D:\Source\Personal Projects\Efficiency\back-end\obj\Debug\net6.0\ref\back-end.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\back-end.staticwebassets.runtime.json
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll

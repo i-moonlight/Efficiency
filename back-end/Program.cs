@@ -15,20 +15,21 @@
 
     Console commands:
         - dotnet add package Microsoft.EntityFrameworkCore -v 6.0.7
-        - dotnet add package Microsoft.EntityFrameworkCore.Tools -v 6.0.7
         - dotnet add package Microsoft.EntityFrameworkCore.Relational -v 6.0.7
+        - dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 6.0.7
+        - dotnet add package Microsoft.EntityFrameworkCore.Tools -v 6.0.7
+        - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.7
+        - dotnet add package Microsoft.AspNetCore.Identity.UI -v 6.0.7
         - dotnet add package Pomelo.EntityFrameworkCore.MySql -v 6.0.2
         - dotnet add package AutoMapper -v 12.0.0
         - dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection -v 12.0.0
         - dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson -v 6.0.10
-        - dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 6.0.7
-        - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
         - dotnet tool install --global dotnet-ef -v 7.0.0
         - dotnet ef migrations add <NomeDaMigration>
         - dotnet ef database update
 */
 
-using Efficiency.Data;
+using Efficiency.Models;
 using Efficiency.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -38,7 +39,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("EfficiencyConnection");
 
-builder.Services.AddDbContext<AppDbContext>(
+builder.Services.AddDbContext<AppDbContext>
+(
     opts => opts
     .UseLazyLoadingProxies()
     .UseMySql(
@@ -47,17 +49,12 @@ builder.Services.AddDbContext<AppDbContext>(
     )
 );
 
-builder.Services.AddDbContext<UserDbContext>(
-    opts => opts
-    .UseLazyLoadingProxies()
-    .UseMySql(
-        connectionString, 
-        ServerVersion.AutoDetect(connectionString)
-    )
-);
+builder.Services.AddDefaultIdentity<User>
+(
+    options => options.SignIn.RequireConfirmedAccount = true
+).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddControllers();
-
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

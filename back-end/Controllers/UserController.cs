@@ -1,5 +1,4 @@
-using Efficiency.Data.DTO;
-using Efficiency.Models;
+using Efficiency.Data.DTO.User;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +40,21 @@ public class UserController : ControllerBase
         if (user != null)
         {
             result = Ok(user);
+        }
+
+        return result;
+    }
+
+    [HttpPost]
+    public IActionResult Post(PostUserDTO userDTO)
+    {
+        IActionResult result = StatusCode(500);
+
+        GetUserDTO? createdUser = _service.Post(userDTO);
+
+        if (createdUser != null)
+        {
+            result = Ok(createdUser);
         }
 
         return result;

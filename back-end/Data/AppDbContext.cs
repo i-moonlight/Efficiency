@@ -4,22 +4,30 @@ https://stackoverflow.com/questions/38019808/entity-framework-core-ef-7-many-to-
 */
 
 using Efficiency.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext
 {
     public DbSet<Company>? Companies { get; set; }
     public DbSet<Employee>? Employees { get; set; }
     public DbSet<FinancialResult>? FinancialResults { get; set; }
     public DbSet<FinancialService>? FinancialServices { get; set; }
-    public DbSet<User>? Users { get; set; }
     public DbSet<FinancialResultFinancialService>? FResultsFServices { get; set; }
 
-    public AppDbContext(DbContextOptions<AppDbContext> opts) : base (opts)
+    public AppDbContext()
     {}
 
+    public AppDbContext(DbContextOptions<AppDbContext> opts) : base(opts)
+    {}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseMySql(ServerVersion.AutoDetect("server=localhost;database=efficiencyDb;user=root;password=root"));
+    }
     protected override void OnModelCreating (ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
         /*
         * n:1 relationship between user and company
         */
