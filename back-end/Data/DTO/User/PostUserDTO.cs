@@ -4,6 +4,9 @@ namespace Efficiency.Data.DTO.User;
 
 public class PostUserDTO
 {
+    [Required(ErrorMessage = "User's password is required")]
+    [DataType(DataType.Password)]
+    public string Password { get; set; }
     [Required(ErrorMessage="User's first name is required")]
     public string? FirstName { get; set; }
     
@@ -11,7 +14,7 @@ public class PostUserDTO
     public string? LastName { get; set; }
 
     [Required(ErrorMessage="User's phone number is required")]
-    public string? Phone { get; set; }
+    public string? PhoneNumber { get; set; }
     
     [Required(ErrorMessage="User's e-mail is required")]
     public string? Email { get; set; }

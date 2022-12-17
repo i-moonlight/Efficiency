@@ -6,8 +6,6 @@ public class User : IdentityUser
 {
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public string? Phone { get; set; }
-    public override string? Email { get; set; }
     public string? Role { get; set; }
     public virtual Company? Company { get; set; }
     public int? CompanyID { get; set; }

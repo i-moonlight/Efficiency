@@ -31,6 +31,7 @@
 
 using Efficiency.Models;
 using Efficiency.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,7 +53,7 @@ builder.Services.AddDbContext<AppDbContext>
 builder.Services.AddDefaultIdentity<User>
 (
     options => options.SignIn.RequireConfirmedAccount = true
-).AddEntityFrameworkStores<AppDbContext>();
+).AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddControllers();
 

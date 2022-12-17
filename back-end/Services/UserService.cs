@@ -20,7 +20,8 @@ public class UserService
 
     public ICollection<GetUserDTO>? GetAll()
     {
-        return _mapper.Map<ICollection<GetUserDTO>>(_context.Users.ToList());
+        ICollection<IdentityUser>? users = _context.Users.ToList();
+        return _mapper.Map<ICollection<GetUserDTO>>(users);
     }
 
     public GetUserDTO? Get(int id)
@@ -37,11 +38,14 @@ public class UserService
         User user = ReturnReadyUser(userDTO);
 
         var creation = _manager.CreateAsync(user);
-        var roleCreation = _manager.AddToRoleAsync(user, "user");
 
-        if (creation.Result.Succeeded && roleCreation.Result.Succeeded)
+        if (creation.Result.Succeeded)
         {
-            result = _mapper.Map<GetUserDTO>(user);
+            var roleCreation = _manager.AddToRoleAsync(user, "user");
+            if (roleCreation.Result.Succeeded)
+            {
+                result = _mapper.Map<GetUserDTO>(user);
+            }
         }
         
         //
