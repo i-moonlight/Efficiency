@@ -54,7 +54,7 @@ public class UserController : ControllerBase
 
         if (createdUser != null)
         {
-            result = Ok(createdUser);
+            result = CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
         }
 
         return result;

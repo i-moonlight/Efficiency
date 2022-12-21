@@ -6,7 +6,7 @@ public class PostUserDTO
 {
     [Required(ErrorMessage = "User's password is required")]
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string? Password { get; set; }
     [Required(ErrorMessage="User's first name is required")]
     public string? FirstName { get; set; }
     

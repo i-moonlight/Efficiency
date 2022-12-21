@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj": {}
+    "D:\\Source\\Efficiency\\back-end\\back-end.csproj": {}
   },
   "projects": {
-    "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj": {
+    "D:\\Source\\Efficiency\\back-end\\back-end.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
+        "projectUniqueName": "D:\\Source\\Efficiency\\back-end\\back-end.csproj",
         "projectName": "back-end",
-        "projectPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
-        "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-        "outputPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\obj\\",
+        "projectPath": "D:\\Source\\Efficiency\\back-end\\back-end.csproj",
+        "packagesPath": "C:\\Users\\Usuario0\\.nuget\\packages\\",
+        "outputPath": "D:\\Source\\Efficiency\\back-end\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Usuario0\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,6 +72,10 @@
               "target": "Package",
               "version": "[6.0.7, )"
             },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[6.0.2, )"
@@ -102,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

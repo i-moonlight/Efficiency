@@ -4,11 +4,13 @@ https://stackoverflow.com/questions/38019808/entity-framework-core-ef-7-many-to-
 */
 
 using Efficiency.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : IdentityDbContext
+public class AppDbContext : DbContext
 {
+    public DbSet<User>? Users { get; set; }
     public DbSet<Company>? Companies { get; set; }
     public DbSet<Employee>? Employees { get; set; }
     public DbSet<FinancialResult>? FinancialResults { get; set; }

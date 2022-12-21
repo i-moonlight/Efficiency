@@ -16,6 +16,7 @@
           "Microsoft.EntityFrameworkCore.Proxies": "6.0.7",
           "Microsoft.EntityFrameworkCore.Relational": "6.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.7",
+          "Microsoft.Extensions.Identity.Stores": "6.0.7",
           "Pomelo.EntityFrameworkCore.MySql": "6.0.2",
           "Swashbuckle.AspNetCore": "6.2.3"
         },

@@ -7,48 +7,39 @@ namespace Efficiency.Services;
 
 public class UserService
 {
-    private UserManager<User> _manager;
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
 
-    public UserService(AppDbContext context, IMapper mapper, UserManager<User> manager)
+    public UserService(
+        AppDbContext context, 
+        IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
-        _manager = manager;
     }
 
     public ICollection<GetUserDTO>? GetAll()
     {
-        ICollection<IdentityUser>? users = _context.Users.ToList();
+        ICollection<User>? users = _context.Users?.ToList();
         return _mapper.Map<ICollection<GetUserDTO>>(users);
     }
 
     public GetUserDTO? Get(int id)
     {
         return _mapper.Map<GetUserDTO>(
-            _context.Users.FirstOrDefault(user => user.Id.Equals(id))
+            _context.Users?.FirstOrDefault(user => user.Id == id)
         );
     }
 
     public GetUserDTO? Post(PostUserDTO userDTO)
     {
-        GetUserDTO? result = null;
 
         User user = ReturnReadyUser(userDTO);
 
-        var creation = _manager.CreateAsync(user);
+        _context.Users?.AddAsync(user);
+        _context.SaveChanges();
 
-        if (creation.Result.Succeeded)
-        {
-            var roleCreation = _manager.AddToRoleAsync(user, "user");
-            if (roleCreation.Result.Succeeded)
-            {
-                result = _mapper.Map<GetUserDTO>(user);
-            }
-        }
-        
-        //
+        GetUserDTO? result = _mapper.Map<GetUserDTO>(user);
         
         return result;
     }
@@ -56,14 +47,13 @@ public class UserService
     private User ReturnReadyUser(PostUserDTO userDTO)
     {
         User user = _mapper.Map<User>(userDTO);
-        // sets the username to be it's full name without spaces
-        user.UserName = user.FirstName.Trim() + user.LastName.Replace(" ", "");
 
-        // sets all the 'normalized' fields to be equal to it's 'non normalized' variants in upper case
-        user.NormalizedEmail = user.Email.ToUpper();
-        user.NormalizedUserName = user.UserName.ToUpper();
+        // remove possible initial and end spaces in user's first and last names
+        user.FirstName = user.FirstName?.Trim();
+        user.LastName = user.LastName?.Trim();
 
-
+        // sets user's e-mail to have only lower case characters
+        user.Email = user.Email?.ToLower();
 
         return user;
     }
