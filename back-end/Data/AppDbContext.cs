@@ -8,9 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
 {
-    public DbSet<User>? Users { get; set; }
     public DbSet<Company>? Companies { get; set; }
     public DbSet<Employee>? Employees { get; set; }
     public DbSet<FinancialResult>? FinancialResults { get; set; }

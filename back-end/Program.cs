@@ -45,10 +45,15 @@ builder.Services.AddDbContext<AppDbContext>
     opts => opts
     .UseLazyLoadingProxies()
     .UseMySql(
-        connectionString,
+        connectionString, 
         ServerVersion.AutoDetect(connectionString)
     )
 );
+
+builder.Services.AddDefaultIdentity<User>
+(
+    options => options.SignIn.RequireConfirmedAccount = true
+).AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddControllers();
 
