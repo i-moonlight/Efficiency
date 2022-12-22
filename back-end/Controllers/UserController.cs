@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post(PostUserDTO userDTO)
+    public IActionResult Post([FromBody] PostUserDTO userDTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -58,5 +58,20 @@ public class UserController : ControllerBase
         }
 
         return result;
+    }
+
+    [HttpPut]
+    public IActionResult Put([FromBody] PutUserDTO userDTO)
+    {
+        IActionResult result = NotFound();
+
+        GetUserDTO? updateResult = _service.Put(userDTO);
+
+        if (updateResult != null)
+        {
+            result = NoContent();
+        }
+
+        return NoContent();
     }
 }

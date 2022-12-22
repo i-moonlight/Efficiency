@@ -35,7 +35,7 @@ public class UserService
     {
         GetUserDTO? result = null;
 
-        User user = ReturnReadyUser(userDTO);
+        User user = ReturnReadyUser(_mapper.Map<User>(userDTO));
 
         var creation = _manager.CreateAsync(user, userDTO.Password);
 
@@ -47,10 +47,8 @@ public class UserService
         return result;
     }
 
-    private User ReturnReadyUser(PostUserDTO userDTO)
+    private User ReturnReadyUser(User user)
     {
-        User user = _mapper.Map<User>(userDTO);
-
         // remove possible initial and end spaces in user's first and last names
         user.FirstName = user.FirstName?.Trim();
         user.LastName = user.LastName?.Trim();
@@ -64,5 +62,49 @@ public class UserService
             + user.LastName?.ToLower().Replace(" ", "");
 
         return user;
+    }
+
+    public GetUserDTO? Put(PutUserDTO userDTO)
+    {
+        GetUserDTO? result = null;
+
+        User? user = _manager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
+        
+        if (user != null)
+        {
+            System.Console.WriteLine("user was found");
+
+            _mapper.Map(userDTO, user);
+
+            var updateResult = _manager.UpdateAsync(user);
+
+            if (updateResult.Result.Succeeded)
+            {
+                System.Console.WriteLine("the update was successful");
+                result = _mapper.Map<GetUserDTO>(user);
+            }
+        }
+
+        return result;
+    }
+
+    private User UpdateUserInformation(PutUserDTO userDTO, User user)
+    {
+        User newUser = _mapper.Map<User>(userDTO);
+        newUser = ReturnReadyUser(newUser);
+
+        newUser.AccessFailedCount = user.AccessFailedCount;
+        newUser.ConcurrencyStamp = user.ConcurrencyStamp;
+        newUser.EmailConfirmed = user.EmailConfirmed;
+        newUser.LockoutEnabled = user.LockoutEnabled;
+        newUser.LockoutEnd = user.LockoutEnd;
+        newUser.NormalizedEmail = userDTO.Email?.ToUpper();
+        newUser.NormalizedUserName = userDTO.UserName?.ToUpper();
+        newUser.PasswordHash = user.PasswordHash;
+        newUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
+        newUser.SecurityStamp = user.SecurityStamp;
+        newUser.TwoFactorEnabled = user.TwoFactorEnabled;
+
+        return newUser;
     }
 }
