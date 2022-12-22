@@ -63,15 +63,30 @@ public class UserController : ControllerBase
     [HttpPut]
     public IActionResult Put([FromBody] PutUserDTO userDTO)
     {
-        IActionResult result = NotFound();
+        IActionResult result = NotFound("User does not exist or password is incorrect");
 
-        GetUserDTO? updateResult = _service.Put(userDTO);
+        bool updateSuccess = _service.Put(userDTO);
 
-        if (updateResult != null)
+        if (updateSuccess)
         {
             result = NoContent();
         }
 
-        return NoContent();
+        return result;
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        IActionResult result = NotFound();
+
+        bool deleteSuccess = _service.Delete(id);
+
+        if (deleteSuccess)
+        {
+            result = NoContent();
+        }
+
+        return result;
     }
 }

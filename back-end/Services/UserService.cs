@@ -37,14 +37,83 @@ public class UserService
 
         User user = ReturnReadyUser(_mapper.Map<User>(userDTO));
 
-        var creation = _manager.CreateAsync(user, userDTO.Password);
-
-        if (creation.Result.Succeeded)
+        if (!CheckExistingUserByEmail(user) || !CheckExistingUserByPhoneNumber(user))
         {
-            result = _mapper.Map<GetUserDTO>(user);
+            var creation = _manager.CreateAsync(user, userDTO.Password);
+
+            if (creation.Result.Succeeded)
+            {
+                result = _mapper.Map<GetUserDTO>(user);
+            }
         }
-        
+
         return result;
+    }
+
+    public bool Put(PutUserDTO userDTO)
+    {
+        bool result = false;
+
+        User? user = _manager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
+        
+        if (user != null)
+        {
+            System.Console.WriteLine("user was found");
+
+            var checkPassword = _manager.CheckPasswordAsync(user, userDTO.Password);
+
+            if (checkPassword.Result)
+            {
+                System.Console.WriteLine("user password is correct");
+
+                _mapper.Map(userDTO, user);
+
+                var updateUser = _manager.UpdateAsync(user);
+
+                if (updateUser.Result.Succeeded)
+                {
+                    System.Console.WriteLine("user info was updated successfully");
+                    result = true;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public bool Delete(int id)
+    {
+        bool result = false;
+
+        User? user = _manager.Users.FirstOrDefault(
+            u => u.Id == id
+        );
+
+        if (user != null)
+        {
+            var deleteResult = _manager.DeleteAsync(user);
+            result = deleteResult.Result.Succeeded;
+        }
+
+        return result;
+    }
+
+    private bool CheckExistingUserByEmail(User user)
+    {
+        var result = _manager.Users.FirstOrDefault(
+            u => u.NormalizedEmail.Equals(user.Email.ToUpper())
+        );
+
+        return result != null;
+    }
+
+    private bool CheckExistingUserByPhoneNumber(User user)
+    {
+        User? result = _manager.Users.FirstOrDefault(
+            u => u.PhoneNumber.Equals(user.PhoneNumber)
+        );
+
+        return result != null;
     }
 
     private User ReturnReadyUser(User user)
@@ -62,30 +131,6 @@ public class UserService
             + user.LastName?.ToLower().Replace(" ", "");
 
         return user;
-    }
-
-    public GetUserDTO? Put(PutUserDTO userDTO)
-    {
-        GetUserDTO? result = null;
-
-        User? user = _manager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
-        
-        if (user != null)
-        {
-            System.Console.WriteLine("user was found");
-
-            _mapper.Map(userDTO, user);
-
-            var updateResult = _manager.UpdateAsync(user);
-
-            if (updateResult.Result.Succeeded)
-            {
-                System.Console.WriteLine("the update was successful");
-                result = _mapper.Map<GetUserDTO>(user);
-            }
-        }
-
-        return result;
     }
 
     private User UpdateUserInformation(PutUserDTO userDTO, User user)

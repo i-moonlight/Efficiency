@@ -97,3 +97,5 @@ D:\Source\Efficiency\back-end\obj\Debug\net6.0\refint\back-end.dll
 D:\Source\Efficiency\back-end\obj\Debug\net6.0\back-end.pdb
 D:\Source\Efficiency\back-end\obj\Debug\net6.0\back-end.genruntimeconfig.cache
 D:\Source\Efficiency\back-end\obj\Debug\net6.0\ref\back-end.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\FluentResults.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll

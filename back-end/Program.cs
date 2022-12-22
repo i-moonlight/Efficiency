@@ -1,14 +1,18 @@
 /*
     necessary packages to this project:
-        - Microsoft.EntityFrameworkCore -v 7.0.0
-        - Microsoft.EntityFrameworkCore.Tools -v 7.0.0
-        - Microsoft.EntityFrameworkCore.Relational -v 7.0.0
-        - Pomelo.EntityFrameworkCore.MySql -v 6.0.2
-        - AutoMapper -v 12.0.0
-        - AutoMapper.Extensions.Microsoft.DependencyInjection -v 12.0.0
-        - Microsoft.AspNetCore.Mvc.NewtonsoftJson -v 6.0.10 <IN CASE IT'S NECESSARY TO USE HTTP PATCH INSTEAD OF PUT>
-        - Microsoft.EntityFrameworkCore.Proxies -v 6.0.7
-        - Microsoft.AspNetCore.Identity --version 2.2.0
+        - Microsoft.EntityFrameworkCore
+        - Microsoft.EntityFrameworkCore.Relational
+        - Microsoft.EntityFrameworkCore.Proxies
+        - Microsoft.EntityFrameworkCore.Tools
+        - Pomelo.EntityFrameworkCore.MySql
+        - AutoMapper
+        - AutoMapper.Extensions.Microsoft.DependencyInjection
+        - Microsoft.AspNetCore.Mvc.NewtonsoftJson 
+        - ☝🏻 <IN CASE IT'S NECESSARY TO USE HTTP PATCH INSTEAD OF PUT>
+        - Microsoft.AspNetCore.Identity.EntityFrameworkCore
+        - Microsoft.AspNetCore.Identity.Stores
+        - Microsoft.AspNetCore.Identity.UI
+        - FluentResults
 
     necessary tools for this project:
         - dotnet-ef -v 7.0.0
@@ -18,12 +22,15 @@
         - dotnet add package Microsoft.EntityFrameworkCore.Relational -v 6.0.7
         - dotnet add package Microsoft.EntityFrameworkCore.Proxies -v 6.0.7
         - dotnet add package Microsoft.EntityFrameworkCore.Tools -v 6.0.7
-        - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.7
-        - dotnet add package Microsoft.AspNetCore.Identity.UI -v 6.0.7
         - dotnet add package Pomelo.EntityFrameworkCore.MySql -v 6.0.2
+        - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.7
+        - dotnet add package Microsoft.AspNetCore.Identity.Stores -v 6.0.7
+        - dotnet add package Microsoft.AspNetCore.Identity.UI -v 6.0.7
         - dotnet add package AutoMapper -v 12.0.0
         - dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection -v 12.0.0
         - dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson -v 6.0.10
+        - ☝🏻 <IN CASE IT'S NECESSARY TO USE HTTP PATCH INSTEAD OF PUT>
+        - dotnet add package FluentResults --version 3.15.1
         - dotnet tool install --global dotnet-ef -v 7.0.0
         - dotnet ef migrations add <NomeDaMigration>
         - dotnet ef database update
