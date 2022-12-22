@@ -18,9 +18,12 @@ public class UserService
         _manager = manager;
     }
 
-    public ICollection<GetUserDTO>? GetAll()
+    public ICollection<GetUserDTO>? GetAll(int skip, int take)
     {
-        ICollection<User>? users = _manager.Users.ToList();
+        ICollection<User>? users = _manager.Users
+            .Skip(skip)
+            .Take(take)
+            .ToList();
         return _mapper.Map<ICollection<GetUserDTO>>(users);
     }
 

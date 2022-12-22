@@ -16,11 +16,13 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetAll(
+        [FromQuery] int skip=0,
+        [FromQuery] int take=50)
     {
         IActionResult result = NotFound();
 
-        ICollection<GetUserDTO>? users = _service.GetAll();
+        ICollection<GetUserDTO>? users = _service.GetAll(skip, take);
 
         if (users != null)
         {
