@@ -70,6 +70,7 @@ public class UserService
                 System.Console.WriteLine("user password is correct");
 
                 _mapper.Map(userDTO, user);
+                user = ReturnReadyUser(user);
 
                 var updateUser = _manager.UpdateAsync(user);
 
@@ -134,25 +135,5 @@ public class UserService
             + user.LastName?.ToLower().Replace(" ", "");
 
         return user;
-    }
-
-    private User UpdateUserInformation(PutUserDTO userDTO, User user)
-    {
-        User newUser = _mapper.Map<User>(userDTO);
-        newUser = ReturnReadyUser(newUser);
-
-        newUser.AccessFailedCount = user.AccessFailedCount;
-        newUser.ConcurrencyStamp = user.ConcurrencyStamp;
-        newUser.EmailConfirmed = user.EmailConfirmed;
-        newUser.LockoutEnabled = user.LockoutEnabled;
-        newUser.LockoutEnd = user.LockoutEnd;
-        newUser.NormalizedEmail = userDTO.Email?.ToUpper();
-        newUser.NormalizedUserName = userDTO.UserName?.ToUpper();
-        newUser.PasswordHash = user.PasswordHash;
-        newUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
-        newUser.SecurityStamp = user.SecurityStamp;
-        newUser.TwoFactorEnabled = user.TwoFactorEnabled;
-
-        return newUser;
     }
 }

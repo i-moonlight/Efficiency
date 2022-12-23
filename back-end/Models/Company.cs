@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Efficiency.Models;
 
@@ -9,6 +10,8 @@ public class Company
     public int ID { get; set; }
     [Required(ErrorMessage = "The company's name is not optional")]
     public string? Name { get; set; }
+    [JsonIgnore]
     public virtual ICollection<User>? Users { get; set; }
+    [JsonIgnore]
     public virtual ICollection<Employee>? Employees { get; set; }
 }

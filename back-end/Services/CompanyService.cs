@@ -77,6 +77,12 @@ public class CompanyService
 
         if (company != null)
         {
+            // var users = company.Users?.ToList();
+            // foreach (var user in users)
+            // {
+            //     user.Company = null;
+            //     user.CompanyID = null;
+            // }
             _context.Remove(company);
             _context.SaveChanges();
             result = true;
