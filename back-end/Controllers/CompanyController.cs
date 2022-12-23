@@ -65,4 +65,34 @@ public class CompanyController : ControllerBase
 
         return result;
     }
+
+    [HttpPut]
+    public IActionResult Put([FromBody] PutCompanyDTO companyDTO)
+    {
+        IActionResult result = NotFound("The informed company was not found");
+
+        bool updateSucceeded = _service.Put(companyDTO);
+
+        if (updateSucceeded)
+        {
+            result = NoContent();
+        }
+
+        return result;
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        IActionResult result = NotFound("The informed company was not found");
+
+        bool deleteSucceeded = _service.Delete(id);
+
+        if (deleteSucceeded)
+        {
+            result = NoContent();
+        }
+
+        return result;
+    }
 }
