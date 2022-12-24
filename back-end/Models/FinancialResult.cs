@@ -17,6 +17,8 @@ public class FinancialResult
     [JsonIgnore]
     public virtual ICollection<Employee>? Employees { get; set; }
     [JsonIgnore]
+    public virtual ICollection<EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
+    [JsonIgnore]
     public virtual ICollection<FinancialService>? FinancialServices { get; set; }
     [JsonIgnore]
     public virtual ICollection<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }

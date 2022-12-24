@@ -85,18 +85,18 @@ public class EmployeeService
         return result;
     }
 
-    private bool CheckExistingEmployeeByName(Employee Employee)
+    private bool CheckExistingEmployeeByName(Employee employee)
     {
         bool result = false;
 
         if (_context.Employees != null)
         {
-            var Employees = _context.Employees.ToList();
-            foreach (var c in Employees)
+            var employees = _context.Employees.ToList();
+            foreach (var e in employees)
             {
-                if (c.Name != null && Employee.Name != null)
+                if (e.Name != null && employee.Name != null)
                 {
-                    result = (c.Name.ToUpper().Equals(Employee.Name.ToUpper()));
+                    result = (e.Name.ToUpper().Equals(employee.Name.ToUpper()));
                 }
             }
             System.Console.WriteLine(result);

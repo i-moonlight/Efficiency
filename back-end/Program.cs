@@ -69,6 +69,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<CompanyService, CompanyService>();
 builder.Services.AddScoped<EmployeeService, EmployeeService>();
+builder.Services.AddScoped<FinancialResultService, FinancialResultService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

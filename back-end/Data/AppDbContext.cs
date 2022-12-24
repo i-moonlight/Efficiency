@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<Company>? Companies { get; set; }
     public DbSet<Employee>? Employees { get; set; }
     public DbSet<FinancialResult>? FinancialResults { get; set; }
+    public DbSet<EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
     public DbSet<FinancialService>? FinancialServices { get; set; }
     public DbSet<FinancialResultFinancialService>? FResultsFServices { get; set; }
 
@@ -22,10 +23,6 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public AppDbContext(DbContextOptions<AppDbContext> opts) : base(opts)
     {}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseMySql(ServerVersion.AutoDetect("server=localhost;database=efficiencyDb;user=root;password=root"));
-    }
     protected override void OnModelCreating (ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -50,10 +47,16 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
         /*
         * n:n relationship between employee and financialresult
         */
-        builder.Entity<Employee>()
-            .HasMany(employee => employee.FinancialResults)
-            .WithMany(fresult => fresult.Employees)
-            .UsingEntity(join => join.ToTable("EmployeeFinancialResult"));
+        builder.Entity<EmployeeFinancialResult>()
+            .HasKey(efresult => new {efresult.EmployeeID, efresult.FinancialResultID});
+        builder.Entity<EmployeeFinancialResult>()
+            .HasOne(efresult => efresult.Employee)
+            .WithMany(employee => employee.EmployeesFinancialResults)
+            .HasForeignKey(efresult => efresult.EmployeeID);
+        builder.Entity<EmployeeFinancialResult>()
+            .HasOne(efresult => efresult.FinancialResult)
+            .WithMany(fresult => fresult.EmployeesFinancialResults)
+            .HasForeignKey(efresult => efresult.FinancialResultID);
 
         /*
         * n:n relationship between financialresult and financialservice

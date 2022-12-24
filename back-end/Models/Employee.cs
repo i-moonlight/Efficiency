@@ -19,5 +19,7 @@ public class Employee
     public int? CompanyID { get; set; }
     [JsonIgnore]
     public virtual ICollection<FinancialResult>? FinancialResults { get; set; }
+    [JsonIgnore]
+    public virtual ICollection<EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
     
 }

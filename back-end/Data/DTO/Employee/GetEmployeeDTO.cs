@@ -10,4 +10,5 @@ public class GetEmployeeDTO
     public string? Email { get; set; }
     public virtual Models.Company? CompanyReference { get; set; }
     public virtual ICollection<Models.FinancialResult>? FinancialResults { get; set; }
+    public virtual ICollection<Models.EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
 }
