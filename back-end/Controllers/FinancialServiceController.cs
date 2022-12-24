@@ -1,4 +1,4 @@
-using Efficiency.Data.DTO.FinancialResult;
+using Efficiency.Data.DTO.FinancialService;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,11 +6,11 @@ namespace Efficiency.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class FinancialResultController : ControllerBase
+public class FinancialServiceController : ControllerBase
 {
-    private FinancialResultService _service;
+    private FinancialServiceService _service;
 
-    public FinancialResultController(FinancialResultService service)
+    public FinancialServiceController(FinancialServiceService service)
     {
         _service = service;
     }
@@ -22,7 +22,7 @@ public class FinancialResultController : ControllerBase
     {
         IActionResult result = NoContent();
 
-        ICollection<GetFinancialResultDTO>? fresults = _service.GetAll(skip, take);
+        ICollection<GetFinancialServiceDTO>? fresults = _service.GetAll(skip, take);
 
         if (fresults != null)
         {
@@ -37,29 +37,29 @@ public class FinancialResultController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        GetFinancialResultDTO? financialResult = _service.Get(id);
+        GetFinancialServiceDTO? FinancialService = _service.Get(id);
 
-        if (financialResult != null)
+        if (FinancialService != null)
         {
-            result = Ok(financialResult);
+            result = Ok(FinancialService);
         }
 
         return result;
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostFinancialResultDTO financialResultDTO)
+    public IActionResult Post([FromBody] PostFinancialServiceDTO FinancialServiceDTO)
     {
         IActionResult result = StatusCode(500);
 
-        GetFinancialResultDTO? createdFinancialResult = _service.Post(financialResultDTO);
+        GetFinancialServiceDTO? createdFinancialService = _service.Post(FinancialServiceDTO);
 
-        if (createdFinancialResult != null)
+        if (createdFinancialService != null)
         {
             result = CreatedAtAction(
                 nameof(Get),
-                new { id = createdFinancialResult.ID },
-                createdFinancialResult
+                new { id = createdFinancialService.Id },
+                createdFinancialService
             );
         }
 
@@ -67,11 +67,11 @@ public class FinancialResultController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutFinancialResultDTO financialResultDTO)
+    public IActionResult Put([FromBody] PutFinancialServiceDTO FinancialServiceDTO)
     {
         IActionResult result = NotFound("The informed Financial Result was not found");
 
-        bool updateSucceeded = _service.Put(financialResultDTO);
+        bool updateSucceeded = _service.Put(FinancialServiceDTO);
 
         if (updateSucceeded)
         {

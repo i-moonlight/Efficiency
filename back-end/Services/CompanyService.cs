@@ -25,7 +25,7 @@ public class CompanyService
         );
     }
 
-    public GetCompanyDTO? GetAll(int id)
+    public GetCompanyDTO? Get(int id)
     {
         return _mapper.Map<GetCompanyDTO>(
             _context.Companies?.FirstOrDefault(
@@ -100,7 +100,7 @@ public class CompanyService
             var companies = _context.Companies.ToList();
             foreach (var c in companies)
             {
-                if (c.Name != null && company.Name != null)
+                if (!result && c.Name != null && company.Name != null)
                 {
                     result = (c.Name.ToUpper().Equals(company.Name.ToUpper()));
                 }

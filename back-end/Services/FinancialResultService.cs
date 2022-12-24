@@ -25,7 +25,7 @@ public class FinancialResultService
         );
     }
 
-    public GetFinancialResultDTO? GetAll(int id)
+    public GetFinancialResultDTO? Get(int id)
     {
         return _mapper.Map<GetFinancialResultDTO>(
             _context.FinancialResults?.FirstOrDefault(
@@ -39,7 +39,7 @@ public class FinancialResultService
         GetFinancialResultDTO? result = null;
         FinancialResult financialResult = _mapper.Map<FinancialResult>(financialResultDTO);
 
-        if (!CheckExistingFinancialResultByName(financialResult))
+        if (!CheckExistingFinancialResultByID(financialResult))
         {
             _context.FinancialResults?.Add(financialResult);
             _context.SaveChanges();
@@ -85,7 +85,7 @@ public class FinancialResultService
         return result;
     }
 
-    private bool CheckExistingFinancialResultByName(FinancialResult financialResult)
+    private bool CheckExistingFinancialResultByID(FinancialResult financialResult)
     {
         bool result = false;
 
@@ -94,7 +94,10 @@ public class FinancialResultService
             var FinancialResults = _context.FinancialResults.ToList();
             foreach (var fResult in FinancialResults)
             {
-                result = (fResult.ID == financialResult.ID) || result;
+                if (!result)
+                {
+                    result = (fResult.ID == financialResult.ID);
+                }
             }
             System.Console.WriteLine(result);
         }

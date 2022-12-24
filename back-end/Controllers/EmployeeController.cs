@@ -37,7 +37,7 @@ public class EmployeeController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        GetEmployeeDTO? Employee = _service.GetAll(registrationNumber);
+        GetEmployeeDTO? Employee = _service.Get(registrationNumber);
 
         if (Employee != null)
         {

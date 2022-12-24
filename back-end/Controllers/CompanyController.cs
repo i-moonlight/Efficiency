@@ -37,7 +37,7 @@ public class CompanyController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        GetCompanyDTO? company = _service.GetAll(id);
+        GetCompanyDTO? company = _service.Get(id);
 
         if (company != null)
         {

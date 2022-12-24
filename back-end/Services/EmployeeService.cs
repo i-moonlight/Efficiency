@@ -25,7 +25,7 @@ public class EmployeeService
         );
     }
 
-    public GetEmployeeDTO? GetAll(int registrationNumber)
+    public GetEmployeeDTO? Get(int registrationNumber)
     {
         return _mapper.Map<GetEmployeeDTO>(
             _context.Employees?.FirstOrDefault(
@@ -94,7 +94,7 @@ public class EmployeeService
             var employees = _context.Employees.ToList();
             foreach (var e in employees)
             {
-                if (e.Name != null && employee.Name != null)
+                if (!result && e.Name != null && employee.Name != null)
                 {
                     result = (e.Name.ToUpper().Equals(employee.Name.ToUpper()));
                 }
