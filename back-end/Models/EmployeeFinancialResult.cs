@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Efficiency.Models;
 
 public class EmployeeFinancialResult
 {
+    [Key]
+    public int ID { get; set; }
     [JsonIgnore]
     public int EmployeeID { get; set; }
     [JsonIgnore]

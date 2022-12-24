@@ -61,13 +61,19 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("Efficiency.Models.EmployeeFinancialResult", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("EmployeeID")
                         .HasColumnType("int");
 
                     b.Property<int>("FinancialResultID")
                         .HasColumnType("int");
 
-                    b.HasKey("EmployeeID", "FinancialResultID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("EmployeeID");
 
                     b.HasIndex("FinancialResultID");
 
@@ -93,6 +99,10 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("Efficiency.Models.FinancialResultFinancialService", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("FinancialResultID")
                         .HasColumnType("int");
 
@@ -102,7 +112,9 @@ namespace back_end.Migrations
                     b.Property<decimal>("Result")
                         .HasColumnType("decimal(65,30)");
 
-                    b.HasKey("FinancialResultID", "FinancialServiceID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("FinancialResultID");
 
                     b.HasIndex("FinancialServiceID");
 

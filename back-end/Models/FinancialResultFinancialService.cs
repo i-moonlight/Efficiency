@@ -1,9 +1,12 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace Efficiency.Models;
 
 public class FinancialResultFinancialService
 {
+    [Key]
+    public int ID { get; set; }
     public decimal Result { get; set; }
     [JsonIgnore]
     public int FinancialResultID { get; set; }

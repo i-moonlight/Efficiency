@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221221200835_adding identity")]
-    partial class addingidentity
+    [Migration("20221224194833_starting over")]
+    partial class startingover
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,6 +61,27 @@ namespace back_end.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("Efficiency.Models.EmployeeFinancialResult", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinancialResultID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EmployeeID");
+
+                    b.HasIndex("FinancialResultID");
+
+                    b.ToTable("EmployeesFinancialResults");
+                });
+
             modelBuilder.Entity("Efficiency.Models.FinancialResult", b =>
                 {
                     b.Property<int>("ID")
@@ -80,6 +101,10 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("Efficiency.Models.FinancialResultFinancialService", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("FinancialResultID")
                         .HasColumnType("int");
 
@@ -89,7 +114,9 @@ namespace back_end.Migrations
                     b.Property<decimal>("Result")
                         .HasColumnType("decimal(65,30)");
 
-                    b.HasKey("FinancialResultID", "FinancialServiceID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("FinancialResultID");
 
                     b.HasIndex("FinancialServiceID");
 
@@ -123,7 +150,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("FinancialResultsID");
 
-                    b.ToTable("EmployeeFinancialResult", (string)null);
+                    b.ToTable("EmployeeFinancialResult");
                 });
 
             modelBuilder.Entity("FinancialResultFinancialService", b =>
@@ -372,6 +399,25 @@ namespace back_end.Migrations
                     b.Navigation("CompanyReference");
                 });
 
+            modelBuilder.Entity("Efficiency.Models.EmployeeFinancialResult", b =>
+                {
+                    b.HasOne("Efficiency.Models.Employee", "Employee")
+                        .WithMany("EmployeesFinancialResults")
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Efficiency.Models.FinancialResult", "FinancialResult")
+                        .WithMany("EmployeesFinancialResults")
+                        .HasForeignKey("FinancialResultID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("FinancialResult");
+                });
+
             modelBuilder.Entity("Efficiency.Models.FinancialResultFinancialService", b =>
                 {
                     b.HasOne("Efficiency.Models.FinancialResult", "FinancialResult")
@@ -488,8 +534,15 @@ namespace back_end.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("Efficiency.Models.Employee", b =>
+                {
+                    b.Navigation("EmployeesFinancialResults");
+                });
+
             modelBuilder.Entity("Efficiency.Models.FinancialResult", b =>
                 {
+                    b.Navigation("EmployeesFinancialResults");
+
                     b.Navigation("FinancialResultsFinancialServices");
                 });
 

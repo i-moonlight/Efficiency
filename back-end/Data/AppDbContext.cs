@@ -48,7 +48,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
         * n:n relationship between employee and financialresult
         */
         builder.Entity<EmployeeFinancialResult>()
-            .HasKey(efresult => new {efresult.EmployeeID, efresult.FinancialResultID});
+            .HasKey(efresult => efresult.ID);
         builder.Entity<EmployeeFinancialResult>()
             .HasOne(efresult => efresult.Employee)
             .WithMany(employee => employee.EmployeesFinancialResults)
@@ -62,7 +62,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
         * n:n relationship between financialresult and financialservice
         */
         builder.Entity<FinancialResultFinancialService>()
-            .HasKey(frfs => new {frfs.FinancialResultID, frfs.FinancialServiceID});
+            .HasKey(frfs => frfs.ID);
         builder.Entity<FinancialResultFinancialService>()
             .HasOne(frfs => frfs.FinancialResult)
             .WithMany(fresult => fresult.FinancialResultsFinancialServices)
