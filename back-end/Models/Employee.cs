@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Efficiency.Models;
 
@@ -12,8 +13,11 @@ public class Employee
     public string? Name { get; set; }
     public string? Phone { get; set; }
     public string? Email { get; set; }
+    [JsonIgnore]
     public virtual Company? CompanyReference { get; set; }
+    [JsonIgnore]
     public int? CompanyID { get; set; }
+    [JsonIgnore]
     public virtual ICollection<FinancialResult>? FinancialResults { get; set; }
     
 }
