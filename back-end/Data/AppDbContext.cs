@@ -15,7 +15,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<FinancialResult>? FinancialResults { get; set; }
     public DbSet<EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
     public DbSet<FinancialService>? FinancialServices { get; set; }
-    public DbSet<FinancialResultFinancialService>? FResultsFServices { get; set; }
+    public DbSet<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
 
     public AppDbContext()
     {}

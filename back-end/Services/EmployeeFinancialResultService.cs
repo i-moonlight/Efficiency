@@ -41,7 +41,7 @@ public class EmployeeFinancialResultService
 
         if (!CheckExistingEmployeeFinancialResultByForeignIDs(employeeFinancialResult))
         {
-            // employeeFinancialResult = UpdateForeignReferences(employeeFinancialResult);
+            employeeFinancialResult = UpdateForeignReferences(employeeFinancialResult);
             
             _context.EmployeesFinancialResults?.Add(employeeFinancialResult);
             _context.SaveChanges();
