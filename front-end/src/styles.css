@@ -1,4 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    font-family: "Poppins";
+    font-family: "Poppins", sans-serif;
+}
+
+.title {
+    font-family: "Exo", sans-serif;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-family: "Rubik", sans-serif;
 }
