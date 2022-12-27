@@ -37,6 +37,7 @@ public class FinancialResultService
     public GetFinancialResultDTO? Post(PostFinancialResultDTO financialResultDTO)
     {
         GetFinancialResultDTO? result = null;
+        financialResultDTO.Date = DateTime.Now;
         FinancialResult financialResult = _mapper.Map<FinancialResult>(financialResultDTO);
 
         if (!CheckExistingFinancialResultByID(financialResult))
