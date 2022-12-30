@@ -1,14 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    font-family: "Poppins", sans-serif;
+    font-family: "Montserrat", sans-serif;
+    background-color: #f3f2f6;
+    color: #373142;
 }
 
 .title {
-    font-family: "Exo", sans-serif;
-    font-style: italic;
-    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
 }
 
 .subtitle {
-    font-family: "Rubik", sans-serif;
+    font-family: "Raleway", sans-serif;
+}
+
+.light {
+    font-weight: 200;
 }
