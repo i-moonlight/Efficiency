@@ -16,6 +16,7 @@ public class TokenService
         };
 
         var symmetricKey = new SymmetricSecurityKey(
+            // Encrypted on https://www.online-toolz.com/tools/text-encryption-decryption.php
             Encoding.UTF8.GetBytes("xQgxoPGT6QeUHMOfgxQ9Nahvtlb6mKoGWP5toirbgUc=")
         );
 
