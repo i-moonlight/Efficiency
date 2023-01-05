@@ -1,4 +1,6 @@
 using Efficiency.Data.DTO.User;
+using Efficiency.Data.Requests;
+using Efficiency.Models;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,16 +49,31 @@ public class UserController : ControllerBase
         return result;
     }
 
-    [HttpPost]
-    public IActionResult Post([FromBody] PostUserDTO userDTO)
+    [HttpPost("/signup")]
+    public IActionResult SignUp([FromBody] PostUserDTO userDTO)
     {
         IActionResult result = StatusCode(500);
 
-        GetUserDTO? createdUser = _service.Post(userDTO);
+        GetUserDTO? createdUser = _service.SignUp(userDTO);
 
         if (createdUser != null)
         {
             result = CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
+        }
+
+        return result;
+    }
+
+    [HttpPost("/login")]
+    public IActionResult Login([FromBody] LoginRequest request)
+    {
+        IActionResult result = Unauthorized("User credentials are incorrect or account not confirmed.");
+
+        Token? createdUserToken = _service.Login(request);
+
+        if (createdUserToken != null)
+        {
+            result = Ok(createdUserToken);
         }
 
         return result;

@@ -101,3 +101,8 @@ D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\FluentResults.d
 D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Source\Efficiency\back-end\bin\Debug\net6.0\FluentResults.dll
 D:\Source\Efficiency\back-end\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Source\Personal Projects\Efficiency\back-end\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

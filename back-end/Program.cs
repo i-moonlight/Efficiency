@@ -12,6 +12,7 @@
         - Microsoft.AspNetCore.Identity.EntityFrameworkCore
         - Microsoft.AspNetCore.Identity.Stores
         - Microsoft.AspNetCore.Identity.UI
+        - System.IdentityModel.Tokens.Jwt
         - FluentResults
 
     necessary tools for this project:
@@ -26,6 +27,7 @@
         - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.7
         - dotnet add package Microsoft.AspNetCore.Identity.Stores -v 6.0.7
         - dotnet add package Microsoft.AspNetCore.Identity.UI -v 6.0.7
+        - dotnet add package System.IdentityModel.Tokens.Jwt --version 6.25.1
         - dotnet add package AutoMapper -v 12.0.0
         - dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection -v 12.0.0
         - dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson -v 6.0.10
@@ -67,6 +69,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<UserService, UserService>();
+builder.Services.AddScoped<TokenService, TokenService>();
 builder.Services.AddScoped<CompanyService, CompanyService>();
 builder.Services.AddScoped<EmployeeService, EmployeeService>();
 builder.Services.AddScoped<FinancialResultService, FinancialResultService>();

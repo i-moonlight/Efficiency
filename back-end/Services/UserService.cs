@@ -1,5 +1,6 @@
 using AutoMapper;
 using Efficiency.Data.DTO.User;
+using Efficiency.Data.Requests;
 using Efficiency.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -7,20 +8,24 @@ namespace Efficiency.Services;
 
 public class UserService
 {
-    private UserManager<User> _manager;
+    private TokenService _tokenService;
+    private SignInManager<User> _signInManager;
+    private UserManager<User> _userManager;
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
 
-    public UserService(AppDbContext context, IMapper mapper, UserManager<User> manager)
+    public UserService(AppDbContext context, IMapper mapper, UserManager<User> manager, SignInManager<User> signInManager, TokenService tokenService)
     {
         _context = context;
         _mapper = mapper;
-        _manager = manager;
+        _userManager = manager;
+        _signInManager = signInManager;
+        _tokenService = tokenService;
     }
 
     public ICollection<GetUserDTO>? GetAll(int skip, int take)
     {
-        ICollection<User>? users = _manager.Users
+        ICollection<User>? users = _userManager.Users
             .Skip(skip)
             .Take(take)
             .ToList();
@@ -34,7 +39,7 @@ public class UserService
         );
     }
 
-    public GetUserDTO? Post(PostUserDTO userDTO)
+    public GetUserDTO? SignUp(PostUserDTO userDTO)
     {
         GetUserDTO? result = null;
 
@@ -42,7 +47,7 @@ public class UserService
 
         if (!CheckExistingUserByEmail(user) || !CheckExistingUserByPhoneNumber(user))
         {
-            var creation = _manager.CreateAsync(user, userDTO.Password);
+            var creation = _userManager.CreateAsync(user, userDTO.Password);
 
             if (creation.Result.Succeeded)
             {
@@ -53,17 +58,34 @@ public class UserService
         return result;
     }
 
+    public Token? Login(LoginRequest request)
+    {
+        Token? result = null;
+
+        User? user = _userManager.Users.FirstOrDefault((user) => 
+                request.Email != null && user.NormalizedEmail.Equals(request.Email.ToUpper()));
+        if(user != null){
+            var signInResult = _signInManager.PasswordSignInAsync(user, request.Password, false, false);
+
+            if (signInResult.Result.Succeeded){
+                result = _tokenService.Generate(user);
+            }
+        }
+
+        return result;
+    }
+
     public bool Put(PutUserDTO userDTO)
     {
         bool result = false;
 
-        User? user = _manager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
+        User? user = _userManager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
         
         if (user != null)
         {
             System.Console.WriteLine("user was found");
 
-            var checkPassword = _manager.CheckPasswordAsync(user, userDTO.Password);
+            var checkPassword = _userManager.CheckPasswordAsync(user, userDTO.Password);
 
             if (checkPassword.Result)
             {
@@ -72,7 +94,7 @@ public class UserService
                 _mapper.Map(userDTO, user);
                 user = ReturnReadyUser(user);
 
-                var updateUser = _manager.UpdateAsync(user);
+                var updateUser = _userManager.UpdateAsync(user);
 
                 if (updateUser.Result.Succeeded)
                 {
@@ -89,13 +111,13 @@ public class UserService
     {
         bool result = false;
 
-        User? user = _manager.Users.FirstOrDefault(
+        User? user = _userManager.Users.FirstOrDefault(
             u => u.Id == id
         );
 
         if (user != null)
         {
-            var deleteResult = _manager.DeleteAsync(user);
+            var deleteResult = _userManager.DeleteAsync(user);
             result = deleteResult.Result.Succeeded;
         }
 
@@ -104,7 +126,7 @@ public class UserService
 
     private bool CheckExistingUserByEmail(User user)
     {
-        var result = _manager.Users.FirstOrDefault(
+        var result = _userManager.Users.FirstOrDefault(
             u => u.NormalizedEmail.Equals(user.Email.ToUpper())
         );
 
@@ -113,7 +135,7 @@ public class UserService
 
     private bool CheckExistingUserByPhoneNumber(User user)
     {
-        User? result = _manager.Users.FirstOrDefault(
+        User? result = _userManager.Users.FirstOrDefault(
             u => u.PhoneNumber.Equals(user.PhoneNumber)
         );
 
@@ -136,4 +158,5 @@ public class UserService
 
         return user;
     }
+
 }
