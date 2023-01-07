@@ -7,6 +7,7 @@ public class PutUserDTO
     [Required(ErrorMessage = "User's id is required")]
     public int Id { get; set; }
 
+    [Required(ErrorMessage = "User's password is required")]
     public string? Password { get; set; }
 
     public string? FirstName { get; set; }
