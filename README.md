@@ -7,11 +7,13 @@ This project is currently in development using Angular 15, ASP.NET CORE 6 and My
 | :placard: Vitrine.Dev |     |
 | -------------  | --- |
 | :sparkles: Nome        | **Efficiency**
-| :label: Tecnologias | Angular 15, Typescript, ASP.NET Core 6, C#, MySQL
-| :rocket: API         | https://localhost:7280 **only when in execution in your PC**
-| :rocket: Front-End         | http://localhost:4200 **only when in execution in your PC**
+| :label: Front-End | Angular 15, Typescript, Bootstrap, CSS
+| :label: Back-End | ASP.NET Core 6, C#, MySQL
+| :rocket: API         | https://localhost:7280 **follow instructions bellow**
+| :rocket: Front-End         | http://localhost:4200 **follow instructions bellow**
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
+## Screenshots
 ![](https://i.imgur.com/Bz9CX86.png#vitrinedev)
 
 
@@ -21,3 +23,110 @@ The original design of this tool was made using [Figma](https://www.figma.com/) 
 
 Take a look at the design project [Here](https://www.figma.com/file/eJeiDWUWPk2pyjQLgjrANP/Efficiency?t=49xESy1iYdPTynAV-0)
 
+
+## Installing prerequisites
+
+Install Node.JS 16.19.0
+
+```bash
+  https://nodejs.org/download/release/v16.19.0/
+```
+
+Install .Net 6 LTS SDK
+
+```bash
+  https://dotnet.microsoft.com/en-us/download
+```
+
+Install Git Bash
+
+```bash
+  https://git-scm.com/downloads
+```
+
+**Suggestion** Install Microsoft's Visual Studio Code
+
+```bash
+  https://code.visualstudio.com/
+```
+
+## Running the API locally
+
+Clone project
+
+```bash
+  git clone https://github.com/MarceloCFerraz/Efficiency.git
+```
+
+Enter on the project's directory
+
+```bash
+  cd Efficiency/back-end/
+```
+
+Build
+
+```bash
+  dotnet build
+```
+
+Start the API serve
+
+```bash
+  dotnet run
+```
+
+Access the API through Swagger
+
+```bash
+  https://localhost:7280/swagger/index.html
+```
+
+Or access it via other tool of your liking like the API through Swagger
+
+- [Postman](https://www.postman.com/downloads/)
+- [Insomnia](https://insomnia.rest/download)
+
+
+## API Documentation
+
+### User
+##### Get All
+
+```http
+  GET /user
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `` | `` | It recieves no arguments (for now) |
+
+##### Get one user
+
+```http
+  GET /user/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `int` | **Mandatory**. The user's identification row |
+
+##### Sign user in
+
+```http
+  POST /login/
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `request`      | `LoginRequest` | **Mandatory**. User's login request object (for now) from the body of the request containing the user's e-mail and password |
+
+##### Sign user up
+
+```http
+  POST /signup/
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `userDTO`      | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username and phone number |
