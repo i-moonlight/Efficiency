@@ -132,7 +132,7 @@ Access the API through Swagger
   https://localhost:7280/swagger/index.html
 ```
 
-Or access it via other tool of your liking like the API through Swagger
+Or access it via other tool of your liking such as:
 
 - [Postman](https://www.postman.com/downloads/)
 - [Insomnia](https://insomnia.rest/download)
