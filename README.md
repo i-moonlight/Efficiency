@@ -44,6 +44,12 @@ Install Git Bash
   https://git-scm.com/downloads
 ```
 
+Install MySQL
+
+```bash
+  https://dev.mysql.com/downloads/mysql/
+```
+
 **Suggestion** Install Microsoft's Visual Studio Code
 
 ```bash
@@ -84,7 +90,7 @@ Run server
 
 ## Running the API locally
 
-Clone project
+Clone project (if you haven't already)
 
 ```bash
   git clone https://github.com/MarceloCFerraz/Efficiency.git
@@ -96,13 +102,25 @@ Enter on the project's directory
   cd Efficiency/back-end/
 ```
 
+Install Entity Framework tool to your .net installation
+
+```bash
+  dotnet tool install --global dotnet-ef
+```
+
+Create the database
+
+```bash
+  dotnet ef database update
+```
+
 Build
 
 ```bash
   dotnet build
 ```
 
-Start the API serve
+Start the API server
 
 ```bash
   dotnet run
@@ -141,7 +159,7 @@ Or access it via other tool of your liking like the API through Swagger
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `int` | **Mandatory**. The user's identification row |
+| `id`      | `int` | **Mandatory**. The user's identification key |
 
 ##### Sign user in
 
@@ -161,4 +179,24 @@ Or access it via other tool of your liking like the API through Swagger
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `userDTO`      | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username and phone number |
+| `userDTO`      | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the company's id reference |
+
+##### Update user information
+
+```http
+  PUT /user
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `userDTO`      | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's id, e-mail, password, first and last names, role, phone number and the company's id reference |
+
+##### Delete user
+
+```http
+  PUT /user/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `int` | **Mandatory**. User's identification key |
