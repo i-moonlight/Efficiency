@@ -50,6 +50,38 @@ Install Git Bash
   https://code.visualstudio.com/
 ```
 
+## Running the front-end locally
+
+Clone project
+
+```bash
+  git clone https://github.com/MarceloCFerraz/Efficiency.git
+```
+
+Enter on the project's directory
+
+```bash
+  cd Efficiency/front-end/
+```
+
+Install dependencies
+
+```bash
+  npm i
+```
+
+Build
+
+```bash
+  ng build
+```
+
+Run server
+
+```bash
+  ng serve -o
+```
+
 ## Running the API locally
 
 Clone project
@@ -114,7 +146,7 @@ Or access it via other tool of your liking like the API through Swagger
 ##### Sign user in
 
 ```http
-  POST /login/
+  POST /login
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -124,7 +156,7 @@ Or access it via other tool of your liking like the API through Swagger
 ##### Sign user up
 
 ```http
-  POST /signup/
+  POST /signup
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
