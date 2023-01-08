@@ -7,6 +7,7 @@ import { AppComponent } from "./app.component";
 import { HeaderModule } from "./Pages/header/header.module";
 import { HeaderComponent } from "./Pages/header/header.component";
 import { FooterComponent } from "./Pages/footer/footer.component";
+import { SignupComponent } from "./Pages/signup/signup.component";
 
 @NgModule({
     declarations: [AppComponent, HeaderComponent, FooterComponent],

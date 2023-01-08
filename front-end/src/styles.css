@@ -1,13 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     font-family: "Montserrat", sans-serif;
-    background-color: #f3f2f6;
     color: #373142;
+    background-color: #f3f2f6;
+}
+
+.ef-bg {
+    background-color: #f3f2f6;
 }
 
 .title {
     font-family: "Poppins", sans-serif;
-    font-weight: 900;
 }
 
 .subtitle {
@@ -16,4 +19,8 @@
 
 .light {
     font-weight: 200;
+}
+
+.bold {
+    font-weight: bold;
 }
