@@ -7,6 +7,6 @@ export interface IEmployeeService extends IService {
     Get(id: number): Observable<Employee>;
     GetAll(skip: number, take: number): Observable<Employees>;
     Delete(id: number): Observable<Employee>;
-    Post(employeeDTO: PostEmployeeDTO): Observable<Employee>;
-    Put(employeeDTO: PutEmployeeDTO): Observable<Employee>;
+    Post(employeeDTO: PostEmployeeDTO): Observable<any>;
+    Put(employeeDTO: PutEmployeeDTO): Observable<any>;
 }
