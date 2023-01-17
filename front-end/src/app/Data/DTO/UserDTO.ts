@@ -18,3 +18,8 @@ export interface PutUserDTO {
     Role?: string;
     CompanyID?: number;
 }
+
+export interface LogUserDTO {
+    Email: string;
+    Password: string;
+}

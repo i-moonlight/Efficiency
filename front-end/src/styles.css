@@ -1,8 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     font-family: "Montserrat", sans-serif;
-    color: #373142;
+    color: #3c334e;
     background-color: #f3f2f6;
+}
+
+.link {
+    color: #8d7bad;
+    cursor: pointer;
+}
+
+.btn-light {
+    border-color: transparent;
+    background-color: #776891;
+    color: white;
 }
 
 .ef-bg {

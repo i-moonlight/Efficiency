@@ -3,12 +3,48 @@
         style="max-width: 400px"
         class="container position-absolute bg-body-tertiary rounded shadow-lg start-50 top-50 translate-middle"
     >
-        <div class="text-center">
+        <form
+            [formGroup]="loginForm"
+            (submit)="logIn()"
+            class="form text-center p-5"
+        >
             <h3 class="title bold">Login</h3>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" placeholder="type your email" />
+
+            <div class="text-start">
+                <div class="py-2 form-group text-start">
+                    <label class="form-label subtitle" for="email">Email</label>
+                    <input
+                        class="form-control subtitle"
+                        type="text"
+                        name="email"
+                        placeholder="john.doe@efficiency.com"
+                        formControlName="email"
+                    />
+                </div>
+
+                <div class="py-2 form-group">
+                    <label class="form-label subtitle" for="password"
+                        >Password</label
+                    >
+                    <input
+                        class="form-control subtitle"
+                        type="password"
+                        name="password"
+                        placeholder="Type your password"
+                        formControlName="password"
+                    />
+                </div>
+
+                <small (click)="forgotPassword()" class="link"
+                    >I forgot my password
+                </small>
+
+                <div class="pt-5 row title">
+                    <button type="submit" class="btn-light rounded w-100">
+                        continue
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
