@@ -1,7 +1,67 @@
-<div class="p-5">
-    <h2 class="title">Login</h2>
-    <div class="pt-3">
-        <label for="email">E-Mail</label>
-        <input type="text" />
+<form [formGroup]="loginForm" (submit)="logIn()" class="form text-center p-5">
+    <h3 class="title bold">Login</h3>
+
+    <div class="text-start">
+        <div class="py-2 form-group text-start">
+            <label class="form-label subtitle bold" for="email"> Email </label>
+            <input
+                class="form-control subtitle"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="name@email.com"
+                formControlName="email"
+                required
+            />
+            <app-message
+                *ngIf="
+                    loginForm.get('email')?.errors?.['required'] &&
+                    loginForm.get('email')?.touched"
+                message="Type your e-mail"
+            ></app-message>
+            <app-message
+                *ngIf="
+                            loginForm.get('email')?.errors?.['email'] &&
+                            loginForm.get('email')?.touched"
+                message="Type a valid e-mail"
+            ></app-message>
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="password">
+                Password
+            </label>
+            <input
+                class="form-control subtitle"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="your password"
+                formControlName="password"
+                required
+            />
+            <app-message
+                *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+                message="Type your password"
+            ></app-message>
+        </div>
+
+        <div class="col">
+            <small (click)="forgotPassword()" class="link">
+                I forgot my password
+            </small>
+        </div>
+
+        <div class="pt-2 col">
+            <small (click)="createAccount()" class="link">
+                Create an account
+            </small>
+        </div>
+
+        <div class="pt-4 row title">
+            <button type="submit" class="btn-light rounded w-100">
+                continue
+            </button>
+        </div>
     </div>
-</div>
+</form>

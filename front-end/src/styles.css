@@ -5,17 +5,6 @@
     background-color: #f3f2f6;
 }
 
-.link {
-    color: #8d7bad;
-    cursor: pointer;
-}
-
-.btn-light {
-    border-color: transparent;
-    background-color: #776891;
-    color: white;
-}
-
 .ef-bg {
     background-color: #f3f2f6;
 }
@@ -34,4 +23,23 @@
 
 .bold {
     font-weight: bold;
+}
+
+.link {
+    color: #8d7bad;
+    cursor: pointer;
+}
+
+.btn-light {
+    border-color: transparent;
+    background-color: #776891;
+    color: white;
+}
+
+.invalid-input {
+    border-color: inherit;
+}
+
+.invalid-input {
+    border-color: red;
 }

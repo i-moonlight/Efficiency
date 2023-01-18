@@ -17,9 +17,6 @@ const routes: Routes = [
                 path: "signup",
                 component: SignupComponent,
             },
-            // the object ☝🏻 represents a way to implement lazy component loading
-            // the object 👇🏻 represents a standard way to load a component
-            // { path: "signup", component: SignupComponent },
         ],
     },
 ];
