@@ -30,6 +30,10 @@
     cursor: pointer;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .btn-light {
     border-color: transparent;
     background-color: #776891;

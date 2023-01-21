@@ -21,7 +21,6 @@
         "bootstrap": "^5.2.3",
         "rxjs": "~7.5.0",
         "tslib": "^2.3.0",
-        "uikit": "^3.15.19",
         "zone.js": "~0.12.0"
     },
     "devDependencies": {

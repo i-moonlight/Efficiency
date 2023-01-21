@@ -20,10 +20,9 @@
                 message="Type your e-mail"
             ></app-message>
             <app-message
-                *ngIf="
-                            loginForm.get('email')?.errors?.['email'] &&
-                            loginForm.get('email')?.touched"
                 message="Type a valid e-mail"
+                *ngIf="loginForm.get('email')?.errors?.['email'] &&
+                       loginForm.get('email')?.touched"
             ></app-message>
         </div>
 
@@ -41,8 +40,9 @@
                 required
             />
             <app-message
-                *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
                 message="Type your password"
+                *ngIf="loginForm.get('password')?.errors?.['required'] &&
+                       loginForm.get('password')?.touched"
             ></app-message>
         </div>
 
@@ -53,13 +53,17 @@
         </div>
 
         <div class="pt-2 col">
-            <small (click)="createAccount()" class="link">
+            <small [routerLink]="['signup']" class="link underline">
                 Create an account
             </small>
         </div>
 
         <div class="pt-4 row title">
-            <button type="submit" class="btn-light rounded w-100">
+            <button
+                [disabled]="loginForm.invalid"
+                type="submit"
+                class="btn-light rounded w-100"
+            >
                 continue
             </button>
         </div>
