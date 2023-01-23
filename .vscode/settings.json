@@ -1,3 +1,4 @@
 {
-    "workbench.tree.indent": 16
+    "workbench.tree.indent": 16,
+    "workbench.tree.renderIndentGuides": "none"
 }
