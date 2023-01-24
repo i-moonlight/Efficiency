@@ -3,9 +3,11 @@
 
     <div class="text-start">
         <div class="py-2 form-group text-start">
-            <label class="form-label subtitle bold" for="email"> Email </label>
+            <label class="form-label subtitle bold" for="email">
+                Email <span class="text-danger">*</span>
+            </label>
             <input
-                class="form-control subtitle"
+                class="form-control"
                 type="email"
                 name="email"
                 id="email"
@@ -28,10 +30,10 @@
 
         <div class="py-2 form-group">
             <label class="form-label subtitle bold" for="password">
-                Password
+                Password <span class="text-danger">*</span>
             </label>
             <input
-                class="form-control subtitle"
+                class="form-control"
                 type="password"
                 name="password"
                 id="password"
@@ -47,18 +49,18 @@
         </div>
 
         <div class="col">
-            <small (click)="forgotPassword()" class="link">
+            <small [routerLink]="['/recover-password']" class="underline link">
                 I forgot my password
             </small>
         </div>
 
         <div class="pt-2 col">
-            <small [routerLink]="['signup']" class="link underline">
+            <small [routerLink]="['signup']" class="underline link">
                 Create an account
             </small>
         </div>
 
-        <div class="pt-4 row title">
+        <div class="pt-4 row">
             <button
                 [disabled]="loginForm.invalid"
                 type="submit"

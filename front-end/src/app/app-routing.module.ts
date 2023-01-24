@@ -12,6 +12,7 @@ const routes: Routes = [
         loadChildren: () =>
             import("./Pages/home/home.module").then((m) => m.HomeModule),
     },
+    { path: 'recover-password', loadChildren: () => import('./Pages/recover-password/recover-password.module').then(m => m.RecoverPasswordModule) },
 ];
 
 /**

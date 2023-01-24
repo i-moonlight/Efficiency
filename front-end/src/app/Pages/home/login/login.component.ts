@@ -1,3 +1,4 @@
+import { AppService } from "./../../../Services/app.service";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -12,7 +13,11 @@ export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
     userDTO!: LogUserDTO;
 
-    constructor(private _formBuilder: FormBuilder, private _router: Router) {}
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _router: Router,
+        private _service: AppService
+    ) {}
 
     ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
@@ -31,7 +36,13 @@ export class LoginComponent implements OnInit {
 
             console.table(this.userDTO);
 
-            this._router.navigate(["dashboard"]);
+            this._service.userService.LogIn(this.userDTO).subscribe({
+                next: (data) => {},
+                error: (error) => {},
+                complete: () => {
+                    this._router.navigate(["dashboard"]);
+                },
+            });
         }
     }
 

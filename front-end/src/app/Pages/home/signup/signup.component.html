@@ -1,7 +1,153 @@
-<p>
-    Já tem uma conta?
-    <!--
-      <a [routerLink]="['/home']">Cadastre-se</a>
-    -->
-    <a [routerLink]="['']">Acesse-a</a>
-</p>
+<form [formGroup]="loginForm" (submit)="logIn()" class="form text-center p-5">
+    <h3 class="title bold">Create your account</h3>
+
+    <div class="text-start">
+        <div class="py-2 form-group text-start">
+            <!--
+                CompanyID?: number;
+             -->
+            <label class="form-label subtitle bold" for="firstName">
+                First Name <span class="text-danger">*</span>
+            </label>
+            <app-message
+                *ngIf="
+                    loginForm.get('firstName')?.errors?.['required'] &&
+                    loginForm.get('firstName')?.touched"
+                message=" Type your first name"
+            ></app-message>
+            <input
+                class="form-control"
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="John"
+                formControlName="firstName"
+                required
+            />
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="lastName">
+                Last Name <span class="text-danger">*</span>
+            </label>
+            <app-message
+                *ngIf="
+                    loginForm.get('lastName')?.errors?.['required'] &&
+                    loginForm.get('lastName')?.touched"
+                message=" Type your last name"
+            ></app-message>
+            <input
+                class="form-control"
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Doe"
+                formControlName="lastName"
+                required
+            />
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="phone">
+                Phone Number <span class="text-danger">*</span>
+            </label>
+            <app-message
+                *ngIf="
+                    loginForm.get('phone')?.errors?.['required'] &&
+                    loginForm.get('phone')?.touched"
+                message=" Type your e-mail"
+            ></app-message>
+            <input
+                class="form-control"
+                type="text"
+                name="phone"
+                id="phone"
+                placeholder="(11) 9 0000-0000"
+                formControlName="phone"
+                required
+            />
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="email">
+                E-Mail <span class="text-danger">*</span>
+            </label>
+            <app-message
+                *ngIf="
+                    loginForm.get('email')?.errors?.['required'] &&
+                    loginForm.get('email')?.touched"
+                message=" Type your e-mail"
+            ></app-message>
+            <app-message
+                message=" Type a valid e-mail"
+                *ngIf="loginForm.get('email')?.errors?.['email'] &&
+                   loginForm.get('email')?.touched"
+            ></app-message>
+            <input
+                class="form-control"
+                type="email"
+                name="email"
+                id="email"
+                placeholder="email@email.com"
+                formControlName="email"
+                required
+            />
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="role">
+                Role In The Company <span class="text-danger">*</span>
+            </label>
+            <app-message
+                message=" Type your role"
+                *ngIf="loginForm.get('role')?.errors?.['required'] &&
+                       loginForm.get('role')?.touched"
+            ></app-message>
+            <input
+                class="form-control"
+                type="text"
+                name="role"
+                id="role"
+                placeholder="supervisor"
+                formControlName="role"
+                required
+            />
+        </div>
+
+        <div class="py-2 form-group">
+            <label class="form-label subtitle bold" for="password">
+                Password <span class="text-danger">*</span>
+            </label>
+            <app-message
+                message=" Type your password"
+                *ngIf="loginForm.get('password')?.errors?.['required'] &&
+                       loginForm.get('password')?.touched"
+            ></app-message>
+            <input
+                class="form-control"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="your password"
+                formControlName="password"
+                required
+            />
+        </div>
+
+        <div class="pt-2 col">
+            <small [routerLink]="['']" class="underline link">
+                Log to an existing account
+            </small>
+        </div>
+
+        <div class="pt-4 row title">
+            <button
+                [disabled]="loginForm.invalid"
+                type="submit"
+                class="btn-light rounded w-100"
+            >
+                continue
+            </button>
+        </div>
+    </div>
+</form>
