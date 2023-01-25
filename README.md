@@ -147,7 +147,7 @@ Or access it via other tool of your liking such as:
   GET /user
 ```
 
-| Parâmetro   | Tipo       | Descrição                           |
+| Parameter   | Type       | Description                           |
 | :---------- | :--------- | :---------------------------------- |
 | `` | `` | It recieves no arguments (for now) |
 
@@ -157,7 +157,7 @@ Or access it via other tool of your liking such as:
   GET /user/${id}
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parameter   | Type       | Description                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `int` | **Mandatory**. The user's identification key |
 
@@ -167,7 +167,7 @@ Or access it via other tool of your liking such as:
   POST /login
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parameter   | Type       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `request`      | `LoginRequest` | **Mandatory**. User's login request object (for now) from the body of the request containing the user's e-mail and password |
 
@@ -177,7 +177,7 @@ Or access it via other tool of your liking such as:
   POST /signup
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parameter   | Type       | Description                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `userDTO`      | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the company's id reference |
 
@@ -187,7 +187,7 @@ Or access it via other tool of your liking such as:
   PUT /user
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parameter   | Type       | Description                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `userDTO`      | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's id, e-mail, password, first and last names, role, phone number and the company's id reference |
 
@@ -197,6 +197,6 @@ Or access it via other tool of your liking such as:
   PUT /user/${id}
 ```
 
-| Parâmetro   | Tipo       | Descrição                                   |
+| Parameter   | Type       | Description                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `int` | **Mandatory**. User's identification key |
