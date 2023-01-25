@@ -1,12 +1,24 @@
 import { Injectable } from "@angular/core";
 
+const KEY: string = "token";
+
 @Injectable({
     providedIn: "root",
 })
 export class TokenService {
-    saveToken(jwttoken: string) {
-        throw new Error("Method not implemented.");
+    hasToken() {
+        return !!this.returnToken();
     }
 
-    constructor() {}
+    returnToken() {
+        return localStorage.getItem(KEY) ?? "";
+    }
+
+    saveToken(token: string) {
+        localStorage.setItem(KEY, token);
+    }
+
+    deleteToken() {
+        localStorage.removeItem(KEY);
+    }
 }

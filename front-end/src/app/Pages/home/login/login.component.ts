@@ -1,4 +1,4 @@
-import { AppService } from "./../../../Services/app.service";
+import { UserController } from "./../../../Controllers/User/user.controller";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _service: AppService
+        private _userController: UserController
     ) {}
 
     ngOnInit(): void {
@@ -36,11 +36,13 @@ export class LoginComponent implements OnInit {
 
             console.table(this.userDTO);
 
-            this._service.userService.LogIn(this.userDTO).subscribe({
+            this._userController.LogIn(this.userDTO).subscribe({
                 next: (data) => {},
-                error: (error) => {},
+                error: (error) => {
+                    console.error(error);
+                },
                 complete: () => {
-                    this._router.navigate(["dashboard"]);
+                    this._router.navigate(["/dashboard"]);
                 },
             });
         }

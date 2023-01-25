@@ -47,6 +47,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+string CORSPolicy = "AllowEverything";
+
 var connectionString = builder.Configuration.GetConnectionString("EfficiencyConnection");
 
 builder.Services.AddDbContext<AppDbContext>
@@ -58,6 +60,15 @@ builder.Services.AddDbContext<AppDbContext>
         ServerVersion.AutoDetect(connectionString)
     )
 );
+
+builder.Services.AddCors( options => 
+{
+    options.AddPolicy(CORSPolicy, builder => builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+    );
+});
 
 builder.Services.AddDefaultIdentity<User>
 (
