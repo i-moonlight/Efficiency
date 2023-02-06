@@ -47,7 +47,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string CORSPolicy = "AllowEverything";
+// string CORSPolicy = "AllowEverything";
 
 var connectionString = builder.Configuration.GetConnectionString("EfficiencyConnection");
 
@@ -61,14 +61,14 @@ builder.Services.AddDbContext<AppDbContext>
     )
 );
 
-builder.Services.AddCors( options => 
-{
-    options.AddPolicy(CORSPolicy, builder => builder
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin()
-    );
-});
+// builder.Services.AddCors( options => 
+// {
+//     options.AddPolicy(CORSPolicy, builder => builder
+//         .AllowAnyHeader()
+//         .AllowAnyMethod()
+//         .AllowAnyOrigin()
+//     );
+// });
 
 builder.Services.AddDefaultIdentity<User>
 (
@@ -103,6 +103,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors( 
+    builder => 
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    }
+);
 
 app.UseAuthorization();
 

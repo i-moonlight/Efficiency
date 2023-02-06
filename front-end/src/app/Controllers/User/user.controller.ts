@@ -21,7 +21,7 @@ export class UserController {
 
     LogIn(userDTO: LogUserDTO) {
         return this._http
-            .post(`${API}/login`, this.fillLOGFormData(userDTO), {
+            .post(`${API}/login`, userDTO, {
                 observe: "response",
             })
             .pipe(
@@ -41,64 +41,11 @@ export class UserController {
         return this._http.delete<User>(`${URL}/${id}`);
     }
 
-    Post(UserDTO: PostUserDTO) {
-        return this._http.post(`${URL}`, this.fillPOSTFormData(UserDTO));
+    Post(userDTO: PostUserDTO) {
+        return this._http.post(`${URL}`, userDTO);
     }
 
-    Put(UserDTO: PutUserDTO) {
-        return this._http.put(`${URL}`, this.fillPUTFormData(UserDTO));
-    }
-
-    private fillPOSTFormData(UserDTO: PostUserDTO): FormData {
-        let result: FormData = new FormData();
-
-        result.append("Password", UserDTO.Password);
-        result.append("FirstName", UserDTO.FirstName);
-        result.append("LastName", UserDTO.LastName);
-        result.append("Phone", UserDTO.Phone);
-        result.append("Email", UserDTO.Email);
-        result.append("Role", UserDTO.Role);
-
-        if (UserDTO.CompanyID != null) {
-            result.append("CompanyID", UserDTO.CompanyID.toString());
-        }
-
-        return result;
-    }
-
-    private fillLOGFormData(UserDTO: LogUserDTO): FormData {
-        let result: FormData = new FormData();
-
-        result.append("Password", UserDTO.Password);
-        result.append("Email", UserDTO.Email);
-
-        return result;
-    }
-
-    private fillPUTFormData(UserDTO: PutUserDTO): FormData {
-        let result: FormData = new FormData();
-
-        result.append("ID", UserDTO.ID.toString());
-        result.append("Password", UserDTO.Password);
-        if (UserDTO.CompanyID != null) {
-            result.append("CompanyID", UserDTO.CompanyID.toString());
-        }
-        if (UserDTO.Email != null) {
-            result.append("Email", UserDTO.Email);
-        }
-        if (UserDTO.Phone != null) {
-            result.append("Phone", UserDTO.Phone);
-        }
-        if (UserDTO.Role != null) {
-            result.append("Phone", UserDTO.Role);
-        }
-        if (UserDTO.LastName != null) {
-            result.append("Phone", UserDTO.LastName);
-        }
-        if (UserDTO.FirstName != null) {
-            result.append("Phone", UserDTO.FirstName);
-        }
-
-        return result;
+    Put(userDTO: PutUserDTO) {
+        return this._http.put(`${URL}`, userDTO);
     }
 }

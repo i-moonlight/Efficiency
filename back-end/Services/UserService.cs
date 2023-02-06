@@ -65,11 +65,17 @@ public class UserService
         User? user = _userManager.Users.FirstOrDefault((user) => 
                 request.Email != null && user.NormalizedEmail.Equals(request.Email.ToUpper()));
         if(user != null){
+            System.Console.WriteLine("User found");
             var signInResult = _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
             if (signInResult.Result.Succeeded){
+                System.Console.WriteLine("Correct user credentials provided");
                 result = _tokenService.Generate(user);
+            } else {
+                System.Console.WriteLine("Incorrect user credentials provided");
             }
+        } else {
+            System.Console.WriteLine("User e-mail not registered");
         }
 
         return result;

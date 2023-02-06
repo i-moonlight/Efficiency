@@ -67,6 +67,7 @@ public class UserController : ControllerBase
     [HttpPost("/login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
+        System.Console.WriteLine(request.ToString());
         IActionResult result = Unauthorized("User credentials are incorrect or account not confirmed.");
 
         Token? createdUserToken = _service.Login(request);
