@@ -170,3 +170,6 @@ C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\obj\Debug\net6.0\re
 C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\obj\Debug\net6.0\back-end.pdb
 C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\obj\Debug\net6.0\back-end.genruntimeconfig.cache
 C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\obj\Debug\net6.0\ref\back-end.dll
+C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\MARCELO FERRAZ\Downloads\Source\Efficiency\back-end\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

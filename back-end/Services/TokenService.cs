@@ -8,6 +8,13 @@ namespace Efficiency.Services;
 
 public class TokenService
 {
+    private readonly IConfiguration _configuration;
+
+    public TokenService(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public Token? Generate(User user)
     {
         Claim[] userRights = new Claim[] {
@@ -17,7 +24,7 @@ public class TokenService
 
         var symmetricKey = new SymmetricSecurityKey(
             // Encrypted on https://www.online-toolz.com/tools/text-encryption-decryption.php
-            Encoding.UTF8.GetBytes("xQgxoPGT6QeUHMOfgxQ9Nahvtlb6mKoGWP5toirbgUc=")
+            Encoding.UTF8.GetBytes(this._configuration["Jwt:SecretKey"])
         );
 
         var credentials = new SigningCredentials(

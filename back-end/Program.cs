@@ -10,6 +10,7 @@
         - Microsoft.AspNetCore.Mvc.NewtonsoftJson 
         - ☝🏻 <IN CASE IT'S NECESSARY TO USE HTTP PATCH INSTEAD OF PUT>
         - Microsoft.AspNetCore.Identity.EntityFrameworkCore
+        - Microsoft.AspNetCore.Authentication.JwtBearer
         - Microsoft.AspNetCore.Identity.Stores
         - Microsoft.AspNetCore.Identity.UI
         - System.IdentityModel.Tokens.Jwt
@@ -25,6 +26,7 @@
         - dotnet add package Microsoft.EntityFrameworkCore.Tools -v 6.0.7
         - dotnet add package Pomelo.EntityFrameworkCore.MySql -v 6.0.2
         - dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore -v 6.0.7
+        - dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer -v 6.0.0
         - dotnet add package Microsoft.AspNetCore.Identity.Stores -v 6.0.7
         - dotnet add package Microsoft.AspNetCore.Identity.UI -v 6.0.7
         - dotnet add package System.IdentityModel.Tokens.Jwt --version 6.25.1
@@ -42,7 +44,6 @@
 
 using Efficiency.Models;
 using Efficiency.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,7 +52,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // string CORSPolicy = "AllowEverything";
 
-var connectionString = builder.Configuration.GetConnectionString("EfficiencyConnection");
+var connectionString = builder.Configuration["ConnectionStrings:EfficiencyConnection"];
 
 builder.Services.AddDbContext<AppDbContext>
 (
