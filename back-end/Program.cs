@@ -36,6 +36,8 @@
         - dotnet tool install --global dotnet-ef -v 7.0.0
         - dotnet ef migrations add <NomeDaMigration>
         - dotnet ef database update
+
+        USER SECRETS: https://learn.microsoft.com/pt-br/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#register-the-user-secrets-configuration-source
 */
 
 using Efficiency.Models;

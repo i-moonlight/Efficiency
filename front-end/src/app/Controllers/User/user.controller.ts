@@ -24,13 +24,17 @@ export class UserController {
             .post(`${API}/login`, userDTO, {
                 observe: "response",
             })
-            .pipe(
-                tap((response) => {
-                    const jwttoken =
-                        response.headers.get("x-access-token") ?? "";
-                    this._service.saveToken(jwttoken);
-                })
-            );
+            .subscribe((res) => {
+                const token = (<any>res).token;
+                this._service.saveToken(token);
+            });
+        // .pipe(
+        //     tap((response) => {
+        //         const jwttoken =
+        //             response.headers.get("x-access-token") ?? "";
+        //         this._service.saveToken(jwttoken);
+        //     })
+        // );
     }
 
     GetAll(skip: number = 0, take: number = 50): Observable<Users> {

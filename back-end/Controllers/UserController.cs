@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     [HttpGet]
     public IActionResult GetAll(
         [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int take=500)
     {
         IActionResult result = NotFound();
 
@@ -67,14 +67,28 @@ public class UserController : ControllerBase
     [HttpPost("/login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        System.Console.WriteLine(request.ToString());
         IActionResult result = Unauthorized("User credentials are incorrect or account not confirmed.");
 
-        Token? createdUserToken = _service.Login(request);
+        Token? loggedUserToken = _service.Login(request);
 
-        if (createdUserToken != null)
+        if (loggedUserToken != null)
         {
-            result = Ok(createdUserToken);
+            result = Ok(loggedUserToken);
+        }
+
+        return result;
+    }
+
+    [HttpPost("/logout")]
+    public IActionResult Logout()
+    {
+        IActionResult result = Unauthorized();
+
+        bool logoutResult = _service.Logout();
+
+        if (logoutResult)
+        {
+            result = Ok("User logged out successfully");
         }
 
         return result;
