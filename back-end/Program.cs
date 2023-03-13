@@ -42,15 +42,38 @@
         USER SECRETS: https://learn.microsoft.com/pt-br/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#register-the-user-secrets-configuration-source
 */
 
+using System.Text;
 using Efficiency.Models;
 using Efficiency.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // string CORSPolicy = "AllowEverything";
+
+builder.Services.AddAuthentication(
+    opts => {
+        opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }
+).AddJwtBearer(
+    opts => {
+        opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters 
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "https://localhost:7280",
+            ValidAudience = "https://localhost:7280",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+        };
+    }
+);
 
 var connectionString = builder.Configuration["ConnectionStrings:EfficiencyConnection"];
 
@@ -111,11 +134,12 @@ app.UseCors(
     builder => 
     {
         builder.AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader();
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     }
 );
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,6 +1,7 @@
+import { Token } from "./../../Models/Token";
 import { Injectable } from "@angular/core";
 import { UserService } from "../../Services/User/user.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
 import { LogUserDTO, PostUserDTO, PutUserDTO } from "src/app/Data/DTO/UserDTO";
 import { User, Users } from "src/app/Models/User";
@@ -21,20 +22,20 @@ export class UserController {
 
     LogIn(userDTO: LogUserDTO) {
         return this._http
-            .post(`${API}/login`, userDTO, {
+            .post<Token>(`${API}/login`, userDTO, {
                 observe: "response",
+                headers: new HttpHeaders({
+                    "Content-Type": "application/json",
+                }),
             })
-            .subscribe((res) => {
-                const token = (<any>res).token;
-                this._service.saveToken(token);
-            });
-        // .pipe(
-        //     tap((response) => {
-        //         const jwttoken =
-        //             response.headers.get("x-access-token") ?? "";
-        //         this._service.saveToken(jwttoken);
-        //     })
-        // );
+            .pipe(
+                tap((response) => {
+                    const token = response.body?.Value;
+                    if (token !== undefined) {
+                        this._service.saveToken(token);
+                    }
+                })
+            );
     }
 
     GetAll(skip: number = 0, take: number = 50): Observable<Users> {

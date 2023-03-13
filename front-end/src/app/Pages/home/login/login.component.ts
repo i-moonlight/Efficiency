@@ -37,7 +37,10 @@ export class LoginComponent implements OnInit {
             console.table(this.userDTO);
 
             this._userController.LogIn(this.userDTO).subscribe({
-                next: (data) => {},
+                next: (data) => {
+                    console.log(data);
+                    const token = data.body?.Value;
+                },
                 error: (error) => {
                     console.error(error);
                 },
