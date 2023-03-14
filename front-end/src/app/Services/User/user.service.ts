@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ReplaySubject, Subject } from "rxjs";
+import { BehaviorSubject, ReplaySubject, Subject } from "rxjs";
 import { User } from "src/app/Models/User";
 import { TokenService } from "../Token/token.service";
 
@@ -9,8 +9,7 @@ import jwt_decode from "jwt-decode";
     providedIn: "root",
 })
 export class UserService {
-    private userSubject: Subject<User | null> =
-        new ReplaySubject<User | null>();
+    private userSubject = new BehaviorSubject<User>({});
 
     constructor(private _tokenService: TokenService) {
         if (this._tokenService.hasToken()) {
@@ -36,7 +35,7 @@ export class UserService {
 
     logOut() {
         this._tokenService.deleteToken();
-        this.userSubject.next(null);
+        this.userSubject.next({});
     }
 
     isUserLoggedIn() {

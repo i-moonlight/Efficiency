@@ -12,7 +12,20 @@ const routes: Routes = [
         loadChildren: () =>
             import("./Pages/home/home.module").then((m) => m.HomeModule),
     },
-    { path: 'recover-password', loadChildren: () => import('./Pages/recover-password/recover-password.module').then(m => m.RecoverPasswordModule) },
+    {
+        path: "recover-password",
+        loadChildren: () =>
+            import("./Pages/recover-password/recover-password.module").then(
+                (m) => m.RecoverPasswordModule
+            ),
+    },
+    {
+        path: "dashboard",
+        loadChildren: () =>
+            import("./Pages/dashboard/dashboard.module").then(
+                (m) => m.DashboardModule
+            ),
+    },
 ];
 
 /**

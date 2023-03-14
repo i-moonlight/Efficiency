@@ -70,6 +70,7 @@ builder.Services.AddAuthentication(
             ValidateIssuerSigningKey = true,
             ValidIssuer = "https://localhost:7280",
             ValidAudience = "https://localhost:7280",
+            // Loading secret from user secret "\AppData\Roaming\Microsoft\UserSecrets\af2e3685-21fa-47cc-977c-e304c4ab7998"
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
         };
     }
