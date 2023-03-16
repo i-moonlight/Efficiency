@@ -1,14 +1,32 @@
-<header class="row">
-    <div class="col">
-        <h1 class="title">Efficiency</h1>
-    </div>
-    <div class="col" *ngIf="user$ | async as User">
-        <div *ngIf="userAuthenticated; else userNotAuthenticated">
-            <a href="logout()">Log Out</a>
+<header class="sticky-top">
+    <nav class="navbar navbar-light">
+        <a
+            [routerLink]="['dashboard']"
+            id="brand-navbar"
+            class="title h1 ps-3 navbar-brand"
+        >
+            Efficiency
+        </a>
+
+        <div *ngIf="user$ | async as user">
+            <div *ngIf="isUserAuthenticated(); else userNotAuthenticated">
+                <i class="fa fa-user-circle mr-1"></i>
+                <a id="username-navbar">{{ user.FirstName }}</a>
+                <a id="logout-navbar" (click)="logOut()">Log Out</a>
+            </div>
         </div>
+
         <ng-template #userNotAuthenticated>
-            <a (click)="login()">Log In</a>
-            <a (click)="signup()">Sign Up</a>
+            <a id="login-navbar" class="navbar-text" [routerLink]="['home']">
+                <span>Log In</span>
+            </a>
+            <a
+                id="login-navbar"
+                class="mx-3 navbar-text"
+                [routerLink]="['home/signup']"
+            >
+                <span>Sign Up</span>
+            </a>
         </ng-template>
-    </div>
+    </nav>
 </header>

@@ -3,11 +3,16 @@ import { Injectable } from "@angular/core";
 import { UserService } from "../../Services/User/user.service";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, tap } from "rxjs";
-import { LogUserDTO, PostUserDTO, PutUserDTO } from "src/app/Data/DTO/UserDTO";
+import {
+    GetUserDTO,
+    LogUserDTO,
+    PostUserDTO,
+    PutUserDTO,
+} from "src/app/Data/DTO/UserDTO";
 import { User, Users } from "src/app/Models/User";
-import { environment } from "src/environments/environment";
+import { environment_dev } from "src/environments/environment.dev";
 
-const API: string = environment.backendAPIUrl;
+const API: string = environment_dev.backendAPIUrl;
 const URL: string = `${API}/user`;
 
 @Injectable({
@@ -16,8 +21,12 @@ const URL: string = `${API}/user`;
 export class UserController {
     constructor(private _http: HttpClient, private _service: UserService) {}
 
-    Get(id: number): Observable<User> {
-        return this._http.get<User>(`${URL}/${id}`);
+    GetLoggedUser() {
+        return this._service.returnUser();
+    }
+
+    logOut() {
+        this._service.logOut();
     }
 
     LogIn(userDTO: LogUserDTO) {
@@ -31,11 +40,16 @@ export class UserController {
             .pipe(
                 tap((response) => {
                     const token = response.body?.Value;
-                    if (token !== undefined) {
+                    if (token != undefined) {
                         this._service.saveToken(token);
+                        console.log(token);
                     }
                 })
             );
+    }
+
+    Get(id: number): Observable<User> {
+        return this._http.get<User>(`${URL}/${id}`);
     }
 
     GetAll(skip: number = 0, take: number = 50): Observable<Users> {

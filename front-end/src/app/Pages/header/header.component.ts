@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { Component } from "@angular/core";
 import { User } from "src/app/Models/User";
 import { UserService } from "src/app/Services/User/user.service";
+import { UserController } from "src/app/Controllers/User/user.controller";
 
 @Component({
     selector: "app-header",
@@ -10,23 +11,30 @@ import { UserService } from "src/app/Services/User/user.service";
     styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent {
-    userAuthenticated: boolean;
+    userAuthenticated: boolean = false;
     user$: Observable<User>;
 
-    constructor(private _userService: UserService, private _router: Router) {
-        this.userAuthenticated = this._userService.isUserLoggedIn();
-        this.user$ = this._userService.returnUser();
+    constructor(
+        private _userController: UserController,
+        private _router: Router
+    ) {
+        this.user$ = this._userController.GetLoggedUser();
     }
 
-    logout() {
-        this._userService.logOut();
+    isUserAuthenticated() {
+        this.user$.subscribe({
+            next: (user) => {
+                this.userAuthenticated = user.FirstName?.length != undefined;
+            },
+        });
+
+        return this.userAuthenticated;
     }
 
-    login() {
-        this._router.navigate([""]);
-    }
-
-    signup() {
-        this._router.navigate(["home/signup"]);
+    logOut() {
+        this._userController.logOut();
+        this.user$ = this._userController.GetLoggedUser();
+        this.userAuthenticated = false;
+        this._router.navigate(["home"]);
     }
 }

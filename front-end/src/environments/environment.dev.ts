@@ -2,9 +2,9 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment_dev = {
     production: false,
-    backendAPIUrl: "https://localhost:7280",
+    backendAPIUrl: "http://localhost:5280",
 };
 
 /*

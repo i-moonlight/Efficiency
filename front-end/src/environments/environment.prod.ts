@@ -1,4 +1,6 @@
+import { environment_dev } from "./environment.dev";
+
 export const environment = {
     production: true,
-    backendAPIUrl: "https://localhost:7280",
+    backendAPIUrl: environment_dev.backendAPIUrl,
 };

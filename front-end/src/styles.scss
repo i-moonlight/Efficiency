@@ -26,6 +26,7 @@
 }
 
 .link {
+    text-decoration: none;
     color: #8d7bad;
     cursor: pointer;
 }
@@ -46,7 +47,4 @@
 
 .invalid-input {
     border-color: red;
-}
-
-a {
 }
