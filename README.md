@@ -2,27 +2,27 @@
 
 This is a personal project that aims to develop a multiplatform webapp to serve as a dashboard, where a retail store's manager or supervisor can watch over his sellers' performance.
 
-This project is currently in development using Angular 15, ASP.NET CORE 6 and MySQL.
+This project is currently in development using Angular 14, ASP.NET CORE 6 and MySQL.
 
-| :placard: Vitrine.Dev |     |
-| -------------  | --- |
-| :sparkles: Nome        | **Efficiency**
-| :label: Front-End | Angular 15, Typescript, Bootstrap, CSS
-| :label: Back-End | ASP.NET Core 6, C#, MySQL
-| :rocket: API         | https://localhost:7280 **follow instructions bellow**
-| :rocket: Front-End         | http://localhost:4200 **follow instructions bellow**
+| :placard: Vitrine.Dev |                                                      |
+| --------------------- | ---------------------------------------------------- |
+| :sparkles: Nome       | **Efficiency**                                       |
+| :label: Front-End     | Angular 14, Typescript, Bootstrap, CSS               |
+| :label: Back-End      | ASP.NET Core 6, C#, MySQL                            |
+| :rocket: API          | http://localhost:5280 **follow instructions bellow** |
+| :rocket: Front-End    | http://localhost:4200 **follow instructions bellow** |
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
-## Screenshots
-![](https://i.imgur.com/Bz9CX86.png#vitrinedev)
 
+## Screenshots
+
+![](https://i.imgur.com/Bz9CX86.png#vitrinedev)
 
 ## Original Design
 
 The original design of this tool was made using [Figma](https://www.figma.com/) to wireframe everything and the font combination was made with [FontJoy](https://fontjoy.com/)
 
 Take a look at the design project [Here](https://www.figma.com/file/eJeiDWUWPk2pyjQLgjrANP/Efficiency?t=49xESy1iYdPTynAV-0)
-
 
 ## Installing prerequisites
 
@@ -129,27 +129,27 @@ Start the API server
 Access the API through Swagger
 
 ```bash
-  https://localhost:7280/swagger/index.html
+  http://localhost:5280/swagger/index.html
 ```
 
 Or access it via other tool of your liking such as:
 
-- [Postman](https://www.postman.com/downloads/)
-- [Insomnia](https://insomnia.rest/download)
-
+-   [Postman](https://www.postman.com/downloads/)
+-   [Insomnia](https://insomnia.rest/download)
 
 ## API Documentation
 
 ### User
+
 ##### Get All
 
 ```http
   GET /user
 ```
 
-| Parameter   | Type       | Description                           |
-| :---------- | :--------- | :---------------------------------- |
-| `` | `` | It recieves no arguments (for now) |
+| Parameter | Type | Description                        |
+| :-------- | :--- | :--------------------------------- |
+| ``        | ``   | It recieves no arguments (for now) |
 
 ##### Get one user
 
@@ -157,8 +157,8 @@ Or access it via other tool of your liking such as:
   GET /user/${id}
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
+| Parameter | Type  | Description                                  |
+| :-------- | :---- | :------------------------------------------- |
 | `id`      | `int` | **Mandatory**. The user's identification key |
 
 ##### Sign user in
@@ -167,9 +167,9 @@ Or access it via other tool of your liking such as:
   POST /login
 ```
 
-| Parameter   | Type       | Descrição                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `request`      | `LoginRequest` | **Mandatory**. User's login request object (for now) from the body of the request containing the user's e-mail and password |
+| Parameter | Type           | Descrição                                                                                                                   |
+| :-------- | :------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| `request` | `LoginRequest` | **Mandatory**. User's login request object (for now) from the body of the request containing the user's e-mail and password |
 
 ##### Sign user up
 
@@ -177,9 +177,9 @@ Or access it via other tool of your liking such as:
   POST /signup
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `userDTO`      | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the company's id reference |
+| Parameter | Type          | Description                                                                                                                                                                                                      |
+| :-------- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `userDTO` | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the company's id reference |
 
 ##### Update user information
 
@@ -187,9 +187,9 @@ Or access it via other tool of your liking such as:
   PUT /user
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
-| `userDTO`      | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's id, e-mail, password, first and last names, role, phone number and the company's id reference |
+| Parameter | Type         | Description                                                                                                                                                                                     |
+| :-------- | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `userDTO` | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's id, e-mail, password, first and last names, role, phone number and the company's id reference |
 
 ##### Delete user
 
@@ -197,6 +197,6 @@ Or access it via other tool of your liking such as:
   PUT /user/${id}
 ```
 
-| Parameter   | Type       | Description                                   |
-| :---------- | :--------- | :------------------------------------------ |
+| Parameter | Type  | Description                              |
+| :-------- | :---- | :--------------------------------------- |
 | `id`      | `int` | **Mandatory**. User's identification key |
