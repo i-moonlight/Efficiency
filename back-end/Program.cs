@@ -88,14 +88,14 @@ builder.Services.AddDbContext<AppDbContext>
     )
 );
 
-// builder.Services.AddCors( options => 
-// {
-//     options.AddPolicy(CORSPolicy, builder => builder
-//         .AllowAnyHeader()
-//         .AllowAnyMethod()
-//         .AllowAnyOrigin()
-//     );
-// });
+builder.Services.AddCors( options => 
+{
+    options.AddPolicy("AllowAnyRequest", builder => builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin()
+    );
+});
 
 builder.Services.AddDefaultIdentity<User>
 (
@@ -129,7 +129,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseCors( 
     builder => 
