@@ -10,7 +10,7 @@ public class FinancialResult
 
     public DateTime Date { get; set; }
 
-    public decimal ProductSalesResult { get; set; }
+    public decimal SalesResult { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<Employee>? Employees { get; set; }
