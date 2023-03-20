@@ -1,7 +1,7 @@
-export interface EmployeeFinancialResult {
+export interface SellerResult {
     ID: number;
-    EmployeeID: number;
-    FinancialResultID: number;
+    SellerID: number;
+    ResultID: number;
 }
 
-export type EmployeesFinancialResults = Array<EmployeeFinancialResult>;
+export type SellersResults = Array<SellerResult>;

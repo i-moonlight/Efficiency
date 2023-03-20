@@ -1,18 +1,12 @@
-import {
-    PostFinancialResultDTO,
-    PutFinancialResultDTO,
-} from "./../../Data/DTO/FinancialResultDTO";
-import {
-    FinancialResult,
-    FinancialResults,
-} from "src/app/Models/FinancialResult";
+import { PostResultDTO, PutResultDTO } from "./../../Data/DTO/ResultDTO";
+import { Result, Results } from "src/app/Models/Result";
 import { IService } from "./IService";
 import { Observable } from "rxjs";
 
-export interface IEmployeeService extends IService {
-    Get(id: number): Observable<FinancialResult>;
-    GetAll(skip: number, take: number): Observable<FinancialResults>;
-    Delete(id: number): Observable<FinancialResult>;
-    Post(fResultDTO: PostFinancialResultDTO): Observable<FinancialResult>;
-    Put(fResultDTO: PutFinancialResultDTO): Observable<FinancialResult>;
+export interface ISellerService extends IService {
+    Get(ID: number): Observable<Result>;
+    GetAll(skip: number, take: number): Observable<Results>;
+    Delete(ID: number): Observable<Result>;
+    Post(fResultDTO: PostResultDTO): Observable<Result>;
+    Put(fResultDTO: PutResultDTO): Observable<Result>;
 }

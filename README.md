@@ -154,12 +154,12 @@ Or access it via other tool of your liking such as:
 ##### Get one user
 
 ```http
-  GET /user/${id}
+  GET /user/${ID}
 ```
 
 | Parameter | Type  | Description                                  |
 | :-------- | :---- | :------------------------------------------- |
-| `id`      | `int` | **Mandatory**. The user's identification key |
+| `ID`      | `int` | **Mandatory**. The user's identification key |
 
 ##### Sign user in
 
@@ -177,9 +177,9 @@ Or access it via other tool of your liking such as:
   POST /signup
 ```
 
-| Parameter | Type          | Description                                                                                                                                                                                                      |
-| :-------- | :------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `userDTO` | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the company's id reference |
+| Parameter | Type          | Description                                                                                                                                                                                                    |
+| :-------- | :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `userDTO` | `PostUserDTO` | **Mandatory**. User's POST data transfer object (for now) from the body of the request containing the user's e-mail, password, first and last names, username, role, phone number and the Store's ID reference |
 
 ##### Update user information
 
@@ -187,16 +187,16 @@ Or access it via other tool of your liking such as:
   PUT /user
 ```
 
-| Parameter | Type         | Description                                                                                                                                                                                     |
-| :-------- | :----------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `userDTO` | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's id, e-mail, password, first and last names, role, phone number and the company's id reference |
+| Parameter | Type         | Description                                                                                                                                                                                   |
+| :-------- | :----------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `userDTO` | `PutUserDTO` | **Mandatory**. User's PUT data transfer object from the body of the request containing the user's ID, e-mail, password, first and last names, role, phone number and the Store's ID reference |
 
 ##### Delete user
 
 ```http
-  PUT /user/${id}
+  PUT /user/${ID}
 ```
 
 | Parameter | Type  | Description                              |
 | :-------- | :---- | :--------------------------------------- |
-| `id`      | `int` | **Mandatory**. User's identification key |
+| `ID`      | `int` | **Mandatory**. User's identification key |

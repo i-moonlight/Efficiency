@@ -1,9 +1,9 @@
-export interface Employee {
+export interface Seller {
     RegistrationNumber: number;
     Name: string;
     Phone: string;
     Email: string;
-    CompanyID: number;
+    StoreID: number;
 }
 
-export type Employees = Array<Employee>;
+export type Sellers = Array<Seller>;

@@ -5,7 +5,7 @@ export interface PostUserDTO {
     Phone: string;
     Email: string;
     Role: string;
-    CompanyID?: number;
+    StoreID?: number;
 }
 
 export interface PutUserDTO {
@@ -16,7 +16,7 @@ export interface PutUserDTO {
     Phone?: string;
     Email?: string;
     Role?: string;
-    CompanyID?: number;
+    StoreID?: number;
 }
 
 export interface LogUserDTO {
@@ -31,5 +31,5 @@ export interface GetUserDTO {
     Phone?: string;
     Email?: string;
     Role?: string;
-    CompanyID?: number;
+    StoreID?: number;
 }

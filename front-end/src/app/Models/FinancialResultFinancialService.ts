@@ -1,9 +1,8 @@
-export interface FinancialResultFinancialService {
+export interface ResultService {
     ID: number;
     Result: number;
-    FinancialResultID: number;
-    FinancialServiceID: number;
+    ResultID: number;
+    ServiceID: number;
 }
 
-export type FinancialResultsFinanialServices =
-    Array<FinancialResultFinancialService>;
+export type ResultsFinanialServices = Array<ResultService>;

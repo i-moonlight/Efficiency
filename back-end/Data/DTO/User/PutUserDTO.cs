@@ -4,10 +4,10 @@ namespace Efficiency.Data.DTO.User;
 
 public class PutUserDTO
 {
-    [Required(ErrorMessage = "User's id is required")]
-    public int Id { get; set; }
+    [Required(ErrorMessage = "User ID is required")]
+    public int ID { get; set; }
 
-    [Required(ErrorMessage = "User's password is required")]
+    [Required(ErrorMessage = "User password is required")]
     public string? Password { get; set; }
 
     public string? FirstName { get; set; }
@@ -20,5 +20,5 @@ public class PutUserDTO
     
     public string? Role { get; set; }
     
-    public int? CompanyID { get; set; }
+    public int? StoreID { get; set; }
 }

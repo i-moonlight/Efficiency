@@ -1,8 +1,8 @@
-export interface PostCompanyDTO {
+export interface PostStoreDTO {
     Name: string;
 }
 
-export interface PutCompanyDTO {
+export interface PutStoreDTO {
     ID: number;
     Name: string;
 }

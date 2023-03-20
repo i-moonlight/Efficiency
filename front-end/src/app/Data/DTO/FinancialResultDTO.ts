@@ -1,9 +1,9 @@
-export interface PostFinancialResultDTO {
+export interface PostResultDTO {
     Date: Date;
     ProductSalesResult: number;
 }
 
-export interface PutFinancialResultDTO {
+export interface PutResultDTO {
     ID: number;
     Date: Date;
     ProductSalesResult: number;

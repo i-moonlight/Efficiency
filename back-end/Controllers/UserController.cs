@@ -34,12 +34,12 @@ public class UserController : ControllerBase
         return result;
     }
 
-    [HttpGet("{id}")]
-    public IActionResult Get(int id)
+    [HttpGet("{ID}")]
+    public IActionResult Get(int ID)
     {
         IActionResult result = NotFound();
 
-        GetUserDTO? user = _service.Get(id);
+        GetUserDTO? user = _service.Get(ID);
         
         if (user != null)
         {
@@ -52,13 +52,13 @@ public class UserController : ControllerBase
     [HttpPost("/signup")]
     public IActionResult SignUp([FromBody] PostUserDTO userDTO)
     {
-        IActionResult result = StatusCode(500);
+        IActionResult result = Unauthorized("The provided e-mail is already registered");
 
         GetUserDTO? createdUser = _service.SignUp(userDTO);
 
         if (createdUser != null)
         {
-            result = CreatedAtAction(nameof(Get), new { id = createdUser.Id }, createdUser);
+            result = CreatedAtAction(nameof(Get), new { ID = createdUser.ID }, createdUser);
         }
 
         return result;
@@ -109,12 +109,12 @@ public class UserController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    [HttpDelete("{ID}")]
+    public IActionResult Delete(int ID)
     {
         IActionResult result = NotFound();
 
-        bool deleteSuccess = _service.Delete(id);
+        bool deleteSuccess = _service.Delete(ID);
 
         if (deleteSuccess)
         {

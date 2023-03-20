@@ -68,8 +68,8 @@ builder.Services.AddAuthentication(
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://localhost:7280",
-            ValidAudience = "https://localhost:7280",
+            ValidIssuer = "http://localhost:5280",
+            ValidAudience = "http://localhost:5280",
             // Loading secret from user secret "\AppData\Roaming\Microsoft\UserSecrets\af2e3685-21fa-47cc-977c-e304c4ab7998"
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
         };
@@ -108,13 +108,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<TokenService, TokenService>();
-builder.Services.AddScoped<CompanyService, CompanyService>();
-builder.Services.AddScoped<EmployeeService, EmployeeService>();
-builder.Services.AddScoped<FinancialResultService, FinancialResultService>();
-builder.Services.AddScoped<FinancialServiceService, FinancialServiceService>();
-builder.Services.AddScoped<EmployeeFinancialResultService, EmployeeFinancialResultService>();
-builder.Services.AddScoped<FinancialResultFinancialServiceService, FinancialResultFinancialServiceService>();
-
+builder.Services.AddScoped<StoreService, StoreService>();
+builder.Services.AddScoped<SellerService, SellerService>();
+builder.Services.AddScoped<ResultService, ResultService>();
+builder.Services.AddScoped<ServiceService, ServiceService>();
+builder.Services.AddScoped<GoalService, GoalService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

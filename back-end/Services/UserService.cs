@@ -14,7 +14,13 @@ public class UserService
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
 
-    public UserService(AppDbContext context, IMapper mapper, UserManager<User> manager, SignInManager<User> signInManager, TokenService tokenService)
+    public UserService(
+        AppDbContext context, 
+        IMapper mapper, 
+        UserManager<User> manager, 
+        SignInManager<User> signInManager, 
+        TokenService tokenService
+    )
     {
         _context = context;
         _mapper = mapper;
@@ -32,10 +38,10 @@ public class UserService
         return _mapper.Map<ICollection<GetUserDTO>>(users);
     }
 
-    public GetUserDTO? Get(int id)
+    public GetUserDTO? Get(int ID)
     {
         return _mapper.Map<GetUserDTO>(
-            _context.Users.FirstOrDefault(user => user.Id == id)
+            _context.Users.FirstOrDefault(user => user.Id == ID)
         );
     }
 
@@ -43,10 +49,15 @@ public class UserService
     {
         GetUserDTO? result = null;
 
-        User user = ReturnReadyUser(_mapper.Map<User>(userDTO));
+        User? user = _userManager.Users?.FirstOrDefault(
+            user => user.Email != null
+                && userDTO.Email != null
+                && user.Email.ToUpper().Equals(userDTO.Email.ToUpper())
+        );
 
-        if (!CheckExistingUserByEmail(user) || !CheckExistingUserByPhoneNumber(user))
+        if (user == null)
         {
+            user = _mapper.Map<User>(userDTO);
             var creation = _userManager.CreateAsync(user, userDTO.Password);
 
             if (creation.Result.Succeeded)
@@ -89,7 +100,7 @@ public class UserService
     {
         bool result = false;
 
-        User? user = _userManager.Users.FirstOrDefault(u => u.Id == userDTO.Id);
+        User? user = _userManager.Users.FirstOrDefault(user => user.Id == userDTO.ID);
         
         if (user != null)
         {
@@ -117,12 +128,12 @@ public class UserService
         return result;
     }
 
-    public bool Delete(int id)
+    public bool Delete(int ID)
     {
         bool result = false;
 
         User? user = _userManager.Users.FirstOrDefault(
-            u => u.Id == id
+            user => user.Id == ID
         );
 
         if (user != null)

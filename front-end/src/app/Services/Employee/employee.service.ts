@@ -1,77 +1,77 @@
-import { Employee, Employees } from "./../../Models/Employee";
-import { IEmployeeService } from "./../../Interfaces/Services/IEmployeeService";
+import { Seller, Sellers } from "./../../Models/Seller";
+import { ISellerService } from "./../../Interfaces/Services/ISellerService";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../environments/environment.dev";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { PostEmployeeDTO, PutEmployeeDTO } from "src/app/Data/DTO/EmployeeDTO";
+import { PostSellerDTO, PutSellerDTO } from "src/app/Data/DTO/SellerDTO";
 
 const API: string = environment.backendAPIUrl;
-const URL: string = `${API}/Employee`;
+const URL: string = `${API}/Seller`;
 
 @Injectable({
     providedIn: "root",
 })
-export class EmployeeService implements IEmployeeService {
+export class SellerService implements ISellerService {
     constructor(private _http: HttpClient) {}
 
-    Get(id: number): Observable<Employee> {
-        return this._http.get<Employee>(`${URL}/${id}`);
+    Get(ID: number): Observable<Seller> {
+        return this._http.get<Seller>(`${URL}/${ID}`);
     }
 
-    GetAll(skip: number = 0, take: number = 50): Observable<Employees> {
-        return this._http.get<Employees>(`${URL}?skip=${skip}&take=${take}`);
+    GetAll(skip: number = 0, take: number = 50): Observable<Sellers> {
+        return this._http.get<Sellers>(`${URL}?skip=${skip}&take=${take}`);
     }
 
-    Delete(id: number): Observable<Employee> {
-        return this._http.delete<Employee>(`${URL}/${id}`);
+    Delete(ID: number): Observable<Seller> {
+        return this._http.delete<Seller>(`${URL}/${ID}`);
     }
 
-    Post(employeeDTO: PostEmployeeDTO) {
-        return this._http.post(`${URL}`, this.fillPOSTFormData(employeeDTO));
+    Post(SellerDTO: PostSellerDTO) {
+        return this._http.post(`${URL}`, this.fillPOSTFormData(SellerDTO));
     }
 
-    Put(employeeDTO: PutEmployeeDTO) {
-        return this._http.put(`${URL}`, this.fillPUTFormData(employeeDTO));
+    Put(SellerDTO: PutSellerDTO) {
+        return this._http.put(`${URL}`, this.fillPUTFormData(SellerDTO));
     }
 
-    private fillPOSTFormData(employeeDTO: PostEmployeeDTO): FormData {
+    private fillPOSTFormData(SellerDTO: PostSellerDTO): FormData {
         let result: FormData = new FormData();
 
-        result.append("Name", employeeDTO.Name);
+        result.append("Name", SellerDTO.Name);
         result.append(
             "RegistrationNumber",
-            employeeDTO.RegistrationNumber.toString()
+            SellerDTO.RegistrationNumber.toString()
         );
-        if (employeeDTO.CompanyID != null) {
-            result.append("CompanyID", employeeDTO.CompanyID.toString());
+        if (SellerDTO.StoreID != null) {
+            result.append("StoreID", SellerDTO.StoreID.toString());
         }
-        if (employeeDTO.Email != null) {
-            result.append("Email", employeeDTO.Email);
+        if (SellerDTO.Email != null) {
+            result.append("Email", SellerDTO.Email);
         }
-        if (employeeDTO.Phone != null) {
-            result.append("Phone", employeeDTO.Phone);
+        if (SellerDTO.Phone != null) {
+            result.append("Phone", SellerDTO.Phone);
         }
 
         return result;
     }
 
-    private fillPUTFormData(employeeDTO: PutEmployeeDTO): FormData {
+    private fillPUTFormData(SellerDTO: PutSellerDTO): FormData {
         let result: FormData = new FormData();
 
-        result.append("Name", employeeDTO.Name);
+        result.append("Name", SellerDTO.Name);
         result.append(
             "RegistrationNumber",
-            employeeDTO.RegistrationNumber.toString()
+            SellerDTO.RegistrationNumber.toString()
         );
-        if (employeeDTO.CompanyID != null) {
-            result.append("CompanyID", employeeDTO.CompanyID.toString());
+        if (SellerDTO.StoreID != null) {
+            result.append("StoreID", SellerDTO.StoreID.toString());
         }
-        if (employeeDTO.Email != null) {
-            result.append("Email", employeeDTO.Email);
+        if (SellerDTO.Email != null) {
+            result.append("Email", SellerDTO.Email);
         }
-        if (employeeDTO.Phone != null) {
-            result.append("Phone", employeeDTO.Phone);
+        if (SellerDTO.Phone != null) {
+            result.append("Phone", SellerDTO.Phone);
         }
 
         return result;

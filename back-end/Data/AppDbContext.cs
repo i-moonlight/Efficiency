@@ -1,7 +1,4 @@
-/**
-https://stackoverflow.com/questions/38019808/entity-framework-core-ef-7-many-to-many-results-always-null
-
-*/
+// https://stackoverflow.com/questions/38019808/entity-framework-core-ef-7-many-to-many-results-always-null
 
 using Efficiency.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,67 +7,139 @@ using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
 {
-    public DbSet<Company>? Companies { get; set; }
-    public DbSet<Employee>? Employees { get; set; }
-    public DbSet<FinancialResult>? FinancialResults { get; set; }
-    public DbSet<EmployeeFinancialResult>? EmployeesFinancialResults { get; set; }
-    public DbSet<FinancialService>? FinancialServices { get; set; }
-    public DbSet<FinancialResultFinancialService>? FinancialResultsFinancialServices { get; set; }
+    public DbSet<Store>? Stores { get; set; }
+    public DbSet<Seller>? Sellers { get; set; }
+    public DbSet<Result>? Results { get; set; }
+    public DbSet<Service>? Services { get; set; }
+    public DbSet<Goal>? Goals { get; set; }
+    private IConfiguration _config;
 
-    public AppDbContext()
-    {}
+    public AppDbContext(IConfiguration config)
+    {
+        _config = config;
+    }
 
-    public AppDbContext(DbContextOptions<AppDbContext> opts) : base(opts)
-    {}
+    public AppDbContext(
+        DbContextOptions<AppDbContext> opts, 
+        IConfiguration config
+    ) : base(opts)
+    {
+        _config = config;
+    }
 
     protected override void OnModelCreating (ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        /*
-        * n:1 relationship between user and company
-        */
+        // n:1 relationship between users and store
         builder.Entity<User>()
-            .HasOne(user => user.Company)
-            .WithMany(company => company.Users)
-            .HasPrincipalKey(user => user.ID)
-            .HasForeignKey(user => user.CompanyID);
+            .HasOne(user => user.Store)
+            .WithMany(store => store.Users)
+            .HasPrincipalKey(store => store.ID)
+            .HasForeignKey(user => user.StoreID);
 
-        /*
-        * n:1 relationship between employee and company
-        */
-        builder.Entity<Employee>()
-            .HasOne(employee => employee.CompanyReference)
-            .WithMany(company => company.Employees)
-            .HasPrincipalKey(employee => employee.ID)
-            .HasForeignKey(employee => employee.CompanyID);
+        // 1:n relationship between store and sellers
+        builder.Entity<Seller>()
+            .HasOne(seller => seller.Store)
+            .WithMany(store => store.Sellers)
+            .HasPrincipalKey(store => store.ID)
+            .HasForeignKey(seller => seller.StoreID);
 
-        /*
-        * n:n relationship between employee and financialresult
-        */
-        builder.Entity<EmployeeFinancialResult>()
-            .HasKey(efresult => efresult.ID);
-        builder.Entity<EmployeeFinancialResult>()
-            .HasOne(efresult => efresult.Employee)
-            .WithMany(employee => employee.EmployeesFinancialResults)
-            .HasForeignKey(efresult => efresult.EmployeeID);
-        builder.Entity<EmployeeFinancialResult>()
-            .HasOne(efresult => efresult.FinancialResult)
-            .WithMany(fresult => fresult.EmployeesFinancialResults)
-            .HasForeignKey(efresult => efresult.FinancialResultID);
+        // n:1 relationship between sellers and store
+        builder.Entity<Seller>()
+            .HasOne(seller => seller.Store)
+            .WithMany(store => store.Sellers)
+            .HasPrincipalKey(store => store.ID)
+            .HasForeignKey(seller => seller.StoreID);
 
-        /*
-        * n:n relationship between financialresult and financialservice
-        */
-        builder.Entity<FinancialResultFinancialService>()
-            .HasKey(frfs => frfs.ID);
-        builder.Entity<FinancialResultFinancialService>()
-            .HasOne(frfs => frfs.FinancialResult)
-            .WithMany(fresult => fresult.FinancialResultsFinancialServices)
-            .HasForeignKey(frfs => frfs.FinancialResultID);
-        builder.Entity<FinancialResultFinancialService>()
-            .HasOne(frfs => frfs.FinancialService)
-            .WithMany(fservice => fservice.FinancialResultsFinancialServices)
-            .HasForeignKey(frfs => frfs.FinancialServiceID);
+        // 1:n relationship between store and goals
+        builder.Entity<Goal>()
+            .HasOne(goal => goal.Store)
+            .WithMany(store => store.Goals)
+            .HasPrincipalKey(store => store.ID)
+            .HasForeignKey(goal => goal.StoreID);
+
+        // n:1 relationship between goals and service
+        
+        builder.Entity<Goal>()
+            .HasOne(goal => goal.Service)
+            .WithMany(service => service.Goals)
+            .HasPrincipalKey(service => service.ID)
+            .HasForeignKey(goal => goal.ServiceID);
+
+        // 1:n relationship between seller and results        
+        builder.Entity<Result>()
+            .HasOne(result => result.Seller)
+            .WithMany(seller => seller.Results)
+            .HasPrincipalKey(seller => seller.ID)
+            .HasForeignKey(result => result.SellerID);
+
+        
+        // n:1 relationship between results and service
+        builder.Entity<Result>()
+            .HasOne(result => result.Service)
+            .WithMany(service => service.Results)
+            .HasPrincipalKey(service => service.ID)
+            .HasForeignKey(result => result.ServiceID);
+
+        // Creating a default admin user
+        User admin = new User
+        {
+            Id = 9999,
+            UserName = "admin",
+            NormalizedUserName = "ADMIN",
+            Email = "admin@admin.com",
+            NormalizedEmail = "ADMIN@ADMIN.COM",
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString()
+        };
+
+        PasswordHasher<User> hasher = new PasswordHasher<User>();
+
+        admin.PasswordHash = hasher.HashPassword(admin, 
+            _config.GetValue<string>("admin:password"));
+
+        builder.Entity<User>().HasData(admin);
+
+        // builder.Entity<IdentityRole<int>>().HasData(
+        //     new IdentityRole<int>
+        //     {
+        //         ID = 1,
+        //         Name = "admin",
+        //         NormalizedName = "ADMIN"
+        //     }
+        // );
+
+        // builder.Entity<IdentityRole<int>>().HasData(
+        //     new IdentityRole<int>
+        //     {
+        //         ID = 2,
+        //         Name = "regular",
+        //         NormalizedName = "REGULAR"
+        //     }
+        // );
+
+        // builder.Entity<IdentityUserRole<int>>().HasData(
+        //     new IdentityUserRole<int>
+        //     {
+        //         RoleId = 1,
+        //         UserId = 9999
+        //     }
+        // );
+
+        
+        // // n:n relationship between Seller and Result
+        // // this relationship isn't used anymore. It will remain
+        // // in the code only for future reference
+        //     builder.Entity<SellerResult>()
+        //         .HasKey(efresult => efresult.ID);
+        //     builder.Entity<SellerResult>()
+        //         .HasOne(efresult => efresult.Seller)
+        //         .WithMany(Seller => Seller.SellersResults)
+        //         .HasForeignKey(efresult => efresult.SellerID);
+        //     builder.Entity<SellerResult>()
+        //         .HasOne(efresult => efresult.Result)
+        //         .WithMany(fresult => fresult.SellersResults)
+        //         .HasForeignKey(efresult => efresult.ResultID);
     }
 
 }

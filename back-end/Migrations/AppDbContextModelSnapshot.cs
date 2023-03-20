@@ -18,149 +18,138 @@ namespace back_end.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Efficiency.Models.Company", b =>
+            modelBuilder.Entity("Efficiency.Models.Goal", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StoreID")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Value")
+                        .HasColumnType("double");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.ToTable("Companies");
+                    b.HasIndex("ServiceID");
+
+                    b.HasIndex("StoreID");
+
+                    b.ToTable("Goals");
                 });
 
-            modelBuilder.Entity("Efficiency.Models.Employee", b =>
+            modelBuilder.Entity("Efficiency.Models.Result", b =>
                 {
-                    b.Property<int>("RegistrationNumber")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CompanyID")
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<int>("SellerID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SellerID");
+
+                    b.HasIndex("ServiceID");
+
+                    b.ToTable("Results");
+                });
+
+            modelBuilder.Entity("Efficiency.Models.Seller", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("FirstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
                         .HasColumnType("longtext");
 
-                    b.HasKey("RegistrationNumber");
-
-                    b.HasIndex("CompanyID");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.EmployeeFinancialResult", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("RegistrationNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FinancialResultID")
+                    b.Property<int?>("StoreID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("EmployeeID");
+                    b.HasIndex("StoreID");
 
-                    b.HasIndex("FinancialResultID");
-
-                    b.ToTable("EmployeesFinancialResults");
+                    b.ToTable("Sellers");
                 });
 
-            modelBuilder.Entity("Efficiency.Models.FinancialResult", b =>
+            modelBuilder.Entity("Efficiency.Models.Service", b =>
                 {
                     b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<decimal>("SalesResult")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("FinancialResults");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.FinancialResultFinancialService", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("FinancialResultID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FinancialServiceID")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Result")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("FinancialResultID");
-
-                    b.HasIndex("FinancialServiceID");
-
-                    b.ToTable("FinancialResultsFinancialServices");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.FinancialService", b =>
-                {
-                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.ToTable("FinancialServices");
+                    b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("EmployeeFinancialResult", b =>
+            modelBuilder.Entity("Efficiency.Models.Store", b =>
                 {
-                    b.Property<int>("EmployeesRegistrationNumber")
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("FinancialResultsID")
-                        .HasColumnType("int");
+                    b.Property<string>("AddressLine1")
+                        .HasColumnType("longtext");
 
-                    b.HasKey("EmployeesRegistrationNumber", "FinancialResultsID");
+                    b.Property<string>("AddressLine2")
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("FinancialResultsID");
+                    b.Property<string>("City")
+                        .HasColumnType("longtext");
 
-                    b.ToTable("EmployeeFinancialResult");
-                });
+                    b.Property<string>("Country")
+                        .HasColumnType("longtext");
 
-            modelBuilder.Entity("FinancialResultFinancialService", b =>
-                {
-                    b.Property<int>("FinancialResultsID")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
 
-                    b.Property<int>("FinancialServicesId")
-                        .HasColumnType("int");
+                    b.Property<string>("State")
+                        .HasColumnType("longtext");
 
-                    b.HasKey("FinancialResultsID", "FinancialServicesId");
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("longtext");
 
-                    b.HasIndex("FinancialServicesId");
+                    b.HasKey("ID");
 
-                    b.ToTable("FinancialResultFinancialService");
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -368,98 +357,86 @@ namespace back_end.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser<int>");
 
-                    b.Property<int?>("CompanyID")
-                        .HasColumnType("int");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
                         .HasColumnType("longtext");
 
+                    b.Property<bool?>("PaymentOnDay")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Role")
                         .HasColumnType("longtext");
 
-                    b.HasIndex("CompanyID");
+                    b.Property<int?>("StoreID")
+                        .HasColumnType("int");
+
+                    b.HasIndex("StoreID");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 9999,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5e620a79-eb85-4f63-af60-b4b02e3fc2d6",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAELL7kMWzxxJ5ijWKoJhJ/500Wv7IZeEK0uafAHtvscMztGDNZ1jfJQh+SI+gECiQag==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "493d7fbe-fafa-4875-88a0-1533d4f192db",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
-            modelBuilder.Entity("Efficiency.Models.Employee", b =>
+            modelBuilder.Entity("Efficiency.Models.Goal", b =>
                 {
-                    b.HasOne("Efficiency.Models.Company", "CompanyReference")
-                        .WithMany("Employees")
-                        .HasForeignKey("CompanyID");
+                    b.HasOne("Efficiency.Models.Service", "Service")
+                        .WithMany("Goals")
+                        .HasForeignKey("ServiceID");
 
-                    b.Navigation("CompanyReference");
+                    b.HasOne("Efficiency.Models.Store", "Store")
+                        .WithMany("Goals")
+                        .HasForeignKey("StoreID");
+
+                    b.Navigation("Service");
+
+                    b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("Efficiency.Models.EmployeeFinancialResult", b =>
+            modelBuilder.Entity("Efficiency.Models.Result", b =>
                 {
-                    b.HasOne("Efficiency.Models.Employee", "Employee")
-                        .WithMany("EmployeesFinancialResults")
-                        .HasForeignKey("EmployeeID")
+                    b.HasOne("Efficiency.Models.Seller", "Seller")
+                        .WithMany("Results")
+                        .HasForeignKey("SellerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Efficiency.Models.FinancialResult", "FinancialResult")
-                        .WithMany("EmployeesFinancialResults")
-                        .HasForeignKey("FinancialResultID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Efficiency.Models.Service", "Service")
+                        .WithMany("Results")
+                        .HasForeignKey("ServiceID");
 
-                    b.Navigation("Employee");
+                    b.Navigation("Seller");
 
-                    b.Navigation("FinancialResult");
+                    b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("Efficiency.Models.FinancialResultFinancialService", b =>
+            modelBuilder.Entity("Efficiency.Models.Seller", b =>
                 {
-                    b.HasOne("Efficiency.Models.FinancialResult", "FinancialResult")
-                        .WithMany("FinancialResultsFinancialServices")
-                        .HasForeignKey("FinancialResultID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Efficiency.Models.Store", "Store")
+                        .WithMany("Sellers")
+                        .HasForeignKey("StoreID");
 
-                    b.HasOne("Efficiency.Models.FinancialService", "FinancialService")
-                        .WithMany("FinancialResultsFinancialServices")
-                        .HasForeignKey("FinancialServiceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("FinancialResult");
-
-                    b.Navigation("FinancialService");
-                });
-
-            modelBuilder.Entity("EmployeeFinancialResult", b =>
-                {
-                    b.HasOne("Efficiency.Models.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesRegistrationNumber")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Efficiency.Models.FinancialResult", null)
-                        .WithMany()
-                        .HasForeignKey("FinancialResultsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FinancialResultFinancialService", b =>
-                {
-                    b.HasOne("Efficiency.Models.FinancialResult", null)
-                        .WithMany()
-                        .HasForeignKey("FinancialResultsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Efficiency.Models.FinancialService", null)
-                        .WithMany()
-                        .HasForeignKey("FinancialServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Store");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -515,35 +492,32 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("Efficiency.Models.User", b =>
                 {
-                    b.HasOne("Efficiency.Models.Company", "Company")
+                    b.HasOne("Efficiency.Models.Store", "Store")
                         .WithMany("Users")
-                        .HasForeignKey("CompanyID");
+                        .HasForeignKey("StoreID");
 
-                    b.Navigation("Company");
+                    b.Navigation("Store");
                 });
 
-            modelBuilder.Entity("Efficiency.Models.Company", b =>
+            modelBuilder.Entity("Efficiency.Models.Seller", b =>
                 {
-                    b.Navigation("Employees");
+                    b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("Efficiency.Models.Service", b =>
+                {
+                    b.Navigation("Goals");
+
+                    b.Navigation("Results");
+                });
+
+            modelBuilder.Entity("Efficiency.Models.Store", b =>
+                {
+                    b.Navigation("Goals");
+
+                    b.Navigation("Sellers");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.Employee", b =>
-                {
-                    b.Navigation("EmployeesFinancialResults");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.FinancialResult", b =>
-                {
-                    b.Navigation("EmployeesFinancialResults");
-
-                    b.Navigation("FinancialResultsFinancialServices");
-                });
-
-            modelBuilder.Entity("Efficiency.Models.FinancialService", b =>
-                {
-                    b.Navigation("FinancialResultsFinancialServices");
                 });
 #pragma warning restore 612, 618
         }

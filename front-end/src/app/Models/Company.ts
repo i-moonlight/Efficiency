@@ -1,6 +1,6 @@
-export interface Company {
+export interface Store {
     ID: number;
     Name: string;
 }
 
-export type Companies = Array<Company>;
+export type Companies = Array<Store>;

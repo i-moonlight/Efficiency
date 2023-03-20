@@ -1,12 +1,12 @@
-export interface PostFinancialResultFinancialServiceDTO {
+export interface PostResultServiceDTO {
     Result: number;
-    EmployeeID: number;
-    FinancialResultID: number;
+    SellerID: number;
+    ResultID: number;
 }
 
-export interface PutFinancialResultFinancialServiceDTO {
+export interface PutResultServiceDTO {
     ID: number;
     Result: number;
-    EmployeeID: number;
-    FinancialResultID: number;
+    SellerID: number;
+    ResultID: number;
 }

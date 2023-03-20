@@ -22,5 +22,5 @@ public class PostUserDTO
     [Required(ErrorMessage="User's role is required")]
     public string? Role { get; set; }
     
-    public int? CompanyID { get; set; }
+    public int? StoreID { get; set; }
 }

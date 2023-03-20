@@ -1,12 +1,12 @@
-import { PostCompanyDTO, PutCompanyDTO } from "./../../Data/DTO/CompanyDTO";
-import { Company, Companies } from "src/app/Models/Company";
+import { PostStoreDTO, PutStoreDTO } from "./../../Data/DTO/StoreDTO";
+import { Store, Companies } from "src/app/Models/Store";
 import { IService } from "./IService";
 import { Observable } from "rxjs";
 
-export interface IEmployeeService extends IService {
-    Get(id: number): Observable<Company>;
+export interface ISellerService extends IService {
+    Get(ID: number): Observable<Store>;
     GetAll(skip: number, take: number): Observable<Companies>;
-    Delete(id: number): Observable<Company>;
-    Post(companyDTO: PostCompanyDTO): Observable<Company>;
-    Put(companyDTO: PutCompanyDTO): Observable<Company>;
+    Delete(ID: number): Observable<Store>;
+    Post(StoreDTO: PostStoreDTO): Observable<Store>;
+    Put(StoreDTO: PutStoreDTO): Observable<Store>;
 }

@@ -1,15 +1,15 @@
-export interface PostEmployeeDTO {
+export interface PostSellerDTO {
     RegistrationNumber: number;
     Name: string;
     Phone?: string;
     Email?: string;
-    CompanyID?: number;
+    StoreID?: number;
 }
 
-export interface PutEmployeeDTO {
+export interface PutSellerDTO {
     RegistrationNumber: number;
     Name: string;
     Phone?: string;
     Email?: string;
-    CompanyID?: number;
+    StoreID?: number;
 }

@@ -4,7 +4,7 @@ export interface User {
     LastName?: string;
     UserName?: string;
     Role?: string;
-    CompanyID?: number;
+    StoreID?: number;
 }
 
 export type Users = Array<User>;

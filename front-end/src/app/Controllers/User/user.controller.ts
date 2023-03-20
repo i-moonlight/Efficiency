@@ -48,16 +48,16 @@ export class UserController {
             );
     }
 
-    Get(id: number): Observable<User> {
-        return this._http.get<User>(`${URL}/${id}`);
+    Get(ID: number): Observable<User> {
+        return this._http.get<User>(`${URL}/${ID}`);
     }
 
     GetAll(skip: number = 0, take: number = 50): Observable<Users> {
         return this._http.get<Users>(`${URL}?skip=${skip}&take=${take}`);
     }
 
-    Delete(id: number): Observable<User> {
-        return this._http.delete<User>(`${URL}/${id}`);
+    Delete(ID: number): Observable<User> {
+        return this._http.delete<User>(`${URL}/${ID}`);
     }
 
     Post(userDTO: PostUserDTO) {

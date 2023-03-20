@@ -1,10 +1,10 @@
-export interface PostEmployeeFinancialResultDTO {
-    EmployeeID: number;
-    FinancialResultID: number;
+export interface PostSellerResultDTO {
+    SellerID: number;
+    ResultID: number;
 }
 
-export interface PutEmployeeFinancialResultDTO {
+export interface PutSellerResultDTO {
     ID: number;
-    EmployeeID: number;
-    FinancialResultID: number;
+    SellerID: number;
+    ResultID: number;
 }
