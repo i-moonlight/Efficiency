@@ -22,7 +22,7 @@ This project is currently in development using Angular 14, ASP.NET CORE 6 and My
 
 The original design of this tool was made using [Figma](https://www.figma.com/) to wireframe everything and the font combination was made with [FontJoy](https://fontjoy.com/)
 
-Take a look at the design project [Here](https://www.figma.com/file/eJeiDWUWPk2pyjQLgjrANP/Efficiency?t=49xESy1iYdPTynAV-0)
+Take a look at the design project [Here](https://www.figma.com/file/eJeiDWUWPk2pyjQLgjrANP/Efficiency---UI?node-id=0%3A1&t=doC8QosDWmOj2OBq-1)
 
 ## Installing prerequisites
 
