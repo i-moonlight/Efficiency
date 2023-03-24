@@ -11,6 +11,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<Seller>? Sellers { get; set; }
     public DbSet<Result>? Results { get; set; }
     public DbSet<Service>? Services { get; set; }
+    public DbSet<ServiceResult>? ServiceResult { get; set; }
     public DbSet<Goal>? Goals { get; set; }
     private IConfiguration _config;
 
@@ -73,14 +74,6 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasPrincipalKey(seller => seller.ID)
             .HasForeignKey(result => result.SellerID);
 
-        
-        // n:1 relationship between results and service
-        builder.Entity<Result>()
-            .HasOne(result => result.Service)
-            .WithMany(service => service.Results)
-            .HasPrincipalKey(service => service.ID)
-            .HasForeignKey(result => result.ServiceID);
-
         // Creating a default admin user
         User admin = new User
         {
@@ -127,6 +120,17 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
         // );
 
         
+        // n:n relationship between Service and Result
+        builder.Entity<ServiceResult>()
+            .HasKey(serviceResult => new { serviceResult.ResultID, serviceResult.ServiceID });
+        builder.Entity<ServiceResult>()
+            .HasOne(serviceResult => serviceResult.Result)
+            .WithMany(result => result.ResultsServices)
+            .HasForeignKey(serviceResult => serviceResult.ResultID);
+        builder.Entity<ServiceResult>()
+            .HasOne(serviceResult => serviceResult.Service)
+            .WithMany(service => service.ResultsServices)
+            .HasForeignKey(serviceResult => serviceResult.ServiceID);
         // // n:n relationship between Seller and Result
         // // this relationship isn't used anymore. It will remain
         // // in the code only for future reference

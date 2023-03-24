@@ -40,10 +40,6 @@ public class ResultService
         Result? Result = _context.Results?.FirstOrDefault(
             result => result.Date.CompareTo(ResultDTO.Date) == 0 
                     && result.SellerID == ResultDTO.SellerID
-                    && (
-                        ResultDTO.ServiceID != null 
-                        && result.ServiceID == ResultDTO.ServiceID
-                    )
         );
 
         // if Result is null, it means that no result 
@@ -52,8 +48,10 @@ public class ResultService
         // database with no duplicates
         if (Result == null)
         {
-            _context.Results?.Add(_mapper.Map<Result>(ResultDTO));
+            Result = _mapper.Map<Result>(ResultDTO);
+            _context.Results?.Add(Result);
             _context.SaveChanges();
+            // POST Result -> POST Service -> POST ServicesResults
             result = _mapper.Map<GetResultDTO>(Result);
         }
 

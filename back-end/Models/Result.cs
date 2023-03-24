@@ -15,6 +15,5 @@ public class Result
     public int SellerID { get; set; }
 
     [JsonIgnore]
-    public virtual Service? Service { get; set; }
-    public int? ServiceID { get; set; }
+    public virtual ICollection<ServiceResult>? ResultsServices { get; set; }
 }

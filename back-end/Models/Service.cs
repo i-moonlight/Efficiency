@@ -10,7 +10,7 @@ public class Service
     public string? Name { get; set; }
 
     [JsonIgnore]
-    public virtual ICollection<Result>? Results { get; set; }
+    public virtual ICollection<ServiceResult>? ResultsServices { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<Goal>? Goals { get; set; }
