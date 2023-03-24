@@ -58,7 +58,7 @@ public class SellerController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(Get),
-                new { registrationNumber = createdSeller.RegistrationNumber },
+                new { ID = createdSeller.ID },
                 createdSeller
             );
         }
@@ -90,6 +90,20 @@ public class SellerController : ControllerBase
 
         if (deleteSucceeded)
         {
+            result = NoContent();
+        }
+
+        return result;
+    }
+
+    [HttpPut("{ID}/deactivate")]
+    public IActionResult Deactivate(int ID)
+    {
+        IActionResult result = StatusCode(500);
+
+        bool deactivationSucceeded = _service.Deactivate(ID);
+
+        if (deactivationSucceeded){
             result = NoContent();
         }
 

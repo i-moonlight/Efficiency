@@ -12,6 +12,7 @@ public class Seller
     public string? LastName { get; set; }
     public string? Phone { get; set; }
     public string? Email { get; set; }
+    public bool Active { get; set; }
 
     [JsonIgnore]
     public virtual Store? Store { get; set; }

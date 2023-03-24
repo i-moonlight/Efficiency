@@ -13,6 +13,7 @@ public class PutSellerDTO
 
     [Required(ErrorMessage = "Seller's Last Name is not optional")]
     public string? LastName { get; set; }
+    public bool? Active { get; set; }
     public string? Phone { get; set; }
     public string? Email { get; set; }
 

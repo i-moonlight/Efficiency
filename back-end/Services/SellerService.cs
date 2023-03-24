@@ -52,6 +52,7 @@ public class SellerService
         if (Seller == null)
         {
             Seller = _mapper.Map<Seller>(SellerDTO);
+            Seller.Active = true;
             _context.Sellers?.Add(Seller);
             _context.SaveChanges();
             result = _mapper.Map<GetSellerDTO>(Seller);
@@ -89,6 +90,25 @@ public class SellerService
         if (Seller != null)
         {
             _context.Remove(Seller);
+            _context.SaveChanges();
+            result = true;
+        }
+
+        return result;
+    }
+
+    public bool Deactivate(int ID)
+    {
+        
+        bool result = false;
+        
+        Seller? Seller = _context.Sellers?.FirstOrDefault(
+            seller => seller.ID == ID
+        );
+
+        if (Seller != null)
+        {
+            Seller.Active = false;
             _context.SaveChanges();
             result = true;
         }
