@@ -12,6 +12,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<Result>? Results { get; set; }
     public DbSet<Service>? Services { get; set; }
     public DbSet<ServiceResult>? ServiceResult { get; set; }
+    public DbSet<ServiceGoal>? ServiceGoal { get; set; }
     public DbSet<Goal>? Goals { get; set; }
     private IConfiguration _config;
 
@@ -93,33 +94,34 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
 
         builder.Entity<User>().HasData(admin);
 
-        // builder.Entity<IdentityRole<int>>().HasData(
-        //     new IdentityRole<int>
-        //     {
-        //         ID = 1,
-        //         Name = "admin",
-        //         NormalizedName = "ADMIN"
-        //     }
-        // );
+        /*
+        builder.Entity<IdentityRole<int>>().HasData(
+            new IdentityRole<int>
+            {
+                Id = 1,
+                Name = "admin",
+                NormalizedName = "ADMIN"
+            }
+        );
 
-        // builder.Entity<IdentityRole<int>>().HasData(
-        //     new IdentityRole<int>
-        //     {
-        //         ID = 2,
-        //         Name = "regular",
-        //         NormalizedName = "REGULAR"
-        //     }
-        // );
+        builder.Entity<IdentityRole<int>>().HasData(
+            new IdentityRole<int>
+            {
+                Id = 2,
+                Name = "regular",
+                NormalizedName = "REGULAR"
+            }
+        );
 
-        // builder.Entity<IdentityUserRole<int>>().HasData(
-        //     new IdentityUserRole<int>
-        //     {
-        //         RoleId = 1,
-        //         UserId = 9999
-        //     }
-        // );
+        builder.Entity<IdentityUserRole<int>>().HasData(
+            new IdentityUserRole<int>
+            {
+                RoleId = 1,
+                UserId = 9999
+            }
+        );
+        */
 
-        
         // n:n relationship between Service and Result
         builder.Entity<ServiceResult>()
             .HasKey(serviceResult => new { serviceResult.ResultID, serviceResult.ServiceID });
@@ -131,19 +133,34 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasOne(serviceResult => serviceResult.Service)
             .WithMany(service => service.ResultsServices)
             .HasForeignKey(serviceResult => serviceResult.ServiceID);
-        // // n:n relationship between Seller and Result
-        // // this relationship isn't used anymore. It will remain
-        // // in the code only for future reference
-        //     builder.Entity<SellerResult>()
-        //         .HasKey(efresult => efresult.ID);
-        //     builder.Entity<SellerResult>()
-        //         .HasOne(efresult => efresult.Seller)
-        //         .WithMany(Seller => Seller.SellersResults)
-        //         .HasForeignKey(efresult => efresult.SellerID);
-        //     builder.Entity<SellerResult>()
-        //         .HasOne(efresult => efresult.Result)
-        //         .WithMany(fresult => fresult.SellersResults)
-        //         .HasForeignKey(efresult => efresult.ResultID);
+
+        // n:n relationship between Service and Goal
+        builder.Entity<ServiceGoal>()
+            .HasKey(serviceGoal => new { serviceGoal.GoalID, serviceGoal.ServiceID  });
+        builder.Entity<ServiceGoal>()
+            .HasOne(serviceGoal => serviceGoal.Service)
+            .WithMany(service => service.ServicesGoal)
+            .HasForeignKey(serviceGoal => serviceGoal.ServiceID);
+        builder.Entity<ServiceGoal>()
+            .HasOne(serviceGoal => serviceGoal.Goal)
+            .WithMany(goal => goal.ServicesGoal)
+            .HasForeignKey(serviceGoal => serviceGoal.GoalID);
+
+        /*
+        // n:n relationship between Seller and Result
+        // this relationship isn't used anymore. It will remain
+        // in the code only for future reference
+            builder.Entity<SellerResult>()
+                .HasKey(efresult => efresult.ID);
+            builder.Entity<SellerResult>()
+                .HasOne(efresult => efresult.Seller)
+                .WithMany(Seller => Seller.SellersResults)
+                .HasForeignKey(efresult => efresult.SellerID);
+            builder.Entity<SellerResult>()
+                .HasOne(efresult => efresult.Result)
+                .WithMany(fresult => fresult.SellersResults)
+                .HasForeignKey(efresult => efresult.ResultID);
+        */
     }
 
 }

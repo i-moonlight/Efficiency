@@ -16,4 +16,7 @@ public class Goal
     [JsonIgnore]
     public virtual Service? Service { get; set; }
     public int? ServiceID { get; set; }
+    
+    [JsonIgnore]
+    public virtual ICollection<ServiceGoal>? ServicesGoal { get; set; }
 }
