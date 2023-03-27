@@ -1,3 +1,3 @@
 export interface Token {
-    Value: string;
+    JWTKey: string;
 }

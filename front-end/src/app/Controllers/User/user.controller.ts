@@ -39,7 +39,7 @@ export class UserController {
             })
             .pipe(
                 tap((response) => {
-                    const token = response.body?.Value;
+                    const token = response.body?.JWTKey;
                     if (token != undefined) {
                         this._service.saveToken(token);
                         console.log(token);
