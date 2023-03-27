@@ -8,5 +8,5 @@ public class GetResultDTO
     public DateOnly Date { get; set; }
     public decimal Value { get; set; }
     public int SellerID { get; set; }
-    public int? ServiceID { get; set; }
+    public ICollection<Models.ServiceResult>? ServicesResult { get; set; }
 }

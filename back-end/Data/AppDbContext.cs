@@ -11,8 +11,8 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<Seller>? Sellers { get; set; }
     public DbSet<Result>? Results { get; set; }
     public DbSet<Service>? Services { get; set; }
-    public DbSet<ServiceResult>? ServiceResult { get; set; }
-    public DbSet<ServiceGoal>? ServiceGoal { get; set; }
+    public DbSet<ServiceResult>? ServicesResult { get; set; }
+    public DbSet<ServiceGoal>? ServicesGoal { get; set; }
     public DbSet<Goal>? Goals { get; set; }
     private IConfiguration _config;
 
@@ -22,14 +22,14 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     }
 
     public AppDbContext(
-        DbContextOptions<AppDbContext> opts, 
+        DbContextOptions<AppDbContext> opts,
         IConfiguration config
     ) : base(opts)
     {
         _config = config;
     }
 
-    protected override void OnModelCreating (ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         // n:1 relationship between users and store
@@ -60,14 +60,6 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasPrincipalKey(store => store.ID)
             .HasForeignKey(goal => goal.StoreID);
 
-        // n:1 relationship between goals and service
-        
-        builder.Entity<Goal>()
-            .HasOne(goal => goal.Service)
-            .WithMany(service => service.Goals)
-            .HasPrincipalKey(service => service.ID)
-            .HasForeignKey(goal => goal.ServiceID);
-
         // 1:n relationship between seller and results        
         builder.Entity<Result>()
             .HasOne(result => result.Seller)
@@ -83,13 +75,17 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             NormalizedUserName = "ADMIN",
             Email = "admin@admin.com",
             NormalizedEmail = "ADMIN@ADMIN.COM",
+            SubscriptionType = Subscription.Lifetime,
+            SubscriptionBegin = DateTime.UtcNow,
+            SubscriptionExpiration = DateTime.MaxValue,
+            FirstLogin = true,
             EmailConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString()
         };
 
         PasswordHasher<User> hasher = new PasswordHasher<User>();
 
-        admin.PasswordHash = hasher.HashPassword(admin, 
+        admin.PasswordHash = hasher.HashPassword(admin,
             _config.GetValue<string>("admin:password"));
 
         builder.Entity<User>().HasData(admin);
@@ -131,12 +127,12 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasForeignKey(serviceResult => serviceResult.ResultID);
         builder.Entity<ServiceResult>()
             .HasOne(serviceResult => serviceResult.Service)
-            .WithMany(service => service.ResultsServices)
+            .WithMany(service => service.ServicesResult)
             .HasForeignKey(serviceResult => serviceResult.ServiceID);
 
         // n:n relationship between Service and Goal
         builder.Entity<ServiceGoal>()
-            .HasKey(serviceGoal => new { serviceGoal.GoalID, serviceGoal.ServiceID  });
+            .HasKey(serviceGoal => new { serviceGoal.GoalID, serviceGoal.ServiceID });
         builder.Entity<ServiceGoal>()
             .HasOne(serviceGoal => serviceGoal.Service)
             .WithMany(service => service.ServicesGoal)

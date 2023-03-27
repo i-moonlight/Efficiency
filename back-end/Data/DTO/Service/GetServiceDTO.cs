@@ -6,5 +6,6 @@ public class GetServiceDTO
 {
     public int ID { get; set; }
     public string? Name { get; set; }
-    public virtual ICollection<Models.Result>? Results { get; set; }
+    public ICollection<Models.ServiceResult>? ServicesResult { get; set; }
+    public ICollection<Models.ServiceGoal>? ServicesGoal { get; set; }
 }

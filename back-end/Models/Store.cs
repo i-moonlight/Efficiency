@@ -20,5 +20,4 @@ public class Store
     public virtual ICollection<Seller>? Sellers { get; set; }
     [JsonIgnore]
     public virtual ICollection<Goal>? Goals { get; set; }
-
 }

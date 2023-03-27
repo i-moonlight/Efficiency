@@ -13,5 +13,4 @@ public class PostResultDTO
 
     [Required(ErrorMessage = "Seller ID is not optional")]
     public int SellerID { get; set; }
-    public int? ServiceID { get; set; }
 }

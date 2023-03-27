@@ -8,6 +8,8 @@ public class GetGoalDTO
     public double Value { get; set; }
     public Month Month { get; set; }
     public int Year { get; set; }
-    public int? StoreID { get; set; }
-    public int? ServiceID { get; set; }
+    public Models.Store? Store { get; set; }
+    public Models.Service? Service { get; set; }
+
+    public ICollection<Models.ServiceGoal>? ServicesGoal { get; set; }
 }

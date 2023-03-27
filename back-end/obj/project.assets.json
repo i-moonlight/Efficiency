@@ -7312,6 +7312,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.7",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.7",
       "Microsoft.EntityFrameworkCore >= 6.0.7",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Proxies >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Relational >= 6.0.7",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.7",
@@ -7322,19 +7323,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Marcelo\\.nuget\\packages\\": {}
+    "C:\\Users\\MARCELO FERRAZ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
+      "projectUniqueName": "C:\\Users\\MARCELO FERRAZ\\Downloads\\Source\\Efficiency\\back-end\\back-end.csproj",
       "projectName": "back-end",
-      "projectPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\back-end.csproj",
-      "packagesPath": "C:\\Users\\Marcelo\\.nuget\\packages\\",
-      "outputPath": "D:\\Source\\Personal Projects\\Efficiency\\back-end\\obj\\",
+      "projectPath": "C:\\Users\\MARCELO FERRAZ\\Downloads\\Source\\Efficiency\\back-end\\back-end.csproj",
+      "packagesPath": "C:\\Users\\MARCELO FERRAZ\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MARCELO FERRAZ\\Downloads\\Source\\Efficiency\\back-end\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Marcelo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MARCELO FERRAZ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7392,6 +7393,10 @@
             "target": "Package",
             "version": "[6.0.7, )"
           },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[6.0.7, )"
+          },
           "Microsoft.EntityFrameworkCore.Proxies": {
             "target": "Package",
             "version": "[6.0.7, )"
@@ -7442,7 +7447,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

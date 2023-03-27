@@ -4,8 +4,8 @@ public class Token
 {
     public Token(string jwtTokenString)
     {
-        this.Value = jwtTokenString;
+        this.JWTKey = jwtTokenString;
     }
 
-    public string? Value { get; set; }
+    public string? JWTKey { get; set; }
 }

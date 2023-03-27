@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230327164148_user subscriptions")]
+    partial class usersubscriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +29,9 @@ namespace back_end.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ServiceID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StoreID")
                         .HasColumnType("int");
 
@@ -37,6 +42,8 @@ namespace back_end.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ServiceID");
 
                     b.HasIndex("StoreID");
 
@@ -121,14 +128,11 @@ namespace back_end.Migrations
                     b.Property<int>("ServiceID")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(65,30)");
-
                     b.HasKey("GoalID", "ServiceID");
 
                     b.HasIndex("ServiceID");
 
-                    b.ToTable("ServicesGoal");
+                    b.ToTable("ServiceGoal");
                 });
 
             modelBuilder.Entity("Efficiency.Models.ServiceResult", b =>
@@ -146,7 +150,7 @@ namespace back_end.Migrations
 
                     b.HasIndex("ServiceID");
 
-                    b.ToTable("ServicesResult");
+                    b.ToTable("ServiceResult");
                 });
 
             modelBuilder.Entity("Efficiency.Models.Store", b =>
@@ -422,29 +426,32 @@ namespace back_end.Migrations
                         {
                             Id = 9999,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "35a07c63-4161-4def-b37e-e3537449b798",
+                            ConcurrencyStamp = "51d49b8a-44b5-4a17-bce7-09aae7470565",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDcQGA7Fr3QLOGGFZDC1NSi6xfE5BhkgO0TlNelH2XYwhaJhJZnpoYTJAeSwa4VCpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMMRvuoVdUZvnDdRWTuf+gmiX3uiYsH1AtTt4QQi01wj3XNt3+koFKA5Afbh6EN6nQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d8448418-b4fc-4407-a1d3-e80696e62d89",
+                            SecurityStamp = "0bc3a698-0533-4b69-99ed-6ffa785c25a7",
                             TwoFactorEnabled = false,
                             UserName = "admin",
-                            FirstLogin = true,
-                            SubscriptionBegin = new DateTime(2023, 3, 27, 19, 13, 20, 190, DateTimeKind.Utc).AddTicks(7728),
-                            SubscriptionExpiration = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
-                            SubscriptionType = 120000
+                            SubscriptionType = 0
                         });
                 });
 
             modelBuilder.Entity("Efficiency.Models.Goal", b =>
                 {
+                    b.HasOne("Efficiency.Models.Service", "Service")
+                        .WithMany("Goals")
+                        .HasForeignKey("ServiceID");
+
                     b.HasOne("Efficiency.Models.Store", "Store")
                         .WithMany("Goals")
                         .HasForeignKey("StoreID");
+
+                    b.Navigation("Service");
 
                     b.Navigation("Store");
                 });
@@ -497,7 +504,7 @@ namespace back_end.Migrations
                         .IsRequired();
 
                     b.HasOne("Efficiency.Models.Service", "Service")
-                        .WithMany("ServicesResult")
+                        .WithMany("ResultsServices")
                         .HasForeignKey("ServiceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -584,9 +591,11 @@ namespace back_end.Migrations
 
             modelBuilder.Entity("Efficiency.Models.Service", b =>
                 {
-                    b.Navigation("ServicesGoal");
+                    b.Navigation("Goals");
 
-                    b.Navigation("ServicesResult");
+                    b.Navigation("ResultsServices");
+
+                    b.Navigation("ServicesGoal");
                 });
 
             modelBuilder.Entity("Efficiency.Models.Store", b =>

@@ -9,7 +9,9 @@ public class User : IdentityUser<int>
     public string? LastName { get; set; }
     public string? Phone { get; set; }
     public string? Role { get; set; }
-    public bool? PaymentOnDay { get; set; }
+    public Subscription SubscriptionType { get; set; }
+    public DateTime? SubscriptionBegin { get; set; }
+    public DateTime? SubscriptionExpiration { get; set; }
     public bool? FirstLogin { get; set; }
 
     [JsonIgnore]

@@ -56,13 +56,15 @@ var builder = WebApplication.CreateBuilder(args);
 // string CORSPolicy = "AllowEverything";
 
 builder.Services.AddAuthentication(
-    opts => {
+    opts =>
+    {
         opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     }
 ).AddJwtBearer(
-    opts => {
-        opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters 
+    opts =>
+    {
+        opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
@@ -83,12 +85,12 @@ builder.Services.AddDbContext<AppDbContext>
     opts => opts
     .UseLazyLoadingProxies()
     .UseMySql(
-        connectionString, 
+        connectionString,
         ServerVersion.AutoDetect(connectionString)
     )
 );
 
-builder.Services.AddCors( options => 
+builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAnyRequest", builder => builder
         .AllowAnyHeader()
@@ -113,6 +115,8 @@ builder.Services.AddScoped<SellerService, SellerService>();
 builder.Services.AddScoped<ResultService, ResultService>();
 builder.Services.AddScoped<ServiceService, ServiceService>();
 builder.Services.AddScoped<GoalService, GoalService>();
+builder.Services.AddScoped<ServiceGoalService, ServiceGoalService>();
+builder.Services.AddScoped<ServiceResultService, ServiceResultService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -129,8 +133,8 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
-app.UseCors( 
-    builder => 
+app.UseCors(
+    builder =>
     {
         builder.AllowAnyOrigin()
             .AllowAnyMethod()
