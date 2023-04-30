@@ -1,7 +1,7 @@
 export interface Result {
     ID: number;
     Date: Date;
-    ProductSalesResult: number;
+    Result: number;
 }
 
 export type Results = Array<Result>;

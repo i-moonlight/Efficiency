@@ -46,19 +46,19 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasPrincipalKey(store => store.ID)
             .HasForeignKey(seller => seller.StoreID);
 
-        // n:1 relationship between sellers and store
-        builder.Entity<Seller>()
-            .HasOne(seller => seller.Store)
-            .WithMany(store => store.Sellers)
-            .HasPrincipalKey(store => store.ID)
-            .HasForeignKey(seller => seller.StoreID);
-
         // 1:n relationship between store and goals
         builder.Entity<Goal>()
             .HasOne(goal => goal.Store)
             .WithMany(store => store.Goals)
             .HasPrincipalKey(store => store.ID)
             .HasForeignKey(goal => goal.StoreID);
+
+        // 1:n relationship between store and services
+        builder.Entity<Service>()
+            .HasOne(service => service.Store)
+            .WithMany(store => store.Services)
+            .HasPrincipalKey(store => store.ID)
+            .HasForeignKey(service => service.StoreID);
 
         // 1:n relationship between seller and results        
         builder.Entity<Result>()

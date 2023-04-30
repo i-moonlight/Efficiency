@@ -19,7 +19,8 @@ public class TokenService
     {
         Claim[] userRights = new Claim[] {
             new Claim("Username", user.UserName),
-            new Claim("Id", user.Id.ToString())
+            new Claim("UserId", user.Id.ToString()),
+            new Claim("StoreId", user.Store == null ? "null" : user.StoreID.ToString())
         };
 
         var symmetricKey = new SymmetricSecurityKey(
@@ -28,7 +29,7 @@ public class TokenService
         );
 
         var credentials = new SigningCredentials(
-            symmetricKey, 
+            symmetricKey,
             SecurityAlgorithms.HmacSha256
         );
 

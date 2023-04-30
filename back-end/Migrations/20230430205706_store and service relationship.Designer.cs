@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230430205706_store and service relationship")]
+    partial class storeandservicerelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -427,19 +429,19 @@ namespace back_end.Migrations
                         {
                             Id = 9999,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b175f637-5359-4ecb-83cc-b23e4151f0c9",
+                            ConcurrencyStamp = "850f6be4-0292-4eb9-abcd-19148a11245a",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECnPSiFI9U81B93qYQview9OeU/2XI+hzrx1bRNNaa7kLR+htFk5bGe555jm5fgasg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE3fDC0AS+YZHZ7s9CoUmNPJkgzhjkVSskiFjW3WA9WfkAiY9+jCi4YsvDaUzLM5Uw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5602554d-32c8-469e-9244-497cbd76bb45",
+                            SecurityStamp = "805c9046-6d50-4458-b2ff-8390273df674",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstLogin = true,
-                            SubscriptionBegin = new DateTime(2023, 4, 30, 21, 18, 11, 697, DateTimeKind.Utc).AddTicks(8671),
+                            SubscriptionBegin = new DateTime(2023, 4, 30, 20, 57, 5, 876, DateTimeKind.Utc).AddTicks(6295),
                             SubscriptionExpiration = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
                             SubscriptionType = 120000
                         });
