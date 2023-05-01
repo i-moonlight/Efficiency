@@ -19,8 +19,8 @@ public class UserController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=500)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 500)
     {
         IActionResult result = NotFound();
 
@@ -35,12 +35,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    public IActionResult GetUser(int ID)
     {
         IActionResult result = NotFound();
 
         GetUserDTO? user = _service.Get(ID);
-        
+
         if (user != null)
         {
             result = Ok(user);
@@ -58,7 +58,11 @@ public class UserController : ControllerBase
 
         if (createdUser != null)
         {
-            result = CreatedAtAction(nameof(Get), new { ID = createdUser.ID }, createdUser);
+            result = CreatedAtAction(
+                nameof(GetUser),
+                new { ID = createdUser.ID },
+                createdUser
+            );
         }
 
         return result;
@@ -95,7 +99,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutUserDTO userDTO)
+    public IActionResult UpdateUser([FromBody] PutUserDTO userDTO)
     {
         IActionResult result = NotFound("User does not exist or password is incorrect");
 
@@ -110,7 +114,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    public IActionResult DeleteUser(int ID)
     {
         IActionResult result = NotFound();
 
