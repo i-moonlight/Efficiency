@@ -14,5 +14,6 @@ public class GetStoreDTO
     public string? ZipCode { get; set; }
     public ICollection<Models.User>? Users { get; set; }
     public ICollection<Models.Seller>? Sellers { get; set; }
-    public virtual ICollection<Models.Goal>? Goals { get; set; }
+    public ICollection<Models.Goal>? Goals { get; set; }
+    public ICollection<Models.Service>? Services { get; set; }
 }

@@ -4,7 +4,6 @@ namespace Efficiency.Data.DTO.Seller;
 
 public class PostSellerDTO
 {
-    [Required(ErrorMessage = "Registration number is mandatory")]
     public int RegistrationNumber { get; set; }
 
     [Required(ErrorMessage = "First name is not optional")]
@@ -16,6 +15,6 @@ public class PostSellerDTO
     public string? Phone { get; set; }
     public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Store reference is not optional")]
-    public int? StoreID { get; set; }   
+    [Required(ErrorMessage = "StoreID is mandatory")]
+    public int? StoreID { get; set; }
 }

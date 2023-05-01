@@ -12,7 +12,7 @@ public class User : IdentityUser<int>
     public Subscription SubscriptionType { get; set; }
     public DateTime? SubscriptionBegin { get; set; }
     public DateTime? SubscriptionExpiration { get; set; }
-    public bool? FirstLogin { get; set; }
+    public bool? FirstLogin { get; set; } = true;
 
     [JsonIgnore]
     public virtual Store? Store { get; set; }
