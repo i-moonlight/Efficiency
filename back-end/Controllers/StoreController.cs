@@ -17,8 +17,8 @@ public class StoreController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 50)
     {
         IActionResult result = NoContent();
 
@@ -33,11 +33,11 @@ public class StoreController : ControllerBase
     }
 
     [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    public IActionResult GetStore(int StoreID)
     {
         IActionResult result = NotFound();
 
-        GetStoreDTO? Store = _service.Get(ID);
+        GetStoreDTO? Store = _service.Get(StoreID);
 
         if (Store != null)
         {
@@ -48,7 +48,7 @@ public class StoreController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostStoreDTO StoreDTO)
+    public IActionResult CreateStore([FromBody] PostStoreDTO StoreDTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -57,7 +57,7 @@ public class StoreController : ControllerBase
         if (createdStore != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetStore),
                 new { ID = createdStore.ID },
                 createdStore
             );
@@ -67,7 +67,7 @@ public class StoreController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutStoreDTO StoreDTO)
+    public IActionResult UpdateStore([FromBody] PutStoreDTO StoreDTO)
     {
         IActionResult result = NotFound("The informed Store was not found");
 
@@ -82,7 +82,7 @@ public class StoreController : ControllerBase
     }
 
     [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    public IActionResult DeleteStore(int ID)
     {
         IActionResult result = NotFound("The informed Store was not found");
 
