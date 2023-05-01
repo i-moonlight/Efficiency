@@ -24,6 +24,7 @@ public class GetUserDTO
     public DateTime? SubscriptionExpiration { get; set; }
 
     public bool? FirstLogin { get; set; }
+    public bool EmailConfirmed { get; set; }
     public Models.Store? Store { get; set; }
 
 }

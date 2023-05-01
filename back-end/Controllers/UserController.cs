@@ -101,7 +101,7 @@ public class UserController : ControllerBase
     [HttpPut]
     public IActionResult UpdateUser([FromBody] PutUserDTO userDTO)
     {
-        IActionResult result = NotFound("User does not exist or password is incorrect");
+        IActionResult result = NotFound("User wasn't found or credentials are incorrect");
 
         bool updateSuccess = _service.Put(userDTO);
 

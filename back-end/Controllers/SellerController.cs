@@ -17,8 +17,8 @@ public class SellerController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 50)
     {
         IActionResult result = NoContent();
 
@@ -33,11 +33,26 @@ public class SellerController : ControllerBase
     }
 
     [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    public IActionResult GetSeller(int ID)
     {
         IActionResult result = NotFound();
 
         GetSellerDTO? Seller = _service.Get(ID);
+
+        if (Seller != null)
+        {
+            result = Ok(Seller);
+        }
+
+        return result;
+    }
+
+    [HttpGet("store/{storeID}")]
+    public IActionResult GetStoreSellers(int storeID)
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetSellerDTO>? Seller = _service.GetStoreSellers(storeID);
 
         if (Seller != null)
         {
@@ -57,7 +72,7 @@ public class SellerController : ControllerBase
         if (createdSeller != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetSeller),
                 new { ID = createdSeller.ID },
                 createdSeller
             );
@@ -103,7 +118,8 @@ public class SellerController : ControllerBase
 
         bool deactivationSucceeded = _service.Deactivate(ID);
 
-        if (deactivationSucceeded){
+        if (deactivationSucceeded)
+        {
             result = NoContent();
         }
 

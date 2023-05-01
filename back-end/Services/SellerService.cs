@@ -38,15 +38,15 @@ public class SellerService
     {
         GetSellerDTO? result = null;
         Seller? Seller = _context.Sellers?.FirstOrDefault(
-            seller => 
+            seller =>
                 seller.RegistrationNumber == SellerDTO.RegistrationNumber
-                &&(
+                && (
                     seller.FirstName != null
                     && SellerDTO.FirstName != null
                     && seller.FirstName
                         .ToUpper()
                         .Equals(SellerDTO.FirstName.ToUpper())
-                ) 
+                )
         );
 
         if (Seller == null)
@@ -82,7 +82,7 @@ public class SellerService
     public bool Delete(int ID)
     {
         bool result = false;
-        
+
         Seller? Seller = _context.Sellers?.FirstOrDefault(
             seller => seller.ID == ID
         );
@@ -99,9 +99,9 @@ public class SellerService
 
     public bool Deactivate(int ID)
     {
-        
+
         bool result = false;
-        
+
         Seller? Seller = _context.Sellers?.FirstOrDefault(
             seller => seller.ID == ID
         );
@@ -114,5 +114,14 @@ public class SellerService
         }
 
         return result;
+    }
+
+    public ICollection<GetSellerDTO>? GetStoreSellers(int storeID)
+    {
+        return this._mapper.Map<ICollection<GetSellerDTO>>(
+            from seller in this._context.Sellers
+            where seller.StoreID == storeID
+            select seller
+        );
     }
 }

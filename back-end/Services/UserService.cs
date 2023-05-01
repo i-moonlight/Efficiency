@@ -15,10 +15,10 @@ public class UserService
     private IMapper _mapper { get; set; }
 
     public UserService(
-        AppDbContext context, 
-        IMapper mapper, 
-        UserManager<User> manager, 
-        SignInManager<User> signInManager, 
+        AppDbContext context,
+        IMapper mapper,
+        UserManager<User> manager,
+        SignInManager<User> signInManager,
         TokenService tokenService
     )
     {
@@ -78,17 +78,23 @@ public class UserService
             User? user = _userManager.Users.FirstOrDefault(
                 user => user.NormalizedEmail.Equals(request.Email.ToUpper())
             );
-            if(user != null){
+            if (user != null)
+            {
                 System.Console.WriteLine("User found");
                 var signInResult = _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
-                if (signInResult.Result.Succeeded){
+                if (signInResult.Result.Succeeded)
+                {
                     System.Console.WriteLine("Correct user credentials provided");
                     result = _tokenService.Generate(user);
-                } else {
+                }
+                else
+                {
                     System.Console.WriteLine("Incorrect user credentials provided");
                 }
-            } else {
+            }
+            else
+            {
                 System.Console.WriteLine("User e-mail not registered");
             }
         }
@@ -101,7 +107,7 @@ public class UserService
         bool result = false;
 
         User? user = _userManager.Users.FirstOrDefault(user => user.Id == userDTO.ID);
-        
+
         if (user != null)
         {
             System.Console.WriteLine("user was found");
@@ -113,7 +119,7 @@ public class UserService
                 System.Console.WriteLine("user password is correct");
 
                 _mapper.Map(userDTO, user);
-                user = ReturnReadyUser(user);
+                // user = ReturnReadyUser(user);
 
                 var updateUser = _userManager.UpdateAsync(user);
 
@@ -163,29 +169,12 @@ public class UserService
         return result != null;
     }
 
-    private User ReturnReadyUser(User user)
-    {
-        // remove possible initial and end spaces in user's first and last names
-        user.FirstName = user.FirstName?.Trim();
-        user.LastName = user.LastName?.Trim();
-
-        // sets user's e-mail to have only lower case characters
-        user.Email = user.Email?.ToLower();
-
-        // sets user's username to be his first and last names in lower case and without spaces
-        user.UserName = 
-            user.FirstName?.ToLower()
-            + user.LastName?.ToLower().Replace(" ", "");
-
-        return user;
-    }
-
     public bool Logout()
     {
         var signOut = _signInManager.SignOutAsync();
 
         bool result = signOut.IsCompletedSuccessfully;
-        
+
         return result;
     }
 }

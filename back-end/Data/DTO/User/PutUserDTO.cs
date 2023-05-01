@@ -9,6 +9,7 @@ public class PutUserDTO
     public int ID { get; set; }
     [Required(ErrorMessage = "User password is required")]
     public string? Password { get; set; }
+    public string? UserName { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
 
@@ -19,5 +20,6 @@ public class PutUserDTO
 
     public string? Role { get; set; }
     public Subscription SubscriptionType { get; set; }
+    public bool? FirstLogin { get; set; }
     public int? StoreID { get; set; }
 }

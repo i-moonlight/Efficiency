@@ -67,28 +67,8 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
             .HasPrincipalKey(seller => seller.ID)
             .HasForeignKey(result => result.SellerID);
 
-        // Creating a default admin user
-        User admin = new User
-        {
-            Id = 9999,
-            UserName = "admin",
-            NormalizedUserName = "ADMIN",
-            Email = "admin@admin.com",
-            NormalizedEmail = "ADMIN@ADMIN.COM",
-            SubscriptionType = Subscription.Lifetime,
-            SubscriptionBegin = DateTime.UtcNow,
-            SubscriptionExpiration = DateTime.MaxValue,
-            FirstLogin = true,
-            EmailConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString()
-        };
 
-        PasswordHasher<User> hasher = new PasswordHasher<User>();
-
-        admin.PasswordHash = hasher.HashPassword(admin,
-            _config.GetValue<string>("admin:password"));
-
-        builder.Entity<User>().HasData(admin);
+        createAdminUser(builder);
 
         /*
         builder.Entity<IdentityRole<int>>().HasData(
@@ -159,4 +139,30 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
         */
     }
 
+    private void createAdminUser(ModelBuilder builder)
+    {
+        // Creating a default admin user
+        User admin = new User
+        {
+            Id = 9999,
+            UserName = "admin",
+            NormalizedUserName = "ADMIN",
+            Email = "admin@admin.com",
+            NormalizedEmail = "ADMIN@ADMIN.COM",
+            SubscriptionType = Subscription.Lifetime,
+            SubscriptionBegin = DateTime.UtcNow,
+            SubscriptionExpiration = DateTime.MaxValue,
+            FirstLogin = true,
+            EmailConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString(),
+            Role = "ADMIN"
+        };
+
+        PasswordHasher<User> hasher = new PasswordHasher<User>();
+
+        admin.PasswordHash = hasher.HashPassword(admin,
+            _config.GetValue<string>("admin:password"));
+
+        builder.Entity<User>().HasData(admin);
+    }
 }
