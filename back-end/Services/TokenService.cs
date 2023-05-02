@@ -17,10 +17,12 @@ public class TokenService
 
     public Token? Generate(User user)
     {
+        string? storeID = user.StoreID.ToString();
+
         Claim[] userRights = new Claim[] {
             new Claim("Username", user.UserName),
             new Claim("UserId", user.Id.ToString()),
-            new Claim("StoreId", user.Store == null ? "null" : user.StoreID.ToString())
+            new Claim("StoreId", storeID == null ? "null" : storeID)
         };
 
         var symmetricKey = new SymmetricSecurityKey(

@@ -38,7 +38,7 @@ public class ResultService
     {
         GetResultDTO? result = null;
         Result? Result = _context.Results?.FirstOrDefault(
-            result => result.Date.CompareTo(ResultDTO.Date) == 0 
+            result => result.Date.CompareTo(ResultDTO.Date) == 0
                     && result.SellerID == ResultDTO.SellerID
         );
 
@@ -79,7 +79,7 @@ public class ResultService
     public bool Delete(int ID)
     {
         bool result = false;
-        
+
         Result? Result = _context.Results?.FirstOrDefault(
             result => result.ID == ID
         );

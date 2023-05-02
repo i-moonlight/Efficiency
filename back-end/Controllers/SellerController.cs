@@ -47,21 +47,6 @@ public class SellerController : ControllerBase
         return result;
     }
 
-    [HttpGet("store/{storeID}")]
-    public IActionResult GetStoreSellers(int storeID)
-    {
-        IActionResult result = NotFound();
-
-        ICollection<GetSellerDTO>? Seller = _service.GetStoreSellers(storeID);
-
-        if (Seller != null)
-        {
-            result = Ok(Seller);
-        }
-
-        return result;
-    }
-
     [HttpPost]
     public IActionResult Post([FromBody] PostSellerDTO SellerDTO)
     {

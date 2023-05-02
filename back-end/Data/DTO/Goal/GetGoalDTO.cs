@@ -1,4 +1,5 @@
 using Efficiency.Models;
+using Efficiency.Models.Enums;
 
 namespace Efficiency.Data.DTO.Goal;
 

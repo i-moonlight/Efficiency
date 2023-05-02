@@ -118,7 +118,8 @@ public class SellerService
 
     public ICollection<GetSellerDTO>? GetStoreSellers(int storeID)
     {
-        return this._mapper.Map<ICollection<GetSellerDTO>>(
+        return this._mapper.Map<ICollection<GetSellerDTO>>
+        (
             from seller in this._context.Sellers
             where seller.StoreID == storeID
             select seller

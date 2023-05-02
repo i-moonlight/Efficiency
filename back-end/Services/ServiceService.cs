@@ -38,8 +38,8 @@ public class ServiceService
     {
         GetServiceDTO? result = null;
         Service? Service = _context.Services?.FirstOrDefault(
-            service => 
-                service.Name != null 
+            service =>
+                service.Name != null
                 && ServiceDTO.Name != null
                 && service.Name
                     .ToUpper()
@@ -78,7 +78,7 @@ public class ServiceService
     public bool Delete(int ID)
     {
         bool result = false;
-        
+
         Service? Service = _context.Services?.FirstOrDefault(
             service => service.ID == ID
         );
@@ -111,5 +111,15 @@ public class ServiceService
         }
 
         return result;
+    }
+
+    public ICollection<GetServiceDTO>? GetStoreServices(int storeID)
+    {
+        return this._mapper.Map<ICollection<GetServiceDTO>>
+        (
+            from service in this._context.Services
+            where service.StoreID == storeID
+            select service
+        );
     }
 }

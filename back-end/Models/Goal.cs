@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Efficiency.Models.Enums;
 
 namespace Efficiency.Models;
 

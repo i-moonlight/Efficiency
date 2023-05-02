@@ -14,6 +14,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser<int>, IdentityRole<in
     public DbSet<ServiceResult>? ServicesResult { get; set; }
     public DbSet<ServiceGoal>? ServicesGoal { get; set; }
     public DbSet<Goal>? Goals { get; set; }
+    // Users are managed by identity
     private IConfiguration _config;
 
     public AppDbContext(IConfiguration config)

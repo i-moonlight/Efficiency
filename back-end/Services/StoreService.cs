@@ -1,4 +1,6 @@
 using AutoMapper;
+using Efficiency.Data.DTO.Seller;
+using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.Store;
 using Efficiency.Models;
 
@@ -75,7 +77,7 @@ public class StoreService
     public bool Delete(int ID)
     {
         bool result = false;
-        
+
         Store? Store = _context.Stores?.FirstOrDefault(
             store => store.ID == ID
         );

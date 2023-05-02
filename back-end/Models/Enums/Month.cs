@@ -1,4 +1,4 @@
-namespace Efficiency.Models;
+namespace Efficiency.Models.Enums;
 
 public enum Month
 {
