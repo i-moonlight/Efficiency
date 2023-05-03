@@ -11,6 +11,5 @@ public class GetSellerDTO
     public bool? Active { get; set; }
     public string? Phone { get; set; }
     public string? Email { get; set; }
-    public Models.Store? Store { get; set; }
-    public ICollection<Models.Result>? Results { get; set; }
+    public int? StoreID { get; set; }
 }

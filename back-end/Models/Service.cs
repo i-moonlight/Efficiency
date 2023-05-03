@@ -8,7 +8,11 @@ public class Service
     [Key]
     public int ID { get; set; }
     public string? Name { get; set; }
+
+    [JsonIgnore]
     public int StoreID { get; set; }
+
+    [JsonIgnore]
     public virtual Store? Store { get; set; }
 
     [JsonIgnore]

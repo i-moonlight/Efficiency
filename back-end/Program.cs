@@ -40,6 +40,8 @@
         - dotnet ef database update
 
         USER SECRETS: https://learn.microsoft.com/pt-br/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#register-the-user-secrets-configuration-source
+        
+        DATE ONLY CONVERTER: https://stackoverflow.com/questions/74246482/system-notsupportedexception-serialization-and-deserialization-of-system-dateo
 */
 
 using System.Text;
@@ -104,7 +106,14 @@ builder.Services.AddDefaultIdentity<User>
     options => options.SignIn.RequireConfirmedAccount = true
 ).AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddControllers();
+// Initialize controllers
+// Add DateOnly converter since .net 6.0 doesn't support it out of the box
+builder.Services.AddControllers().AddJsonOptions(
+    options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    }
+);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

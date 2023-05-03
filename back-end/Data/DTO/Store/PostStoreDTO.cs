@@ -9,7 +9,14 @@ public class PostStoreDTO
     public string? City { get; set; }
     public string? State { get; set; }
     public string? Country { get; set; }
-    public string? AddressLine1 { get; set; }
-    public string? AddressLine2 { get; set; }
+    [StringLength(100)]
+    public string? Street { get; set; }
+    [StringLength(100)]
+    public string? District { get; set; }
+    [StringLength(100)]
+    public string? Complement { get; set; }
+    [StringLength(100)]
+    public string? Observations { get; set; }
+    [StringLength(10)]
     public string? ZipCode { get; set; }
 }

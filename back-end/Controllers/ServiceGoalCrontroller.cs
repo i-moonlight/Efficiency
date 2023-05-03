@@ -1,3 +1,4 @@
+using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceGoal;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +32,28 @@ public class ServiceGoalController : ControllerBase
         return result;
     }
 
-    [HttpGet("{goalID}/{serviceID}")]
+    [HttpGet("goal/{goalID}/service/{serviceID}")]
     public IActionResult Get(int goalID, int serviceID)
     {
         IActionResult result = NotFound();
 
         GetServiceGoalDTO? DTO = _service.Get(serviceID, goalID);
+
+        if (DTO != null)
+        {
+            result = Ok(DTO);
+        }
+
+        return result;
+    }
+
+
+    [HttpGet("goal/{goalID}/services")]
+    public IActionResult GetGoalServices(int goalID)
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetServiceDTO>? DTO = _service.GetGoalServices(goalID);
 
         if (DTO != null)
         {
@@ -84,7 +101,7 @@ public class ServiceGoalController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{goalID}/{serviceID}")]
+    [HttpDelete("goal/{goalID}/service/{serviceID}")]
     public IActionResult Delete(int goalID, int serviceID)
     {
 

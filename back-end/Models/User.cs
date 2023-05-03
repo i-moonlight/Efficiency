@@ -13,8 +13,8 @@ public class User : IdentityUser<int>
     public DateTime? SubscriptionBegin { get; set; }
     public DateTime? SubscriptionExpiration { get; set; }
     public bool? FirstLogin { get; set; } = true;
+    public int? StoreID { get; set; }
 
     [JsonIgnore]
     public virtual Store? Store { get; set; }
-    public int? StoreID { get; set; }
 }

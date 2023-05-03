@@ -122,4 +122,18 @@ public class ServiceService
             select service
         );
     }
+
+    public ICollection<GetServiceDTO>? GetBulkServices(List<int> servicesIDs)
+    {
+        ICollection<GetServiceDTO>? result = null;
+
+        foreach (int ID in servicesIDs)
+        {
+            var service = this.Get(ID);
+            if (service != null)
+                result?.Add(service);
+        }
+
+        return result;
+    }
 }

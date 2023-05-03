@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace back_end.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230503190347_Adress properties in Store updated; created initial data factory")]
+    partial class AdresspropertiesinStoreupdatedcreatedinitialdatafactory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,71 +136,71 @@ namespace back_end.Migrations
                         new
                         {
                             ID = 1,
-                            Date = new DateOnly(2022, 7, 30),
-                            SellerID = 2,
+                            Date = new DateOnly(2022, 12, 22),
+                            SellerID = 3,
                             Value = 10574m
                         },
                         new
                         {
                             ID = 2,
-                            Date = new DateOnly(2023, 3, 17),
-                            SellerID = 3,
+                            Date = new DateOnly(2023, 4, 4),
+                            SellerID = 4,
                             Value = 12384m
                         },
                         new
                         {
                             ID = 3,
-                            Date = new DateOnly(2023, 1, 16),
-                            SellerID = 1,
+                            Date = new DateOnly(2022, 7, 12),
+                            SellerID = 2,
                             Value = 114443m
                         },
                         new
                         {
                             ID = 4,
-                            Date = new DateOnly(2022, 7, 20),
+                            Date = new DateOnly(2023, 4, 8),
                             SellerID = 4,
                             Value = 1823m
                         },
                         new
                         {
                             ID = 5,
-                            Date = new DateOnly(2023, 2, 15),
+                            Date = new DateOnly(2022, 10, 21),
                             SellerID = 4,
                             Value = 176370m
                         },
                         new
                         {
                             ID = 6,
-                            Date = new DateOnly(2022, 10, 29),
+                            Date = new DateOnly(2022, 8, 31),
                             SellerID = 2,
                             Value = 147842m
                         },
                         new
                         {
                             ID = 7,
-                            Date = new DateOnly(2022, 7, 9),
-                            SellerID = 2,
+                            Date = new DateOnly(2022, 8, 8),
+                            SellerID = 3,
                             Value = 23805m
                         },
                         new
                         {
                             ID = 8,
-                            Date = new DateOnly(2023, 3, 7),
-                            SellerID = 2,
+                            Date = new DateOnly(2023, 3, 2),
+                            SellerID = 3,
                             Value = 156669m
                         },
                         new
                         {
                             ID = 9,
-                            Date = new DateOnly(2022, 5, 6),
-                            SellerID = 3,
+                            Date = new DateOnly(2023, 1, 24),
+                            SellerID = 1,
                             Value = 73181m
                         },
                         new
                         {
                             ID = 10,
-                            Date = new DateOnly(2023, 3, 29),
-                            SellerID = 3,
+                            Date = new DateOnly(2023, 4, 9),
+                            SellerID = 4,
                             Value = 124042m
                         });
                 });
@@ -877,21 +879,20 @@ namespace back_end.Migrations
                         {
                             Id = 9999,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "641c9919-6a9d-41e0-afd6-2f62b1d8772a",
+                            ConcurrencyStamp = "44b249d7-f0f2-4be2-bf1a-9c464999121c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENkKRyWMj8YDnvtrartxu35KhRJMJ6fFzVJUCfgEolx+GX6U9iJAn0l4ZsYJ95Dpxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFCMD0OoSk5I8P+gfl7iobUPKlySnBez3PYy3ANE4YJ7vXvYxLX8u0Uph1JmdAn9PQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "518b6760-899d-4a96-ba20-c959afd811d4",
+                            SecurityStamp = "0a6b671f-6138-42b4-88e6-07d7e526a71a",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstLogin = true,
                             Role = "ADMIN",
-                            StoreID = 1,
-                            SubscriptionBegin = new DateTime(2023, 5, 3, 20, 17, 55, 410, DateTimeKind.Utc).AddTicks(2639),
+                            SubscriptionBegin = new DateTime(2023, 5, 3, 19, 3, 47, 269, DateTimeKind.Utc).AddTicks(9227),
                             SubscriptionExpiration = new DateTime(9999, 12, 31, 23, 59, 59, 999, DateTimeKind.Unspecified).AddTicks(9999),
                             SubscriptionType = 120000
                         });

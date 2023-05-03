@@ -17,8 +17,8 @@ public class GoalController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 50)
     {
         IActionResult result = NoContent();
 

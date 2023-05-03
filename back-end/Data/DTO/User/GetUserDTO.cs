@@ -16,15 +16,11 @@ public class GetUserDTO
     public string? Email { get; set; }
 
     public string? Role { get; set; }
-    public Subscription SubscriptionType { get; set; }
+    public Subscription Subscription { get; set; }
 
     [DataType(DataType.DateTime)]
     public DateTime? SubscriptionBegin { get; set; }
     [DataType(DataType.DateTime)]
     public DateTime? SubscriptionExpiration { get; set; }
-
-    public bool? FirstLogin { get; set; }
-    public bool EmailConfirmed { get; set; }
-    public Models.Store? Store { get; set; }
-
+    public int? StoreID { get; set; }
 }

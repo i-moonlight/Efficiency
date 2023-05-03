@@ -1,4 +1,5 @@
 using AutoMapper;
+using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Models;
 
@@ -8,11 +9,15 @@ public class ServiceResultService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
+    private ResultService _resultService { get; set; }
+    private ServiceService _serviceService { get; set; }
 
-    public ServiceResultService(AppDbContext context, IMapper mapper)
+    public ServiceResultService(AppDbContext context, IMapper mapper, ServiceService serviceService, ResultService resultService)
     {
         _context = context;
         _mapper = mapper;
+        _serviceService = serviceService;
+        _resultService = resultService;
     }
 
     public ICollection<GetServiceResultDTO>? GetAll()
@@ -78,5 +83,24 @@ public class ServiceResultService
         }
 
         return result;
+    }
+
+    public ICollection<GetServiceDTO>? GetResultServices(int resultID)
+    {
+        List<int> servicesIDs = new List<int>();
+
+        IQueryable<ServiceResult> sr =
+            from serviceResult in this._context.ServicesResult
+            where serviceResult.ResultID == resultID
+            select serviceResult;
+
+        foreach (var serviceResult in sr)
+        {
+            servicesIDs.Add(serviceResult.ServiceID);
+        }
+
+        ICollection<GetServiceDTO>? services = this._serviceService.GetBulkServices(servicesIDs);
+
+        return services;
     }
 }

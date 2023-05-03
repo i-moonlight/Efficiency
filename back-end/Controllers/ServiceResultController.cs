@@ -1,3 +1,4 @@
+using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +16,6 @@ public class ServiceResultController : ControllerBase
         _service = service;
     }
 
-    // TODO
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -31,12 +31,27 @@ public class ServiceResultController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ResultID}/{serviceID}")]
-    public IActionResult Get(int ResultID, int serviceID)
+    [HttpGet("result/{resultID}/service/{serviceID}")]
+    public IActionResult Get(int resultID, int serviceID)
     {
         IActionResult result = NotFound();
 
-        GetServiceResultDTO? DTO = _service.Get(serviceID, ResultID);
+        GetServiceResultDTO? DTO = _service.Get(serviceID, resultID);
+
+        if (DTO != null)
+        {
+            result = Ok(DTO);
+        }
+
+        return result;
+    }
+
+    [HttpGet("result/{resultID}/services")]
+    public IActionResult GetResultServices(int resultID)
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetServiceDTO>? DTO = _service.GetResultServices(resultID);
 
         if (DTO != null)
         {
@@ -84,13 +99,13 @@ public class ServiceResultController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ResultID}/{serviceID}")]
-    public IActionResult Delete(int ResultID, int serviceID)
+    [HttpDelete("result/{resultID}/service/{serviceID}")]
+    public IActionResult Delete(int resultID, int serviceID)
     {
 
         IActionResult result = NotFound();
 
-        bool deleteSucceeded = _service.Delete(serviceID, ResultID);
+        bool deleteSucceeded = _service.Delete(serviceID, resultID);
 
         if (deleteSucceeded)
         {

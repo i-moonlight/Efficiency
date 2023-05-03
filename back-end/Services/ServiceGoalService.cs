@@ -1,6 +1,7 @@
 using AutoMapper;
-using Efficiency.Data.DTO.ServiceGoal;
 using Efficiency.Models;
+using Efficiency.Data.DTO.ServiceGoal;
+using Efficiency.Data.DTO.Service;
 
 namespace Efficiency.Services;
 
@@ -8,11 +9,15 @@ public class ServiceGoalService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
+    private GoalService _goalService { get; set; }
+    private ServiceService _serviceService { get; set; }
 
-    public ServiceGoalService(AppDbContext context, IMapper mapper)
+    public ServiceGoalService(AppDbContext context, IMapper mapper, ServiceService serviceService, GoalService goalService)
     {
         _context = context;
         _mapper = mapper;
+        _serviceService = serviceService;
+        _goalService = goalService;
     }
 
     public ICollection<GetServiceGoalDTO>? GetAll()
@@ -25,7 +30,8 @@ public class ServiceGoalService
     public GetServiceGoalDTO? Get(int serviceID, int goalID)
     {
         ServiceGoal? serviceGoal = _context.ServicesGoal?.FirstOrDefault(
-            serviceGoal => serviceGoal.ServiceID == serviceID
+            serviceGoal =>
+                serviceGoal.ServiceID == serviceID
                 && serviceGoal.GoalID == goalID
         );
         GetServiceGoalDTO? DTO = _mapper.Map<GetServiceGoalDTO>(serviceGoal);
@@ -78,5 +84,24 @@ public class ServiceGoalService
         }
 
         return result;
+    }
+
+    public ICollection<GetServiceDTO>? GetGoalServices(int goalID)
+    {
+        List<int> servicesIDs = new List<int>();
+
+        IQueryable<ServiceGoal> sg =
+            from serviceGoal in this._context.ServicesGoal
+            where serviceGoal.GoalID == goalID
+            select serviceGoal;
+
+        foreach (var serviceGoal in sg)
+        {
+            servicesIDs.Add(serviceGoal.ServiceID);
+        }
+
+        ICollection<GetServiceDTO>? services = this._serviceService.GetBulkServices(servicesIDs);
+
+        return services;
     }
 }
