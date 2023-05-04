@@ -1,5 +1,6 @@
 using AutoMapper;
 using Efficiency.Data.DTO.Result;
+using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Models;
 
 namespace Efficiency.Services;
@@ -8,11 +9,17 @@ public class ResultService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
+    private ServiceResultService _serviceResultService { get; set; }
 
-    public ResultService(AppDbContext context, IMapper mapper)
+    public ResultService(
+        AppDbContext context,
+        IMapper mapper,
+        ServiceResultService serviceResultService
+    )
     {
         _context = context;
         _mapper = mapper;
+        _serviceResultService = serviceResultService;
     }
 
     public ICollection<GetResultDTO> GetAll(int skip, int take)

@@ -1,4 +1,5 @@
 using AutoMapper;
+using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Models;
@@ -102,5 +103,10 @@ public class ServiceResultService
         ICollection<GetServiceDTO>? services = this._serviceService.GetBulkServices(servicesIDs);
 
         return services;
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetSellersServicesResults(List<int> sellersIDs, DateOnly date)
+    {
+        throw new NotImplementedException();
     }
 }

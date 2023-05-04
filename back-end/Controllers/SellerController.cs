@@ -1,4 +1,5 @@
 using Efficiency.Data.DTO.Seller;
+using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -107,6 +108,22 @@ public class SellerController : ControllerBase
         {
             result = NoContent();
         }
+
+        return result;
+    }
+
+    [HttpGet("sellers/date/{date}")]
+    public IActionResult GetSellersServicesResults(
+        [FromBody] List<int> sellersIDs,
+        DateOnly date
+    )
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetSellerServiceResultDTO>? results = this._service.GetSellersServicesResults(sellersIDs, date);
+
+        if (results != null)
+            result = Ok(results);
 
         return result;
     }

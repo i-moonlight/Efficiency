@@ -1,5 +1,6 @@
 using AutoMapper;
 using Efficiency.Data.DTO.Seller;
+using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Models;
 
 namespace Efficiency.Services;
@@ -8,11 +9,17 @@ public class SellerService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
+    private ServiceResultService _serviceResultService { get; set; }
 
-    public SellerService(AppDbContext context, IMapper mapper)
+    public SellerService(
+        AppDbContext context,
+        IMapper mapper,
+        ServiceResultService serviceResultService
+    )
     {
         _context = context;
         _mapper = mapper;
+        _serviceResultService = serviceResultService;
     }
 
     public ICollection<GetSellerDTO> GetAll(int skip, int take)
@@ -124,5 +131,10 @@ public class SellerService
             where seller.StoreID == storeID
             select seller
         );
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetSellersServicesResults(List<int> sellersIDs, DateOnly date)
+    {
+        return this._serviceResultService.GetSellersServicesResults(sellersIDs, date);
     }
 }

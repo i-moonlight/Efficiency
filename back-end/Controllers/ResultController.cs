@@ -1,4 +1,5 @@
 using Efficiency.Data.DTO.Result;
+using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,11 +9,11 @@ namespace Efficiency.Controllers;
 [Route("[controller]")]
 public class ResultController : ControllerBase
 {
-    private ResultService _service;
+    private ResultService _resultService;
 
-    public ResultController(ResultService service)
+    public ResultController(ResultService resultService)
     {
-        _service = service;
+        _resultService = resultService;
     }
 
     [HttpGet]
@@ -22,7 +23,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = NoContent();
 
-        ICollection<GetResultDTO>? results = _service.GetAll(skip, take);
+        ICollection<GetResultDTO>? results = _resultService.GetAll(skip, take);
 
         if (results != null)
         {
@@ -37,7 +38,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = NotFound();
 
-        GetResultDTO? Result = _service.Get(resultID);
+        GetResultDTO? Result = _resultService.Get(resultID);
 
         if (Result != null)
         {
@@ -52,7 +53,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = StatusCode(500);
 
-        GetResultDTO? createdResult = _service.Post(ResultDTO);
+        GetResultDTO? createdResult = _resultService.Post(ResultDTO);
 
         if (createdResult != null)
         {
@@ -71,7 +72,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = NotFound("This Result was not found");
 
-        bool updateSucceeded = _service.Put(ResultDTO);
+        bool updateSucceeded = _resultService.Put(ResultDTO);
 
         if (updateSucceeded)
         {
@@ -86,7 +87,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = NotFound("The Result was not found");
 
-        bool deleteSucceeded = _service.Delete(resultID);
+        bool deleteSucceeded = _resultService.Delete(resultID);
 
         if (deleteSucceeded)
         {

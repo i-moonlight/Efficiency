@@ -144,18 +144,17 @@ public class StoreController : ControllerBase
         [FromQuery] Month? month = null
     )
     {
-        IActionResult result = NotFound();
         ICollection<GetGoalDTO>? goals = null;
 
         if (year == null)
             goals = _storeService.GetAllStoreGoals(storeID);
-        else if (quarter != null)
-            goals = _storeService.GetQuarterStoreGoals(storeID, ((int)year), ((int)quarter));
         else if (month != null)
             goals = _storeService.GetMonthStoreGoals(storeID, ((int)year), ((Month)month));
+        else if (quarter != null)
+            goals = _storeService.GetQuarterStoreGoals(storeID, ((int)year), ((int)quarter));
         else
             goals = _storeService.GetYearStoreGoals(storeID, ((int)year));
 
-        return goals != null ? Ok(goals) : result;
+        return goals != null ? Ok(goals) : NotFound();
     }
 }
