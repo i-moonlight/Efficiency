@@ -17,8 +17,8 @@ public class ServiceController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 50)
     {
         IActionResult result = NoContent();
 
@@ -32,12 +32,12 @@ public class ServiceController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    [HttpGet("{serviceID}")]
+    public IActionResult Get(int serviceID)
     {
         IActionResult result = NotFound();
 
-        GetServiceDTO? Service = _service.Get(ID);
+        GetServiceDTO? Service = _service.Get(serviceID);
 
         if (Service != null)
         {
@@ -58,7 +58,7 @@ public class ServiceController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(Get),
-                new { ID = createdService.ID },
+                new { serviceID = createdService.ID },
                 createdService
             );
         }
@@ -81,12 +81,12 @@ public class ServiceController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    [HttpDelete("{serviceID}")]
+    public IActionResult Delete(int serviceID)
     {
         IActionResult result = NotFound("The informed Financial Result was not found");
 
-        bool deleteSucceeded = _service.Delete(ID);
+        bool deleteSucceeded = _service.Delete(serviceID);
 
         if (deleteSucceeded)
         {

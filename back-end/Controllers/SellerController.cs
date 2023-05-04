@@ -32,12 +32,12 @@ public class SellerController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ID}")]
-    public IActionResult GetSeller(int ID)
+    [HttpGet("{sellerID}")]
+    public IActionResult GetSeller(int sellerID)
     {
         IActionResult result = NotFound();
 
-        GetSellerDTO? Seller = _service.Get(ID);
+        GetSellerDTO? Seller = _service.Get(sellerID);
 
         if (Seller != null)
         {
@@ -58,7 +58,7 @@ public class SellerController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(GetSeller),
-                new { ID = createdSeller.ID },
+                new { sellerID = createdSeller.ID },
                 createdSeller
             );
         }
@@ -81,12 +81,12 @@ public class SellerController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    [HttpDelete("{sellerID}")]
+    public IActionResult Delete(int sellerID)
     {
         IActionResult result = NotFound("The informed Seller was not found");
 
-        bool deleteSucceeded = _service.Delete(ID);
+        bool deleteSucceeded = _service.Delete(sellerID);
 
         if (deleteSucceeded)
         {
@@ -96,12 +96,12 @@ public class SellerController : ControllerBase
         return result;
     }
 
-    [HttpPut("{ID}/deactivate")]
-    public IActionResult Deactivate(int ID)
+    [HttpPut("{sellerID}/deactivate")]
+    public IActionResult Deactivate(int sellerID)
     {
         IActionResult result = StatusCode(500);
 
-        bool deactivationSucceeded = _service.Deactivate(ID);
+        bool deactivationSucceeded = _service.Deactivate(sellerID);
 
         if (deactivationSucceeded)
         {

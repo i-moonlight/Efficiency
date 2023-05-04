@@ -178,4 +178,14 @@ public class UserService
 
         return result;
     }
+
+    public ICollection<GetUserDTO>? GetStoreUsers(int storeID)
+    {
+        return this._mapper.Map<ICollection<GetUserDTO>>(
+            from user in this._userManager.Users
+            where user.StoreID == storeID
+            orderby user.FirstName
+            select user
+        );
+    }
 }

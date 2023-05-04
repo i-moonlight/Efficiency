@@ -17,8 +17,8 @@ public class ResultController : ControllerBase
 
     [HttpGet]
     public IActionResult GetAll(
-        [FromQuery] int skip=0,
-        [FromQuery] int take=50)
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 50)
     {
         IActionResult result = NoContent();
 
@@ -32,12 +32,12 @@ public class ResultController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    [HttpGet("{resultID}")]
+    public IActionResult Get(int resultID)
     {
         IActionResult result = NotFound();
 
-        GetResultDTO? Result = _service.Get(ID);
+        GetResultDTO? Result = _service.Get(resultID);
 
         if (Result != null)
         {
@@ -58,7 +58,7 @@ public class ResultController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(Get),
-                new { ID = createdResult.ID },
+                new { resultID = createdResult.ID },
                 createdResult
             );
         }
@@ -81,12 +81,12 @@ public class ResultController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    [HttpDelete("{resultID}")]
+    public IActionResult Delete(int resultID)
     {
         IActionResult result = NotFound("The Result was not found");
 
-        bool deleteSucceeded = _service.Delete(ID);
+        bool deleteSucceeded = _service.Delete(resultID);
 
         if (deleteSucceeded)
         {

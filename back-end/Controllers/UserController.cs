@@ -35,12 +35,12 @@ public class UserController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ID}")]
-    public IActionResult GetUser(int ID)
+    [HttpGet("{userID}")]
+    public IActionResult GetUser(int userID)
     {
         IActionResult result = NotFound();
 
-        GetUserDTO? user = _service.Get(ID);
+        GetUserDTO? user = _service.Get(userID);
 
         if (user != null)
         {
@@ -61,7 +61,7 @@ public class UserController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(GetUser),
-                new { ID = createdUser.ID },
+                new { userID = createdUser.ID },
                 createdUser
             );
         }
@@ -114,12 +114,12 @@ public class UserController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ID}")]
-    public IActionResult DeleteUser(int ID)
+    [HttpDelete("{userID}")]
+    public IActionResult DeleteUser(int userID)
     {
         IActionResult result = NotFound();
 
-        bool deleteSuccess = _service.Delete(ID);
+        bool deleteSuccess = _service.Delete(userID);
 
         if (deleteSuccess)
         {

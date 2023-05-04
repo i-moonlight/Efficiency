@@ -1,8 +1,11 @@
 using AutoMapper;
+using Efficiency.Data.DTO.Goal;
 using Efficiency.Data.DTO.Seller;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.Store;
+using Efficiency.Data.DTO.User;
 using Efficiency.Models;
+using Efficiency.Models.Enums;
 
 namespace Efficiency.Services;
 
@@ -10,11 +13,26 @@ public class StoreService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
+    private GoalService _goalService { get; set; }
+    private UserService _userService { get; set; }
+    private SellerService _sellerService { get; set; }
+    private ServiceService _serviceService { get; set; }
 
-    public StoreService(AppDbContext context, IMapper mapper)
+    public StoreService(
+        AppDbContext context,
+        IMapper mapper,
+        GoalService goalService,
+        UserService userService,
+        SellerService sellerService,
+        ServiceService serviceService
+    )
     {
         _context = context;
         _mapper = mapper;
+        _goalService = goalService;
+        _sellerService = sellerService;
+        _serviceService = serviceService;
+        _userService = userService;
     }
 
     public ICollection<GetStoreDTO> GetAll(int skip, int take)
@@ -90,5 +108,41 @@ public class StoreService
         }
 
         return result;
+    }
+
+    public ICollection<GetGoalDTO>? GetAllStoreGoals(int storeID)
+    {
+        return this._goalService.GetAllStoreGoals(storeID);
+    }
+
+    public ICollection<GetGoalDTO>? GetYearStoreGoals(int storeID, int year)
+    {
+        return this._goalService.GetYearStoreGoals(storeID, year);
+    }
+
+    public ICollection<GetGoalDTO>? GetQuarterStoreGoals(int storeID, int year, int quarter)
+    {
+        return this._goalService.GetQuarterStoreGoals(storeID, year, quarter);
+    }
+
+
+    public ICollection<GetGoalDTO>? GetMonthStoreGoals(int storeID, int year, Month month)
+    {
+        return this._goalService.GetMonthStoreGoals(storeID, year, month);
+    }
+
+    public ICollection<GetSellerDTO>? GetStoreSellers(int storeID)
+    {
+        return this._sellerService.GetStoreSellers(storeID);
+    }
+
+    public ICollection<GetServiceDTO>? GetStoreServices(int storeID)
+    {
+        return this._serviceService.GetStoreServices(storeID);
+    }
+
+    public ICollection<GetUserDTO>? GetStoreUsers(int storeID)
+    {
+        return this._userService.GetStoreUsers(storeID);
     }
 }

@@ -32,12 +32,12 @@ public class GoalController : ControllerBase
         return result;
     }
 
-    [HttpGet("{ID}")]
-    public IActionResult Get(int ID)
+    [HttpGet("{goalID}")]
+    public IActionResult Get(int goalID)
     {
         IActionResult result = NotFound();
 
-        GetGoalDTO? Goal = _service.Get(ID);
+        GetGoalDTO? Goal = _service.Get(goalID);
 
         if (Goal != null)
         {
@@ -58,7 +58,7 @@ public class GoalController : ControllerBase
         {
             result = CreatedAtAction(
                 nameof(Get),
-                new { ID = createdGoal.ID },
+                new { goalID = createdGoal.ID },
                 createdGoal
             );
         }
@@ -81,12 +81,12 @@ public class GoalController : ControllerBase
         return result;
     }
 
-    [HttpDelete("{ID}")]
-    public IActionResult Delete(int ID)
+    [HttpDelete("{goalID}")]
+    public IActionResult Delete(int goalID)
     {
         IActionResult result = NotFound("The informed Goal was not found");
 
-        bool deleteSucceeded = _service.Delete(ID);
+        bool deleteSucceeded = _service.Delete(goalID);
 
         if (deleteSucceeded)
         {
