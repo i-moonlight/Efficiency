@@ -2,7 +2,9 @@ using AutoMapper;
 using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
+using Efficiency.Data.Requests;
 using Efficiency.Models;
+using Efficiency.Models.Enums;
 
 namespace Efficiency.Services;
 
@@ -105,7 +107,32 @@ public class ServiceResultService
         return services;
     }
 
-    public ICollection<GetSellerServiceResultDTO>? GetSellersServicesResults(List<int> sellersIDs, DateOnly date)
+    public ICollection<GetSellerServiceResultDTO>? GetBulkSellerServiceResult(List<int> sellersIDs, int year, int quarter, Month? month, int day)
+    {
+        ICollection<GetSellerServiceResultDTO>? results = null;
+
+        if (sellersIDs.Count > 0)
+        {
+            if (year == 0 || year > DateTime.MaxValue.Year)
+                results = this.GetBulkAllTimeSellerServiceResult(sellersIDs);
+            else if (quarter > 0 && quarter < 4)
+                results = this.GetBulkQuarterSellerServiceResult(sellersIDs, year, quarter);
+            else if (month != null)
+                if (day > 0 && day < 31)
+                    results = this.GetBulkDaySellerServiceResult(
+                            sellersIDs,
+                            DateOnly.FromDateTime(new DateTime(year, ((int)month), day))
+                        );
+                else
+                    results = this.GetBulkMonthSellerServiceResult(sellersIDs, year, ((int)month));
+            else
+                results = this.GetBulkYearSellerServiceResult(sellersIDs, year);
+        }
+
+        return results;
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetBulkDaySellerServiceResult(List<int> sellersIDs, DateOnly date)
     {
         ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
 
@@ -130,6 +157,120 @@ public class ServiceResultService
                 sellerServicesResults.Add(dto);
         }
 
-        return sellerServicesResults.Count > 0 ? sellerServicesResults : null;
+        return sellerServicesResults;
     }
+
+    public ICollection<GetSellerServiceResultDTO>? GetBulkMonthSellerServiceResult(List<int> sellersIDs, int year, int month)
+    {
+        ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
+
+        foreach (var sellerID in sellersIDs)
+        {
+            ICollection<ServiceResult> sr = (
+                from servicesresults in this._context.ServicesResult
+                where
+                    servicesresults.Result != null
+                    && servicesresults.Result.SellerID == sellerID
+                    && servicesresults.Result.Date.Year == year
+                    && servicesresults.Result.Date.Month == month
+                select servicesresults
+            ).ToList();
+
+            GetSellerServiceResultDTO dto = new GetSellerServiceResultDTO()
+            {
+                SellerID = sellerID,
+                ServiceResults = this._mapper.Map<ICollection<GetServiceResultDTO>>(sr)
+            };
+
+            if (sr.Count > 0)
+                sellerServicesResults.Add(dto);
+        }
+
+        return sellerServicesResults;
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetBulkQuarterSellerServiceResult(List<int> sellersIDs, int year, int quarter)
+    {
+        ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
+
+        foreach (var sellerID in sellersIDs)
+        {
+            ICollection<ServiceResult> sr = (
+                from servicesresults in this._context.ServicesResult
+                where
+                    servicesresults.Result != null
+                    && servicesresults.Result.SellerID == sellerID
+                    && servicesresults.Result.Date.Year == year
+                    && Math.Ceiling(servicesresults.Result.Date.Month / 3.0) == quarter
+                select servicesresults
+            ).ToList();
+
+            GetSellerServiceResultDTO dto = new GetSellerServiceResultDTO()
+            {
+                SellerID = sellerID,
+                ServiceResults = this._mapper.Map<ICollection<GetServiceResultDTO>>(sr)
+            };
+
+            if (sr.Count > 0)
+                sellerServicesResults.Add(dto);
+        }
+
+        return sellerServicesResults;
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetBulkYearSellerServiceResult(List<int> sellersIDs, int year)
+    {
+        ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
+
+        foreach (var sellerID in sellersIDs)
+        {
+            ICollection<ServiceResult> sr = (
+                from servicesresults in this._context.ServicesResult
+                where
+                    servicesresults.Result != null
+                    && servicesresults.Result.SellerID == sellerID
+                    && servicesresults.Result.Date.Year == year
+                select servicesresults
+            ).ToList();
+
+            GetSellerServiceResultDTO dto = new GetSellerServiceResultDTO()
+            {
+                SellerID = sellerID,
+                ServiceResults = this._mapper.Map<ICollection<GetServiceResultDTO>>(sr)
+            };
+
+            if (sr.Count > 0)
+                sellerServicesResults.Add(dto);
+        }
+
+        return sellerServicesResults;
+    }
+
+    public ICollection<GetSellerServiceResultDTO>? GetBulkAllTimeSellerServiceResult(List<int> sellersIDs)
+    {
+        ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
+
+        foreach (var sellerID in sellersIDs)
+        {
+            ICollection<ServiceResult> sr = (
+                from servicesresults in this._context.ServicesResult
+                where
+                    servicesresults.Result != null
+                    && servicesresults.Result.SellerID == sellerID
+                select servicesresults
+            ).ToList();
+
+            GetSellerServiceResultDTO dto = new GetSellerServiceResultDTO()
+            {
+                SellerID = sellerID,
+                ServiceResults = this._mapper.Map<ICollection<GetServiceResultDTO>>(sr)
+            };
+
+            if (sr.Count > 0)
+                sellerServicesResults.Add(dto);
+        }
+
+        return sellerServicesResults;
+    }
+
 }

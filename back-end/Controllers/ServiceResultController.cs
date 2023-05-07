@@ -2,6 +2,7 @@ using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Data.Requests;
+using Efficiency.Models.Enums;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -117,23 +118,28 @@ public class ServiceResultController : ControllerBase
         return result;
     }
 
-    [HttpPost("sellers/date/{date}")]
-    public IActionResult GetSellersServicesResults(
-        DateTime date,
-        [FromBody] GetSellersResults sellersIDs
+    [HttpPost("sellers/year/quarter/month/day")]
+    public IActionResult GetBulkSellerServiceResult(
+        [FromBody] GetSellersResults sellersIDs,
+        [FromQuery] int year = 0,
+        [FromQuery] int quarter = 0,
+        [FromQuery] Month? month = null,
+        [FromQuery] int day = 0
     )
     {
-        string errorMessage = "No services results for any of the informed sellers were found. Make sure you provided a correct date (yyyy-mm-dd) and valid sellers ids";
+        string errorMessage = "No services results for any of the informed sellers were found. Make sure you provided a correct date and valid sellers ids";
         IActionResult result = NotFound(errorMessage);
 
-        if (sellersIDs.SellersIDs.Count > 0)
-        {
-            ICollection<GetSellerServiceResultDTO>? results = this._service
-                .GetSellersServicesResults(sellersIDs.SellersIDs, DateOnly.FromDateTime(date));
+        ICollection<GetSellerServiceResultDTO>? results = this._service.GetBulkSellerServiceResult(
+            sellersIDs.SellersIDs,
+            year,
+            quarter,
+            month,
+            day
+        );
 
-            if (results != null)
-                result = Ok(results);
-        }
+        if (results != null)
+            result = Ok(results);
 
         return result;
     }

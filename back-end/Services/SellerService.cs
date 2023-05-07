@@ -132,9 +132,4 @@ public class SellerService
             select seller
         );
     }
-
-    public ICollection<GetSellerServiceResultDTO>? GetSellersServicesResults(List<int> sellersIDs, DateOnly date)
-    {
-        return this._serviceResultService.GetSellersServicesResults(sellersIDs, date);
-    }
 }
