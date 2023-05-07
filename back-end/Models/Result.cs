@@ -9,8 +9,6 @@ public class Result
     public int ID { get; set; }
     public DateOnly Date { get; set; }
     public decimal Value { get; set; }
-
-    [JsonIgnore]
     public int SellerID { get; set; }
 
     [JsonIgnore]

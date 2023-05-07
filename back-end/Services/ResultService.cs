@@ -9,17 +9,14 @@ public class ResultService
 {
     private AppDbContext _context { get; set; }
     private IMapper _mapper { get; set; }
-    private ServiceResultService _serviceResultService { get; set; }
 
     public ResultService(
         AppDbContext context,
-        IMapper mapper,
-        ServiceResultService serviceResultService
+        IMapper mapper
     )
     {
         _context = context;
         _mapper = mapper;
-        _serviceResultService = serviceResultService;
     }
 
     public ICollection<GetResultDTO> GetAll(int skip, int take)

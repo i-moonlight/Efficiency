@@ -107,6 +107,29 @@ public class ServiceResultService
 
     public ICollection<GetSellerServiceResultDTO>? GetSellersServicesResults(List<int> sellersIDs, DateOnly date)
     {
-        throw new NotImplementedException();
+        ICollection<GetSellerServiceResultDTO> sellerServicesResults = new List<GetSellerServiceResultDTO>();
+
+        foreach (var sellerID in sellersIDs)
+        {
+            ICollection<ServiceResult> sr = (
+                from servicesresults in this._context.ServicesResult
+                where
+                    servicesresults.Result != null
+                    && servicesresults.Result.SellerID == sellerID
+                    && servicesresults.Result.Date == date
+                select servicesresults
+            ).ToList();
+
+            GetSellerServiceResultDTO dto = new GetSellerServiceResultDTO()
+            {
+                SellerID = sellerID,
+                ServiceResults = this._mapper.Map<ICollection<GetServiceResultDTO>>(sr)
+            };
+
+            if (sr.Count > 0)
+                sellerServicesResults.Add(dto);
+        }
+
+        return sellerServicesResults.Count > 0 ? sellerServicesResults : null;
     }
 }

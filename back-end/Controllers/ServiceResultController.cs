@@ -1,6 +1,7 @@
 using Efficiency.Data.DTO.SellerServiceResult;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
+using Efficiency.Data.Requests;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -111,6 +112,27 @@ public class ServiceResultController : ControllerBase
         if (deleteSucceeded)
         {
             result = NoContent();
+        }
+
+        return result;
+    }
+
+    [HttpPost("sellers/date/{date}")]
+    public IActionResult GetSellersServicesResults(
+        DateTime date,
+        [FromBody] GetSellersResults sellersIDs
+    )
+    {
+        string errorMessage = "No services results for any of the informed sellers were found. Make sure you provided a correct date (yyyy-mm-dd) and valid sellers ids";
+        IActionResult result = NotFound(errorMessage);
+
+        if (sellersIDs.SellersIDs.Count > 0)
+        {
+            ICollection<GetSellerServiceResultDTO>? results = this._service
+                .GetSellersServicesResults(sellersIDs.SellersIDs, DateOnly.FromDateTime(date));
+
+            if (results != null)
+                result = Ok(results);
         }
 
         return result;
