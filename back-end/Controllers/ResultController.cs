@@ -1,5 +1,7 @@
 using Efficiency.Data.DTO.Result;
-using Efficiency.Data.DTO.SellerServiceResult;
+using Efficiency.Data.DTO.SellerResults;
+using Efficiency.Data.Requests;
+using Efficiency.Models.Enums;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -93,6 +95,56 @@ public class ResultController : ControllerBase
         {
             result = NoContent();
         }
+
+        return result;
+    }
+
+    [HttpGet("seller/{sellerID}")]
+    public IActionResult GetSellerResults(
+        int sellerID,
+        [FromQuery] int year = 0,
+        [FromQuery] Quarter? quarter = null,
+        [FromQuery] Month? month = null,
+        [FromQuery] int day = 0
+    )
+    {
+        IActionResult result = NotFound("No result found for seller/date");
+
+        GetSellerResultsDTO? results = this._resultService.GetSellerResults(
+            sellerID,
+            year,
+            quarter,
+            month,
+            day
+        );
+
+        if (results != null)
+            result = Ok(results);
+
+        return result;
+    }
+
+    [HttpPost("sellers")]
+    public IActionResult GetBulkSellersResults(
+        [FromBody] GetSellersResults sellersIDs,
+        [FromQuery] int year = 0,
+        [FromQuery] Quarter? quarter = null,
+        [FromQuery] Month? month = null,
+        [FromQuery] int day = 0
+    )
+    {
+        IActionResult result = NotFound("No result found for seller/date");
+
+        ICollection<GetSellerResultsDTO>? results = this._resultService.GetBulkSellersResults(
+            sellersIDs.SellersIDs,
+            year,
+            quarter,
+            month,
+            day
+        );
+
+        if (results != null)
+            result = Ok(results);
 
         return result;
     }

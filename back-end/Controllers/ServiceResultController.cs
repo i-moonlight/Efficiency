@@ -1,4 +1,4 @@
-using Efficiency.Data.DTO.SellerServiceResult;
+using Efficiency.Data.DTO.SellerResults;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Data.Requests;
@@ -122,7 +122,7 @@ public class ServiceResultController : ControllerBase
     public IActionResult GetBulkSellerServiceResult(
         [FromBody] GetSellersResults sellersIDs,
         [FromQuery] int year = 0,
-        [FromQuery] int quarter = 0,
+        [FromQuery] Quarter? quarter = null,
         [FromQuery] Month? month = null,
         [FromQuery] int day = 0
     )

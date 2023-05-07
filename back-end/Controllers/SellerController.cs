@@ -1,5 +1,5 @@
 using Efficiency.Data.DTO.Seller;
-using Efficiency.Data.DTO.SellerServiceResult;
+using Efficiency.Data.DTO.SellerResults;
 using Efficiency.Services;
 using Microsoft.AspNetCore.Mvc;
 

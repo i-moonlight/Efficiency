@@ -1,6 +1,6 @@
 using AutoMapper;
 using Efficiency.Data.DTO.Seller;
-using Efficiency.Data.DTO.SellerServiceResult;
+using Efficiency.Data.DTO.SellerResults;
 using Efficiency.Models;
 
 namespace Efficiency.Services;

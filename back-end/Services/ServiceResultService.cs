@@ -1,5 +1,5 @@
 using AutoMapper;
-using Efficiency.Data.DTO.SellerServiceResult;
+using Efficiency.Data.DTO.SellerResults;
 using Efficiency.Data.DTO.Service;
 using Efficiency.Data.DTO.ServiceResult;
 using Efficiency.Data.Requests;
@@ -107,18 +107,18 @@ public class ServiceResultService
         return services;
     }
 
-    public ICollection<GetSellerServiceResultDTO>? GetBulkSellerServiceResult(List<int> sellersIDs, int year, int quarter, Month? month, int day)
+    public ICollection<GetSellerServiceResultDTO>? GetBulkSellerServiceResult(List<int> sellersIDs, int year, Quarter? quarter, Month? month, int day)
     {
         ICollection<GetSellerServiceResultDTO>? results = null;
 
         if (sellersIDs.Count > 0)
         {
-            if (year == 0 || year > DateTime.MaxValue.Year)
+            if (year == 0 || year > DateTime.Now.Year)
                 results = this.GetBulkAllTimeSellerServiceResult(sellersIDs);
-            else if (quarter > 0 && quarter < 4)
-                results = this.GetBulkQuarterSellerServiceResult(sellersIDs, year, quarter);
+            else if (quarter != null)
+                results = this.GetBulkQuarterSellerServiceResult(sellersIDs, year, (int)quarter);
             else if (month != null)
-                if (day > 0 && day < 31)
+                if (day > 0 && day <= 31)
                     results = this.GetBulkDaySellerServiceResult(
                             sellersIDs,
                             DateOnly.FromDateTime(new DateTime(year, ((int)month), day))

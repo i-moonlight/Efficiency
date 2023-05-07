@@ -1,6 +1,6 @@
 using Efficiency.Data.DTO.ServiceResult;
 
-namespace Efficiency.Data.DTO.SellerServiceResult;
+namespace Efficiency.Data.DTO.SellerResults;
 
 public class GetSellerServiceResultDTO
 {
