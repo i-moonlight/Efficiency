@@ -23,9 +23,12 @@ public class ServiceResultService
         _resultService = resultService;
     }
 
-    public ICollection<GetServiceResultDTO>? GetAll()
+    public ICollection<GetServiceResultDTO>? GetAll(int skip, int take)
     {
-        ICollection<ServiceResult>? servicesResult = _context.ServicesResult?.ToList();
+        ICollection<ServiceResult>? servicesResult = _context.ServicesResult?
+            .Skip(skip)
+            .Take(take == 0 ? this._context.ServicesResult.Count() : take)
+            .ToList();
         ICollection<GetServiceResultDTO>? DTO = _mapper.Map<ICollection<GetServiceResultDTO>>(servicesResult);
         return DTO;
     }
@@ -60,12 +63,17 @@ public class ServiceResultService
         bool result = false;
 
         ServiceResult? serviceResult = _context.ServicesResult?.FirstOrDefault(
-            serviceResult => serviceResult.ResultID == DTO.ResultID
+            serviceResult =>
+                serviceResult.ResultID == DTO.ResultID
                 && serviceResult.ServiceID == DTO.ServiceID
         );
 
-        _mapper.Map(DTO, serviceResult);
-        _context.SaveChanges();
+        if (serviceResult != null)
+        {
+            _mapper.Map(DTO, serviceResult);
+            _context.SaveChanges();
+            result = true;
+        }
 
         return result;
     }
@@ -75,7 +83,8 @@ public class ServiceResultService
         bool result = false;
 
         ServiceResult? serviceResult = _context.ServicesResult?.FirstOrDefault(
-            serviceResult => serviceResult.ResultID == ResultID
+            serviceResult =>
+                serviceResult.ResultID == ResultID
                 && serviceResult.ServiceID == serviceID
         );
 
@@ -83,6 +92,7 @@ public class ServiceResultService
         {
             _context.ServicesResult?.Remove(serviceResult);
             _context.SaveChanges();
+            result = true;
         }
 
         return result;
@@ -92,19 +102,12 @@ public class ServiceResultService
     {
         List<int> servicesIDs = new List<int>();
 
-        IQueryable<ServiceResult> sr =
-            from serviceResult in this._context.ServicesResult
-            where serviceResult.ResultID == resultID
-            select serviceResult;
+        ICollection<Service> services =
+            (from serviceResult in this._context.ServicesResult
+             where serviceResult.ResultID == resultID
+             select serviceResult.Service).ToList();
 
-        foreach (var serviceResult in sr)
-        {
-            servicesIDs.Add(serviceResult.ServiceID);
-        }
-
-        ICollection<GetServiceDTO>? services = this._serviceService.GetBulkServices(servicesIDs);
-
-        return services;
+        return this._mapper.Map<ICollection<GetServiceDTO>>(services);
     }
 
     public ICollection<GetSellerServiceResultDTO>? GetBulkSellerServiceResult(List<int> sellersIDs, int year, Quarter? quarter, Month? month, int day)

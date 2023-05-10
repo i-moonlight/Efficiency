@@ -23,7 +23,7 @@ public class StoreController : ControllerBase
     [HttpGet]
     public IActionResult GetAll(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 50)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NoContent();
 
@@ -38,12 +38,12 @@ public class StoreController : ControllerBase
     [HttpGet("{storeID}")]
     public IActionResult GetStore(int storeID)
     {
-        IActionResult result = NotFound();
+        IActionResult result = NotFound("Store not found");
 
-        GetStoreDTO? Store = _storeService.Get(storeID);
+        GetStoreDTO? store = _storeService.Get(storeID);
 
-        if (Store != null)
-            result = Ok(Store);
+        if (store != null)
+            result = Ok(store);
 
         return result;
     }
@@ -53,14 +53,14 @@ public class StoreController : ControllerBase
     {
         IActionResult result = StatusCode(500);
 
-        GetStoreDTO? createdStore = _storeService.Post(StoreDTO);
+        GetStoreDTO? store = _storeService.Post(StoreDTO);
 
-        if (createdStore != null)
+        if (store != null)
         {
             result = CreatedAtAction(
                 nameof(GetStore),
-                new { storeID = createdStore.ID },
-                createdStore
+                new { storeID = store.ID },
+                store
             );
         }
 
@@ -85,7 +85,7 @@ public class StoreController : ControllerBase
     [HttpDelete("{storeID}")]
     public IActionResult DeleteStore(int storeID)
     {
-        IActionResult result = NotFound("The informed Store was not found");
+        IActionResult result = NotFound("Store not found");
 
         bool deleteSucceeded = _storeService.Delete(storeID);
 
@@ -139,21 +139,21 @@ public class StoreController : ControllerBase
     [HttpGet("{storeID}/goals")]
     public IActionResult GetGoals(
         int storeID,
-        [FromQuery] int? year = null,
-        [FromQuery] int? quarter = null,
+        [FromQuery] int year = 0,
+        [FromQuery] Quarter? quarter = null,
         [FromQuery] Month? month = null
     )
     {
         ICollection<GetGoalDTO>? goals = null;
 
-        if (year == null)
+        if (year == 0)
             goals = _storeService.GetAllStoreGoals(storeID);
         else if (month != null)
-            goals = _storeService.GetMonthStoreGoals(storeID, ((int)year), ((Month)month));
+            goals = _storeService.GetMonthStoreGoals(storeID, year, ((Month)month));
         else if (quarter != null)
-            goals = _storeService.GetQuarterStoreGoals(storeID, ((int)year), ((int)quarter));
+            goals = _storeService.GetQuarterStoreGoals(storeID, year, ((int)quarter));
         else
-            goals = _storeService.GetYearStoreGoals(storeID, ((int)year));
+            goals = _storeService.GetYearStoreGoals(storeID, year);
 
         return goals != null ? Ok(goals) : NotFound();
     }

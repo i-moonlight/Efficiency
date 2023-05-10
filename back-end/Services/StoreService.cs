@@ -40,7 +40,7 @@ public class StoreService
         return _mapper.Map<ICollection<GetStoreDTO>>(
             _context.Stores?
                 .Skip(skip)
-                .Take(take)
+                .Take(take == 0 ? this._context.Stores.Count() : take)
                 .ToList()
         );
     }

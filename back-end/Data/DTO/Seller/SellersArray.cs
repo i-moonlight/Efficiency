@@ -1,10 +1,10 @@
 namespace Efficiency.Data.Requests;
 
-public class GetSellersResults
+public class SellersArray
 {
     public List<int> SellersIDs { get; set; }
 
-    public GetSellersResults(List<int> sellersIDs)
+    public SellersArray(List<int> sellersIDs)
     {
         SellersIDs = sellersIDs;
     }

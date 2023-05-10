@@ -20,8 +20,9 @@ public class GoalService
     {
         return _mapper.Map<ICollection<GetGoalDTO>>(
             _context.Goals?
+                .OrderBy(goal => goal.Year)
                 .Skip(skip)
-                .Take(take)
+                .Take(take == 0 ? this._context.Goals.Count() : take)
                 .ToList()
         );
     }

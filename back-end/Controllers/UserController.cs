@@ -19,9 +19,9 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll(
+    public IActionResult GetAllUsers(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 500)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NotFound();
 

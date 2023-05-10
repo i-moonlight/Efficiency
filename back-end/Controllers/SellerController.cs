@@ -17,9 +17,9 @@ public class SellerController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll(
+    public IActionResult GetAllSellers(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 50)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NoContent();
 
@@ -49,7 +49,7 @@ public class SellerController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostSellerDTO SellerDTO)
+    public IActionResult PostSeller([FromBody] PostSellerDTO SellerDTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -68,9 +68,9 @@ public class SellerController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutSellerDTO SellerDTO)
+    public IActionResult PutSeller([FromBody] PutSellerDTO SellerDTO)
     {
-        IActionResult result = NotFound("The informed Seller was not found");
+        IActionResult result = NotFound("Seller not found");
 
         bool updateSucceeded = _service.Put(SellerDTO);
 
@@ -83,9 +83,9 @@ public class SellerController : ControllerBase
     }
 
     [HttpDelete("{sellerID}")]
-    public IActionResult Delete(int sellerID)
+    public IActionResult DeleteSeller(int sellerID)
     {
-        IActionResult result = NotFound("The informed Seller was not found");
+        IActionResult result = NotFound("Seller not found");
 
         bool deleteSucceeded = _service.Delete(sellerID);
 
@@ -98,9 +98,9 @@ public class SellerController : ControllerBase
     }
 
     [HttpPut("{sellerID}/deactivate")]
-    public IActionResult Deactivate(int sellerID)
+    public IActionResult DeactivateSeller(int sellerID)
     {
-        IActionResult result = StatusCode(500);
+        IActionResult result = NotFound("Seller not found");
 
         bool deactivationSucceeded = _service.Deactivate(sellerID);
 

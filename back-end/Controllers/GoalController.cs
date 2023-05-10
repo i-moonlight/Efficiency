@@ -16,24 +16,22 @@ public class GoalController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll(
+    public IActionResult GetAllGoals(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 50)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NoContent();
 
         ICollection<GetGoalDTO>? Goals = _service.GetAll(skip, take);
 
         if (Goals != null)
-        {
             result = Ok(Goals);
-        }
 
         return result;
     }
 
     [HttpGet("{goalID}")]
-    public IActionResult Get(int goalID)
+    public IActionResult GetGoal(int goalID)
     {
         IActionResult result = NotFound();
 
@@ -48,7 +46,7 @@ public class GoalController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostGoalDTO GoalDTO)
+    public IActionResult PostGoal([FromBody] PostGoalDTO GoalDTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -57,7 +55,7 @@ public class GoalController : ControllerBase
         if (createdGoal != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetGoal),
                 new { goalID = createdGoal.ID },
                 createdGoal
             );
@@ -67,9 +65,9 @@ public class GoalController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutGoalDTO GoalDTO)
+    public IActionResult PutGoal([FromBody] PutGoalDTO GoalDTO)
     {
-        IActionResult result = NotFound("The informed Goal was not found");
+        IActionResult result = NotFound("No goal found with the provided data");
 
         bool updateSucceeded = _service.Put(GoalDTO);
 
@@ -82,7 +80,7 @@ public class GoalController : ControllerBase
     }
 
     [HttpDelete("{goalID}")]
-    public IActionResult Delete(int goalID)
+    public IActionResult DeleteGoal(int goalID)
     {
         IActionResult result = NotFound("The informed Goal was not found");
 

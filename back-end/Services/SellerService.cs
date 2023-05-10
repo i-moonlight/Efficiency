@@ -27,7 +27,7 @@ public class SellerService
         return _mapper.Map<ICollection<GetSellerDTO>>(
             _context.Sellers?
                 .Skip(skip)
-                .Take(take)
+                .Take(take == 0 ? this._context.Sellers.Count() : take)
                 .ToList()
         );
     }

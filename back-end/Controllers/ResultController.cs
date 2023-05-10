@@ -19,24 +19,22 @@ public class ResultController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll(
+    public IActionResult GetAllResults(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 50)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NoContent();
 
         ICollection<GetResultDTO>? results = _resultService.GetAll(skip, take);
 
         if (results != null)
-        {
             result = Ok(results);
-        }
 
         return result;
     }
 
     [HttpGet("{resultID}")]
-    public IActionResult Get(int resultID)
+    public IActionResult GetResult(int resultID)
     {
         IActionResult result = NotFound();
 
@@ -51,7 +49,7 @@ public class ResultController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostResultDTO ResultDTO)
+    public IActionResult PostResult([FromBody] PostResultDTO ResultDTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -60,7 +58,7 @@ public class ResultController : ControllerBase
         if (createdResult != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetResult),
                 new { resultID = createdResult.ID },
                 createdResult
             );
@@ -70,9 +68,9 @@ public class ResultController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutResultDTO ResultDTO)
+    public IActionResult PutResult([FromBody] PutResultDTO ResultDTO)
     {
-        IActionResult result = NotFound("This Result was not found");
+        IActionResult result = NotFound("Result not found");
 
         bool updateSucceeded = _resultService.Put(ResultDTO);
 
@@ -85,9 +83,9 @@ public class ResultController : ControllerBase
     }
 
     [HttpDelete("{resultID}")]
-    public IActionResult Delete(int resultID)
+    public IActionResult DeleteResult(int resultID)
     {
-        IActionResult result = NotFound("The Result was not found");
+        IActionResult result = NotFound("Result not found");
 
         bool deleteSucceeded = _resultService.Delete(resultID);
 
@@ -99,7 +97,7 @@ public class ResultController : ControllerBase
         return result;
     }
 
-    [HttpGet("seller/{sellerID}")]
+    [HttpGet("seller/{sellerID}/date")]
     public IActionResult GetSellerResults(
         int sellerID,
         [FromQuery] int year = 0,
@@ -110,7 +108,7 @@ public class ResultController : ControllerBase
     {
         IActionResult result = NotFound("No result found for seller/date");
 
-        GetSellerResultsDTO? results = this._resultService.GetSellerResults(
+        ICollection<GetSellerResultsDTO>? results = this._resultService.GetSellerResults(
             sellerID,
             year,
             quarter,
@@ -124,9 +122,9 @@ public class ResultController : ControllerBase
         return result;
     }
 
-    [HttpPost("sellers")]
+    [HttpPost("sellers/date")]
     public IActionResult GetBulkSellersResults(
-        [FromBody] GetSellersResults sellersIDs,
+        [FromBody] SellersArray sellersIDs,
         [FromQuery] int year = 0,
         [FromQuery] Quarter? quarter = null,
         [FromQuery] Month? month = null,

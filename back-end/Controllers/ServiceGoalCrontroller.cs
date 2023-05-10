@@ -18,53 +18,36 @@ public class ServiceGoalController : ControllerBase
 
     // TODO
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetAllServicesGoals(
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 0
+    )
     {
         IActionResult result = NoContent();
 
-        ICollection<GetServiceGoalDTO>? DTO = _service.GetAll();
+        ICollection<GetServiceGoalDTO>? DTO = _service.GetAll(skip, take);
 
         if (DTO != null)
-        {
             result = Ok(DTO);
-        }
 
         return result;
     }
 
-    [HttpGet("goal/{goalID}/service/{serviceID}")]
-    public IActionResult Get(int goalID, int serviceID)
+    [HttpGet("{goalID}/{serviceID}")]
+    public IActionResult GetServiceGoal(int goalID, int serviceID)
     {
         IActionResult result = NotFound();
 
         GetServiceGoalDTO? DTO = _service.Get(serviceID, goalID);
 
         if (DTO != null)
-        {
             result = Ok(DTO);
-        }
-
-        return result;
-    }
-
-
-    [HttpGet("goal/{goalID}/services")]
-    public IActionResult GetGoalServices(int goalID)
-    {
-        IActionResult result = NotFound();
-
-        ICollection<GetServiceDTO>? DTO = _service.GetGoalServices(goalID);
-
-        if (DTO != null)
-        {
-            result = Ok(DTO);
-        }
 
         return result;
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostServiceGoalDTO DTO)
+    public IActionResult PostServiceGoal([FromBody] PostServiceGoalDTO DTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -73,11 +56,11 @@ public class ServiceGoalController : ControllerBase
         if (serviceGoal != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetServiceGoal),
                 new
                 {
-                    goalID = serviceGoal.Goal?.ID,
-                    serviceID = serviceGoal.Service?.ID
+                    goalID = serviceGoal.GoalID,
+                    serviceID = serviceGoal.ServiceID
                 },
                 serviceGoal
             );
@@ -87,7 +70,7 @@ public class ServiceGoalController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutServiceGoalDTO DTO)
+    public IActionResult PutServiceGoal([FromBody] PutServiceGoalDTO DTO)
     {
         IActionResult result = NotFound();
 
@@ -101,8 +84,8 @@ public class ServiceGoalController : ControllerBase
         return result;
     }
 
-    [HttpDelete("goal/{goalID}/service/{serviceID}")]
-    public IActionResult Delete(int goalID, int serviceID)
+    [HttpDelete("{goalID}/{serviceID}")]
+    public IActionResult DeleteServiceGoal(int goalID, int serviceID)
     {
 
         IActionResult result = NotFound();
@@ -113,6 +96,19 @@ public class ServiceGoalController : ControllerBase
         {
             result = NoContent();
         }
+
+        return result;
+    }
+
+    [HttpGet("{goalID}/services")]
+    public IActionResult GetGoalServices(int goalID)
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetServiceDTO>? DTO = _service.GetGoalServices(goalID);
+
+        if (DTO != null)
+            result = Ok(DTO);
 
         return result;
     }

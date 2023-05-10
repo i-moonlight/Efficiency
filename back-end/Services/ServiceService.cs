@@ -20,7 +20,7 @@ public class ServiceService
         return _mapper.Map<ICollection<GetServiceDTO>>(
             _context.Services?
                 .Skip(skip)
-                .Take(take)
+                .Take(take == 0 ? this._context.Services.Count() : take)
                 .ToList()
         );
     }

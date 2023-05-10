@@ -13,7 +13,6 @@ public class Result
 
     [JsonIgnore]
     public virtual Seller? Seller { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<ServiceResult>? ResultsServices { get; set; }
 }

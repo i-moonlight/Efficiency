@@ -34,7 +34,7 @@ public class UserService
     {
         ICollection<User>? users = _userManager.Users
             .Skip(skip)
-            .Take(take)
+            .Take(take == 0 ? this._context.Users.Count() : take)
             .ToList();
         return _mapper.Map<ICollection<GetUserDTO>>(users);
     }

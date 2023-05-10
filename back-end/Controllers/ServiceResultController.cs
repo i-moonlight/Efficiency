@@ -20,52 +20,36 @@ public class ServiceResultController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetAllServicesResults(
+        [FromQuery] int skip = 0,
+        [FromQuery] int take = 0
+    )
     {
         IActionResult result = NoContent();
 
-        ICollection<GetServiceResultDTO>? DTO = _service.GetAll();
+        ICollection<GetServiceResultDTO>? DTO = _service.GetAll(skip, take);
 
         if (DTO != null)
-        {
             result = Ok(DTO);
-        }
 
         return result;
     }
 
-    [HttpGet("result/{resultID}/service/{serviceID}")]
-    public IActionResult Get(int resultID, int serviceID)
+    [HttpGet("{resultID}/{serviceID}")]
+    public IActionResult GetServiceResult(int resultID, int serviceID)
     {
         IActionResult result = NotFound();
 
         GetServiceResultDTO? DTO = _service.Get(serviceID, resultID);
 
         if (DTO != null)
-        {
             result = Ok(DTO);
-        }
-
-        return result;
-    }
-
-    [HttpGet("result/{resultID}/services")]
-    public IActionResult GetResultServices(int resultID)
-    {
-        IActionResult result = NotFound();
-
-        ICollection<GetServiceDTO>? DTO = _service.GetResultServices(resultID);
-
-        if (DTO != null)
-        {
-            result = Ok(DTO);
-        }
 
         return result;
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostServiceResultDTO DTO)
+    public IActionResult PostServiceResult([FromBody] PostServiceResultDTO DTO)
     {
         IActionResult result = StatusCode(500);
 
@@ -74,7 +58,7 @@ public class ServiceResultController : ControllerBase
         if (serviceResult != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
+                nameof(GetServiceResult),
                 new
                 {
                     resultID = serviceResult.Result?.ID,
@@ -88,7 +72,7 @@ public class ServiceResultController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutServiceResultDTO DTO)
+    public IActionResult PutServiceResult([FromBody] PutServiceResultDTO DTO)
     {
         IActionResult result = NotFound();
 
@@ -102,8 +86,8 @@ public class ServiceResultController : ControllerBase
         return result;
     }
 
-    [HttpDelete("result/{resultID}/service/{serviceID}")]
-    public IActionResult Delete(int resultID, int serviceID)
+    [HttpDelete("{resultID}/{serviceID}")]
+    public IActionResult DeleteServiceResult(int resultID, int serviceID)
     {
 
         IActionResult result = NotFound();
@@ -118,9 +102,49 @@ public class ServiceResultController : ControllerBase
         return result;
     }
 
-    [HttpPost("sellers/year/quarter/month/day")]
+    [HttpGet("{resultID}/services")]
+    public IActionResult GetResultServices(int resultID)
+    {
+        IActionResult result = NotFound();
+
+        ICollection<GetServiceDTO>? DTO = _service.GetResultServices(resultID);
+
+        if (DTO != null)
+            result = Ok(DTO);
+
+        return result;
+    }
+
+
+    [HttpPost("seller/{sellerID}")]
+    public IActionResult GetSellerServiceResult(
+        int sellerID,
+        [FromQuery] int year = 0,
+        [FromQuery] Quarter? quarter = null,
+        [FromQuery] Month? month = null,
+        [FromQuery] int day = 0
+    )
+    {
+        string errorMessage = "No services results for the informed seller were found. Make sure you provided a correct date and a valid seller id";
+        IActionResult result = NotFound(errorMessage);
+
+        ICollection<GetSellerServiceResultDTO>? results = this._service.GetBulkSellerServiceResult(
+            new List<int>(sellerID),
+            year,
+            quarter,
+            month,
+            day
+        );
+
+        if (results != null)
+            result = Ok(results);
+
+        return result;
+    }
+
+    [HttpPost("sellers")]
     public IActionResult GetBulkSellerServiceResult(
-        [FromBody] GetSellersResults sellersIDs,
+        [FromBody] SellersArray sellersIDs,
         [FromQuery] int year = 0,
         [FromQuery] Quarter? quarter = null,
         [FromQuery] Month? month = null,

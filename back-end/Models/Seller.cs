@@ -16,10 +16,8 @@ public class Seller
 
     [JsonIgnore]
     public int? StoreID { get; set; }
-
     [JsonIgnore]
     public virtual Store? Store { get; set; }
-
     [JsonIgnore]
     public virtual ICollection<Result>? Results { get; set; }
 }

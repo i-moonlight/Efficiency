@@ -16,6 +16,7 @@ public class Store
     public string? Complement { get; set; }
     public string? Observations { get; set; }
     public string? ZipCode { get; set; }
+
     [JsonIgnore]
     public virtual ICollection<User>? Users { get; set; }
     [JsonIgnore]

@@ -20,9 +20,12 @@ public class ServiceGoalService
         _goalService = goalService;
     }
 
-    public ICollection<GetServiceGoalDTO>? GetAll()
+    public ICollection<GetServiceGoalDTO>? GetAll(int skip, int take)
     {
-        ICollection<ServiceGoal>? servicesGoal = _context.ServicesGoal?.ToList();
+        ICollection<ServiceGoal>? servicesGoal = _context.ServicesGoal?
+            .Skip(skip)
+            .Take(take == 0 ? this._context.ServicesGoal.Count() : take)
+            .ToList();
         ICollection<GetServiceGoalDTO>? DTO = _mapper.Map<ICollection<GetServiceGoalDTO>>(servicesGoal);
         return DTO;
     }
@@ -43,7 +46,7 @@ public class ServiceGoalService
     {
         GetServiceGoalDTO? result = null;
 
-        ServiceGoal serviceGoal = _mapper.Map<ServiceGoal>(DTO);
+        ServiceGoal? serviceGoal = _mapper.Map<ServiceGoal>(DTO);
 
         _context.Add(serviceGoal);
         _context.SaveChanges();
@@ -62,8 +65,12 @@ public class ServiceGoalService
                 && serviceGoal.ServiceID == DTO.ServiceID
         );
 
-        _mapper.Map(DTO, serviceGoal);
-        _context.SaveChanges();
+        if (serviceGoal != null)
+        {
+            _mapper.Map(DTO, serviceGoal);
+            _context.SaveChanges();
+            result = true;
+        }
 
         return result;
     }
@@ -81,6 +88,7 @@ public class ServiceGoalService
         {
             _context.ServicesGoal?.Remove(serviceGoal);
             _context.SaveChanges();
+            result = true;
         }
 
         return result;
@@ -90,18 +98,11 @@ public class ServiceGoalService
     {
         List<int> servicesIDs = new List<int>();
 
-        IQueryable<ServiceGoal> sg =
-            from serviceGoal in this._context.ServicesGoal
-            where serviceGoal.GoalID == goalID
-            select serviceGoal;
+        ICollection<Service> services =
+            (from serviceGoal in this._context.ServicesGoal
+             where serviceGoal.GoalID == goalID
+             select serviceGoal.Service).ToList();
 
-        foreach (var serviceGoal in sg)
-        {
-            servicesIDs.Add(serviceGoal.ServiceID);
-        }
-
-        ICollection<GetServiceDTO>? services = this._serviceService.GetBulkServices(servicesIDs);
-
-        return services;
+        return this._mapper.Map<ICollection<GetServiceDTO>>(services);
     }
 }

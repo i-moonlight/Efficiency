@@ -16,50 +16,46 @@ public class ServiceController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll(
+    public IActionResult GetAllServices(
         [FromQuery] int skip = 0,
-        [FromQuery] int take = 50)
+        [FromQuery] int take = 0)
     {
         IActionResult result = NoContent();
 
-        ICollection<GetServiceDTO>? fresults = _service.GetAll(skip, take);
+        ICollection<GetServiceDTO>? services = _service.GetAll(skip, take);
 
-        if (fresults != null)
-        {
-            result = Ok(fresults);
-        }
+        if (services != null)
+            result = Ok(services);
 
         return result;
     }
 
     [HttpGet("{serviceID}")]
-    public IActionResult Get(int serviceID)
+    public IActionResult GetService(int serviceID)
     {
         IActionResult result = NotFound();
 
-        GetServiceDTO? Service = _service.Get(serviceID);
+        GetServiceDTO? service = _service.Get(serviceID);
 
-        if (Service != null)
-        {
-            result = Ok(Service);
-        }
+        if (service != null)
+            result = Ok(service);
 
         return result;
     }
 
     [HttpPost]
-    public IActionResult Post([FromBody] PostServiceDTO ServiceDTO)
+    public IActionResult PostService([FromBody] PostServiceDTO ServiceDTO)
     {
         IActionResult result = StatusCode(500);
 
-        GetServiceDTO? createdService = _service.Post(ServiceDTO);
+        GetServiceDTO? service = _service.Post(ServiceDTO);
 
-        if (createdService != null)
+        if (service != null)
         {
             result = CreatedAtAction(
-                nameof(Get),
-                new { serviceID = createdService.ID },
-                createdService
+                nameof(GetService),
+                new { serviceID = service.ID },
+                service
             );
         }
 
@@ -67,31 +63,27 @@ public class ServiceController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Put([FromBody] PutServiceDTO ServiceDTO)
+    public IActionResult PutService([FromBody] PutServiceDTO ServiceDTO)
     {
         IActionResult result = NotFound("The informed Financial Result was not found");
 
         bool updateSucceeded = _service.Put(ServiceDTO);
 
         if (updateSucceeded)
-        {
             result = NoContent();
-        }
 
         return result;
     }
 
     [HttpDelete("{serviceID}")]
-    public IActionResult Delete(int serviceID)
+    public IActionResult DeleteService(int serviceID)
     {
         IActionResult result = NotFound("The informed Financial Result was not found");
 
         bool deleteSucceeded = _service.Delete(serviceID);
 
         if (deleteSucceeded)
-        {
             result = NoContent();
-        }
 
         return result;
     }

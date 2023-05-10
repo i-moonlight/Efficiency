@@ -5,6 +5,7 @@ namespace Efficiency.Data.DTO.Result;
 public class PostResultDTO
 {
     [Required(ErrorMessage = "Result date is mandatory")]
+    public DateTime DateTime { get; set; }
     public DateOnly Date { get; set; }
 
     [Required(ErrorMessage = "Result value is mandatory")]
